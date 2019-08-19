@@ -5,7 +5,7 @@
     <parent>
         <artifactId>lottery-service</artifactId>
         <groupId>org.gaborbalazs.smartplatform</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,7 +16,6 @@
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-application</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -26,7 +25,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.gaborbalazs.smartplatform.lotteryservice.LotteryServiceApplication</mainClass>
+                    <mainClass>org.gaborbalazs.smartplatform.lotteryservice.application.LotteryServiceApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

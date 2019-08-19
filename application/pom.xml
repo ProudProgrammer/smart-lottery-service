@@ -5,7 +5,7 @@
     <parent>
         <artifactId>lottery-service</artifactId>
         <groupId>org.gaborbalazs.smartplatform</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,22 +16,18 @@
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-web</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-bet-dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-db-dao</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

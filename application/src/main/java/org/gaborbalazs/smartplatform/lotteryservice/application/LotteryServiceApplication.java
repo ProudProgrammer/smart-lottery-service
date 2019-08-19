@@ -1,9 +1,9 @@
-package org.gaborbalazs.smartplatform.lotteryservice;
+package org.gaborbalazs.smartplatform.lotteryservice.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"org.gaborbalazs.smartplatform.lotteryservice"})
 public class LotteryServiceApplication {
 
     public static void main(String[] args) {
