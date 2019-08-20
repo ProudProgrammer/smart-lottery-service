@@ -29,6 +29,19 @@
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-db-dao</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.gaborbalazs.smartplatform</groupId>
+            <artifactId>lottery-service-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -8,18 +8,15 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RandomLotteryNumberGenerator implements LotteryNumberGenerator {
+class RandomLotteryNumberGenerator implements LotteryNumberGenerator {
 
-    private RequestContext requestContext;
     private Random random;
 
-    RandomLotteryNumberGenerator(RequestContext requestContext, Random threadLocalRandom) {
-        this.requestContext = requestContext;
+    RandomLotteryNumberGenerator(Random threadLocalRandom) {
         this.random = threadLocalRandom;
     }
 

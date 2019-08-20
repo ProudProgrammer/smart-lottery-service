@@ -1,3 +1,3 @@
 # Smart Platform - Lottery Service
 
-A lottery service for Hungarian lottery types
+Lottery service for different lottery types

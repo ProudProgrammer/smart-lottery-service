@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class GeneratorConfiguration {
+class GeneratorConfiguration {
 
     @Bean
-    public Random threadLocalRandom() {
+    Random threadLocalRandom() {
         return ThreadLocalRandom.current();
     }
 }
