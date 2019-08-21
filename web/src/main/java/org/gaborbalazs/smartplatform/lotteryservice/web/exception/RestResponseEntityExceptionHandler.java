@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice(basePackages = {"org.gaborbalazs.smartplatform.lotteryservice"})
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+class RestResponseEntityExceptionHandler {
 
     @Autowired
     private RequestContext requestContext;
@@ -21,7 +20,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
-    public ExceptionResponse handleIllegalArgumentException(Exception exception, WebRequest request) {
+    ExceptionResponse handleIllegalArgumentException(Exception exception, WebRequest request) {
+        return createExceptionResponse(exception);
+    }
+
+    private ExceptionResponse createExceptionResponse(Exception exception) {
         return ExceptionResponse.newBuilder()
                 .withTimestamp(ZonedDateTime.now())
                 .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())

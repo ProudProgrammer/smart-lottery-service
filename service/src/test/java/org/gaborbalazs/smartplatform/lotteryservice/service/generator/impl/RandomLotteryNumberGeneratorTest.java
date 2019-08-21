@@ -35,20 +35,23 @@ class RandomLotteryNumberGeneratorTest {
     }
 
     @Test
-    void testGenerateShouldReturnSetWith5ElementWhenQuantity5() {
+    void testGenerateShouldReturn5ElementWhenQuantity5() {
         var result = underTest.generate(5, 90);
         Assertions.assertEquals(result.size(), 5);
+        result.stream().forEach(number -> Assertions.assertTrue(number > 0 && number <= 90));
     }
 
     @Test
-    void testGenerateShouldReturnSetWith6ElementWhenQuantity6() {
+    void testGenerateShouldReturn6ElementWhenQuantity6() {
         var result = underTest.generate(6, 45);
         Assertions.assertEquals(result.size(), 6);
+        result.stream().forEach(number -> Assertions.assertTrue(number > 0 && number <= 45));
     }
 
     @Test
-    void testGenerateShouldReturnSetWith7ElementWhenQuantity7() {
+    void testGenerateShouldReturn7ElementWhenQuantity7() {
         var result = underTest.generate(7, 35);
         Assertions.assertEquals(result.size(), 7);
+        result.stream().forEach(number -> Assertions.assertTrue(number > 0 && number <= 35));
     }
 }
