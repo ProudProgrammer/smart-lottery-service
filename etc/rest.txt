@@ -1,4 +1,4 @@
-http://localhost:8080/swagger-ui.html
-curl -i -H "Consumer-Name:Bob" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83971" http://localhost:8080/lottery/five-out-of-ninety/numbers/random
-curl -i -H "Consumer-Name:Alice" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83972" http://localhost:8080/lottery/six-out-of-forty-five/numbers/random
-curl -i -H "Consumer-Name:Foo" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83973" http://localhost:8080/lottery/scandinavian/numbers/random
+http://localhost:8081/swagger-ui.html
+curl -i -H "Consumer-Name:Bob" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83971" http://localhost:8081/lottery/five-out-of-ninety/numbers/random
+curl -i -H "Consumer-Name:Alice" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83972" http://localhost:8081/lottery/six-out-of-forty-five/numbers/random
+curl -i -H "Consumer-Name:Foo" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83973" http://localhost:8081/lottery/scandinavian/numbers/random
