@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
@@ -21,12 +21,12 @@ class RandomLotteryNumberGenerator implements LotteryNumberGenerator {
     }
 
     @Override
-    public Set<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException {
-        if(!validate(quantity, poolSize)) {
+    public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException {
+        if (!validate(quantity, poolSize)) {
             String msg = MessageFormat.format("Pool size must be larger than quantity! Quantity: {0}, PoolSize: {1}", quantity, poolSize);
             throw new IllegalArgumentException(msg);
         }
-        Set<Integer> result = new TreeSet<>();
+        SortedSet<Integer> result = new TreeSet<>();
         List<Integer> pool = createFilledPool(poolSize);
         int poolIndex;
         for (int i = 0; i < quantity; i++) {

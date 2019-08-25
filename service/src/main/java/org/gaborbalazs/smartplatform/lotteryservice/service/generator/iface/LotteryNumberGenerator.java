@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 public interface LotteryNumberGenerator {
 
@@ -10,5 +10,5 @@ public interface LotteryNumberGenerator {
      * @param poolSize is the size of set of numbers
      * @return set of drawn numbers
      */
-    Set<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException;
+    SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException;
 }

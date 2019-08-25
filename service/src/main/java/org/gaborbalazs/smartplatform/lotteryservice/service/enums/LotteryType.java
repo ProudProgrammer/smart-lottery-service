@@ -8,14 +8,14 @@ public enum LotteryType {
     SIX_OUT_OF_FORTY_FIVE(6, 45, "six-out-of-forty-five"),
     SCANDINAVIAN(7, 35, "scandinavian");
 
-    private int quantity;
-    private int pool;
-    private String name;
+    private final int quantity;
+    private final int pool;
+    private final String pathVariableName;
 
-    LotteryType(int quantity, int pool, String name) {
+    LotteryType(int quantity, int pool, String pathVariableName) {
         this.quantity = quantity;
         this.pool = pool;
-        this.name = name;
+        this.pathVariableName = pathVariableName;
     }
 
     public int getQuantity() {
@@ -26,11 +26,11 @@ public enum LotteryType {
         return pool;
     }
 
-    public String getName() {
-        return name;
+    public String getPathVariableName() {
+        return pathVariableName;
     }
 
-    public static Optional<LotteryType> fromName(String name) {
-        return List.of(LotteryType.values()).stream().filter(lotteryType -> lotteryType.getName().equals(name)).findFirst();
+    public static Optional<LotteryType> fromPathVariableName(String pathVariableName) {
+        return List.of(LotteryType.values()).stream().filter(lotteryType -> lotteryType.getPathVariableName().equals(pathVariableName)).findFirst();
     }
 }

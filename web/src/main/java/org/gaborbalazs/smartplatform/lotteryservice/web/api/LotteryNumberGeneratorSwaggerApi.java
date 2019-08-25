@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.api;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 
@@ -24,6 +24,6 @@ public interface LotteryNumberGeneratorSwaggerApi {
     @ApiResponses( {
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 500, message = "Internal Server Error")})
-    Set<Integer> generateRandom(
+    SortedSet<Integer> generateRandom(
             @ApiParam(value = "Lottery type", required = true, allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian") LotteryType lotteryType);
 }

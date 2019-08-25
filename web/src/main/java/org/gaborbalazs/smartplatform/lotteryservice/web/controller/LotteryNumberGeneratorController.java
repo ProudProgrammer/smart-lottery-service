@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
@@ -21,7 +21,7 @@ class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, Lot
     }
 
     @Override
-    public Set<Integer> generateRandom(LotteryType lotteryType) {
+    public SortedSet<Integer> generateRandom(LotteryType lotteryType) {
         return lotteryNumberGenerator.generate(lotteryType.getQuantity(), lotteryType.getPool());
     }
 
