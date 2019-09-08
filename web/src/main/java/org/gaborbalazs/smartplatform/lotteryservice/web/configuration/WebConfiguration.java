@@ -7,7 +7,6 @@ import org.gaborbalazs.smartplatform.lotteryservice.common.enums.HeaderParameter
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.context.annotation.RequestScope;
 
 @Configuration

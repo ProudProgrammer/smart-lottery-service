@@ -1,0 +1,24 @@
+# Datasource
+spring:
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+# Server
+server:
+  port : 8081
+
+# CustomLoggingFilter
+customloggingfilter:
+  logrequest: true
+  logresponse: true
+  request-querystring: true
+  request-clientinfo: true
+  request-headers: true
+  request-payload: true
+  # request-messageprefix: Request [
+  # request-messagesuffix: ]
+  response-headers: true
+  response-payload: true
+  # response-messageprefix: Response [
+  # response-messagesuffix: ]

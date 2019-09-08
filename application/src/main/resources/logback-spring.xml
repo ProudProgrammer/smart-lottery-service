@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_DIR" value="/smart-platform-logs/lottery-service"/>
+    <property name="LOTTERY_SERVICE" value="lottery-service"/>
+    <property name="LOG_FILE_BASE" value="${LOG_DIR}/${LOTTERY_SERVICE}"/>
+    <property name="ENCODER_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{consumerName}] [%X{requestId}] %logger{36} : %msg%n"/>
+
+    <appender name="SMART_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="SMART_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_BASE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_BASE}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="default">
+        <logger name="org.gaborbalazs.smartplatform.lotteryservice.web" level="DEBUG"/>
+        <logger name="org.gaborbalazs.smartplatform.lotteryservice.web.filter.CustomLoggingFilter" level="DEBUG"/>
+
+        <root level="INFO">
+            <appender-ref ref="SMART_CONSOLE"/>
+            <appender-ref ref="SMART_FILE"/>
+        </root>
+    </springProfile>
+</configuration>
