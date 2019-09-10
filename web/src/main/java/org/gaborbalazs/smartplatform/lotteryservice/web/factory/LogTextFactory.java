@@ -38,16 +38,16 @@ public class LogTextFactory {
             injectQueryString(requestWrapper, logBuilder);
         }
         if (includeRequestClientInfo) {
-            injectSeparator(logBuilder);
+            injectSeparator(logBuilder, true);
             injectClientInfo(requestWrapper, logBuilder);
         }
         if (includeRequestHeaders) {
-            injectSeparator(logBuilder);
+            injectSeparator(logBuilder, true);
             Map<String, String> headers = createHeadersMap(requestWrapper);
             injectHeaders(headers, logBuilder);
         }
         if (includeRequestPayload) {
-            injectSeparator(logBuilder);
+            injectSeparator(logBuilder, true);
             injectBody(logBuilder, requestWrapper.getBody());
         }
         logBuilder.append(requestMessageSuffix);
@@ -55,13 +55,15 @@ public class LogTextFactory {
     }
 
     public String createResponseLogText(BufferedResponseWrapper responseWrapper) {
+        boolean includedSomething = false;
         StringBuilder logBuilder = new StringBuilder(responseMessagePrefix);
         if (includeResponseHeaders) {
+            includedSomething = true;
             Map<String, String> headers = createHeadersMap(responseWrapper);
             injectHeaders(headers, logBuilder);
         }
         if (includeResponsePayload) {
-            injectSeparator(logBuilder);
+            injectSeparator(logBuilder, includedSomething);
             injectBody(logBuilder, responseWrapper.getBody());
         }
         logBuilder.append(responseMessageSuffix);
@@ -108,8 +110,10 @@ public class LogTextFactory {
         this.responseMessageSuffix = responseMessageSuffix;
     }
 
-    private void injectSeparator(StringBuilder logBuilder) {
-        logBuilder.append("; ");
+    private void injectSeparator(StringBuilder logBuilder, boolean includedSomething) {
+        if (includedSomething) {
+            logBuilder.append("; ");
+        }
     }
 
     private void injectUri(HttpServletRequest request, StringBuilder logBuilder) {
