@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.gaborbalazs.smartplatform.lotteryservice.web.wrapper.BufferedRequestWrapper;
 import org.gaborbalazs.smartplatform.lotteryservice.web.wrapper.BufferedResponseWrapper;
-import org.springframework.util.StringUtils;
 
 public class LogTextFactory {
 
@@ -33,8 +32,11 @@ public class LogTextFactory {
 
     public String createRequestLogText(BufferedRequestWrapper requestWrapper) {
         StringBuilder logBuilder = new StringBuilder(requestMessagePrefix);
+        injectMethod(requestWrapper, logBuilder);
+        injectSeparator(logBuilder, true);
         injectUri(requestWrapper, logBuilder);
         if (includeRequestQueryString) {
+            injectSeparator(logBuilder, true);
             injectQueryString(requestWrapper, logBuilder);
         }
         if (includeRequestClientInfo) {
@@ -116,16 +118,20 @@ public class LogTextFactory {
         }
     }
 
+    private void injectMethod(HttpServletRequest request, StringBuilder logBuilder) {
+        logBuilder.append("method=");
+        logBuilder.append(request.getMethod());
+    }
+
     private void injectUri(HttpServletRequest request, StringBuilder logBuilder) {
         logBuilder.append("uri=");
         logBuilder.append(request.getRequestURI());
     }
 
     private void injectQueryString(HttpServletRequest request, StringBuilder logBuilder) {
-        if (!StringUtils.isEmpty(request.getQueryString())) {
-            logBuilder.append("?");
-            logBuilder.append(request.getQueryString());
-        }
+        logBuilder.append("query=[");
+        logBuilder.append(request.getQueryString() == null ? "" : request.getQueryString());
+        logBuilder.append("]");
     }
 
     private void injectClientInfo(HttpServletRequest request, StringBuilder logBuilder) {

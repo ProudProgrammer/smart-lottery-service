@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class LogTextFactoryTest {
 
+    private static final String METHOD = "POST";
     private static final String REQUEST_URI = "test\\test";
     private static final String HEADER_NAME_1 = "header1";
     private static final String HEADER_NAME_2 = "header2";
@@ -31,15 +32,16 @@ class LogTextFactoryTest {
     private static final String QUERY_STRING = "name1=value1&name2=value2";
     private static final String REMOTE_ADDRESS = "remote.address";
 
-    private static final String BASE_REQUEST = "Incoming request [uri=test\\test]";
-    private static final String FULL_REQUEST = "Incoming request [uri=test\\test?name1=value1&name2=value2; client=remote.address; "
+    private static final String BASE_REQUEST = "Incoming request [method=POST; uri=test\\test]";
+    private static final String FULL_REQUEST = "Incoming request [method=POST; uri=test\\test; query=[name1=value1&name2=value2]; client=remote.address; "
             + "headers=[header1:\"value1\", header2:\"value2\", header3:\"value3\"]; payload={\"name1\":\"value1\",\"name2\":\"value2\"}]";
-    private static final String QUERY_STRING_REQUEST = "Incoming request [uri=test\\test?name1=value1&name2=value2]";
-    private static final String CLIENT_INFO_REQUEST = "Incoming request [uri=test\\test; client=remote.address]";
-    private static final String HEADER_REQUEST_WITHOUT_ELEMENT = "Incoming request [uri=test\\test; headers=[]]";
-    private static final String HEADER_REQUEST_WITH_ONE_ELEMENT = "Incoming request [uri=test\\test; headers=[header1:\"value1\"]]";
-    private static final String HEADER_REQUEST_WITH_THREE_ELEMENTS = "Incoming request [uri=test\\test; headers=[header1:\"value1\", header2:\"value2\", header3:\"value3\"]]";
-    private static final String PAYLOAD_REQUEST = "Incoming request [uri=test\\test; payload={\"name1\":\"value1\",\"name2\":\"value2\"}]";
+    private static final String QUERY_STRING_REQUEST = "Incoming request [method=POST; uri=test\\test; query=[name1=value1&name2=value2]]";
+    private static final String EMPTY_QUERY_STRING_REQUEST = "Incoming request [method=POST; uri=test\\test; query=[]]";
+    private static final String CLIENT_INFO_REQUEST = "Incoming request [method=POST; uri=test\\test; client=remote.address]";
+    private static final String HEADER_REQUEST_WITHOUT_ELEMENT = "Incoming request [method=POST; uri=test\\test; headers=[]]";
+    private static final String HEADER_REQUEST_WITH_ONE_ELEMENT = "Incoming request [method=POST; uri=test\\test; headers=[header1:\"value1\"]]";
+    private static final String HEADER_REQUEST_WITH_THREE_ELEMENTS = "Incoming request [method=POST; uri=test\\test; headers=[header1:\"value1\", header2:\"value2\", header3:\"value3\"]]";
+    private static final String PAYLOAD_REQUEST = "Incoming request [method=POST; uri=test\\test; payload={\"name1\":\"value1\",\"name2\":\"value2\"}]";
 
     private static final String BASE_RESPONSE = "Outgoing response []";
     private static final String FULL_RESPONSE = "Outgoing response [headers=[header1:\"value1\", header2:\"value2\", header3:\"value3\"]; "
@@ -65,6 +67,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(false);
         underTest.setIncludeRequestHeaders(false);
         underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
 
         // WHEN
@@ -81,6 +84,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(true);
         underTest.setIncludeRequestHeaders(true);
         underTest.setIncludeRequestPayload(true);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getQueryString()).thenReturn(QUERY_STRING);
         Mockito.when(bufferedRequestWrapper.getRemoteAddr()).thenReturn(REMOTE_ADDRESS);
@@ -104,6 +108,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(false);
         underTest.setIncludeRequestHeaders(false);
         underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getQueryString()).thenReturn(QUERY_STRING);
 
@@ -115,12 +120,31 @@ class LogTextFactoryTest {
     }
 
     @Test
+    void testCreateRequestLogTextWhenEmptyQueryStringIncluded() {
+        // GIVEN
+        underTest.setIncludeRequestQueryString(true);
+        underTest.setIncludeRequestClientInfo(false);
+        underTest.setIncludeRequestHeaders(false);
+        underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
+        Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
+        Mockito.when(bufferedRequestWrapper.getQueryString()).thenReturn(null);
+
+        // WHEN
+        String result = underTest.createRequestLogText(bufferedRequestWrapper);
+
+        // THEN
+        Assertions.assertEquals(EMPTY_QUERY_STRING_REQUEST, result);
+    }
+
+    @Test
     void testCreateRequestLogTextWhenClientInfoIncluded() {
         // GIVEN
         underTest.setIncludeRequestQueryString(false);
         underTest.setIncludeRequestClientInfo(true);
         underTest.setIncludeRequestHeaders(false);
         underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getRemoteAddr()).thenReturn(REMOTE_ADDRESS);
 
@@ -138,6 +162,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(false);
         underTest.setIncludeRequestHeaders(true);
         underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getHeaderNames()).thenReturn(Collections.emptyEnumeration());
 
@@ -155,6 +180,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(false);
         underTest.setIncludeRequestHeaders(true);
         underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getHeaderNames()).thenReturn(Collections.enumeration(HEADER_NAMES_WITH_ONE_ELEMENT));
         Mockito.when(bufferedRequestWrapper.getHeader(HEADER_NAME_1)).thenReturn(HEADER_VALUE_1);
@@ -173,6 +199,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(false);
         underTest.setIncludeRequestHeaders(true);
         underTest.setIncludeRequestPayload(false);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getHeaderNames()).thenReturn(Collections.enumeration(HEADER_NAMES_WITH_THREE_ELEMENTS));
         Mockito.when(bufferedRequestWrapper.getHeader(HEADER_NAME_1)).thenReturn(HEADER_VALUE_1);
@@ -193,6 +220,7 @@ class LogTextFactoryTest {
         underTest.setIncludeRequestClientInfo(false);
         underTest.setIncludeRequestHeaders(false);
         underTest.setIncludeRequestPayload(true);
+        Mockito.when(bufferedRequestWrapper.getMethod()).thenReturn(METHOD);
         Mockito.when(bufferedRequestWrapper.getRequestURI()).thenReturn(REQUEST_URI);
         Mockito.when(bufferedRequestWrapper.getBody()).thenReturn(PAYLOAD);
 
