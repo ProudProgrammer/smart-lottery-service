@@ -24,6 +24,7 @@
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
 		<commons-io.version>2.6</commons-io.version>
+		<logging-filter.version>1.0-SNAPSHOT</logging-filter.version>
 	</properties>
 
 	<modules>
@@ -97,6 +98,11 @@
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
 				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.gaborbalazs.smartplatform</groupId>
+				<artifactId>logging-filter</artifactId>
+				<version>${logging-filter.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

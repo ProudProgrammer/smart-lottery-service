@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 
-import org.gaborbalazs.smartplatform.lotteryservice.web.factory.LogTextFactory;
-import org.gaborbalazs.smartplatform.lotteryservice.web.filter.CustomLoggingFilter;
+import org.gaborbalazs.smartplatform.loggingfilter.factory.LogTextFactory;
+import org.gaborbalazs.smartplatform.loggingfilter.filter.CustomLoggingFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

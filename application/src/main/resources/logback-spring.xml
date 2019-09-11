@@ -25,7 +25,7 @@
 
     <springProfile name="default">
         <logger name="org.gaborbalazs.smartplatform.lotteryservice.web" level="DEBUG"/>
-        <logger name="org.gaborbalazs.smartplatform.lotteryservice.web.filter.CustomLoggingFilter" level="DEBUG"/>
+        <logger name="org.gaborbalazs.smartplatform.loggingfilter.filter.CustomLoggingFilter" level="DEBUG"/>
 
         <root level="INFO">
             <appender-ref ref="SMART_CONSOLE"/>
