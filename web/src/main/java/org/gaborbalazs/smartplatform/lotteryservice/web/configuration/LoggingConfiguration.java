@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 
-import org.gaborbalazs.smartplatform.loggingfilter.factory.LogTextFactory;
+import org.gaborbalazs.smartplatform.loggingfilter.configuration.LogConfiguration;
 import org.gaborbalazs.smartplatform.loggingfilter.filter.CustomLoggingFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -47,48 +47,47 @@ public class LoggingConfiguration {
 
     @Bean
     CustomLoggingFilter customLoggingFilter() {
-        CustomLoggingFilter customLoggingFilter = new CustomLoggingFilter(createLogTextFactory());
-        if (logRequest != null) {
-            customLoggingFilter.setLogRequest(logRequest);
-        }
-        if (logResponse != null) {
-            customLoggingFilter.setLogResponse(logResponse);
-        }
-        return customLoggingFilter;
+        return new CustomLoggingFilter(createConfiguration());
     }
 
-    private LogTextFactory createLogTextFactory() {
-        LogTextFactory logTextFactory = new LogTextFactory();
+    private LogConfiguration createConfiguration() {
+        LogConfiguration logConfiguration = new LogConfiguration();
+        if (logRequest != null) {
+            logConfiguration.setLogRequest(logRequest);
+        }
         if (includeRequestQueryString != null) {
-            logTextFactory.setIncludeRequestQueryString(includeRequestQueryString);
+            logConfiguration.setIncludeRequestQueryString(includeRequestQueryString);
         }
         if (includeRequestClientInfo != null) {
-            logTextFactory.setIncludeRequestClientInfo(includeRequestClientInfo);
+            logConfiguration.setIncludeRequestClientInfo(includeRequestClientInfo);
         }
         if (includeRequestHeaders != null) {
-            logTextFactory.setIncludeRequestHeaders(includeRequestHeaders);
+            logConfiguration.setIncludeRequestHeaders(includeRequestHeaders);
         }
         if (includeRequestPayload != null) {
-            logTextFactory.setIncludeRequestPayload(includeRequestPayload);
+            logConfiguration.setIncludeRequestPayload(includeRequestPayload);
         }
         if (requestMessagePrefix != null) {
-            logTextFactory.setRequestMessagePrefix(requestMessagePrefix);
+            logConfiguration.setRequestMessagePrefix(requestMessagePrefix);
         }
         if (requestMessageSuffix != null) {
-            logTextFactory.setRequestMessageSuffix(requestMessageSuffix);
+            logConfiguration.setRequestMessageSuffix(requestMessageSuffix);
+        }
+        if (logResponse != null) {
+            logConfiguration.setLogResponse(logResponse);
         }
         if (includeResponseHeaders != null) {
-            logTextFactory.setIncludeResponseHeaders(includeResponseHeaders);
+            logConfiguration.setIncludeResponseHeaders(includeResponseHeaders);
         }
         if (includeResponsePayload != null) {
-            logTextFactory.setIncludeResponsePayload(includeResponsePayload);
+            logConfiguration.setIncludeResponsePayload(includeResponsePayload);
         }
         if (responseMessagePrefix != null) {
-            logTextFactory.setResponseMessagePrefix(responseMessagePrefix);
+            logConfiguration.setResponseMessagePrefix(responseMessagePrefix);
         }
         if (responseMessageSuffix != null) {
-            logTextFactory.setResponseMessageSuffix(responseMessageSuffix);
+            logConfiguration.setResponseMessageSuffix(responseMessageSuffix);
         }
-        return logTextFactory;
+        return logConfiguration;
     }
 }
