@@ -8,8 +8,21 @@ spring:
 server:
   port : 8081
 
+# Swagger
+swagger:
+  title: SmartPlatform - Lottery Service
+  description: Lottery service for different lottery types.
+  version: 1.0
+  terms-of-service-url:
+  contact-name: Balázs Gábor
+  contact-url: https://github.com/ProudProgrammer
+  contact-email: mail.gabor.balazs@gmail.com
+  license: GNU General Public License
+  license-url: https://www.gnu.org/licenses/gpl-3.0.en.html
+
 # CustomLoggingFilter
 customloggingfilter:
+  enabled: true
   logrequest: true
   logresponse: true
   request-querystring: true
@@ -22,3 +35,7 @@ customloggingfilter:
   response-payload: true
   # response-messageprefix: Response [
   # response-messagesuffix: ]
+
+# LoggerAspect
+loggeraspect:
+  enabled: true

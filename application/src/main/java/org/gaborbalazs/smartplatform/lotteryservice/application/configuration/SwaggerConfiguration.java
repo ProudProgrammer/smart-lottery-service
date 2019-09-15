@@ -3,6 +3,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.application.configuration;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +21,34 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 class SwaggerConfiguration {
 
-    private static final String TITLE = "SmartPlatform - Lottery Service";
-    private static final String DESCRIPTION = "Lottery service for different lottery types.";
-    private static final String VERSION = "1.0";
-    private static final String TERMS_OF_SERVICE_URL = null;
-    private static final String CONTACT_NAME = "Balázs Gábor";
-    private static final String CONTACT_URL = "https://github.com/ProudProgrammer";
-    private static final String CONTACT_EMAIL = "mail.gabor.balazs@gmail.com";
-    private static final String LICENSE = "GNU General Public License";
-    private static final String LICENSE_URL = "https://www.gnu.org/licenses/gpl-3.0.en.html";
-    private static final List<VendorExtension> VENDOR_EXTENSIONS = Collections.emptyList();
+    @Value("${swagger.title:#{null}}")
+    private String title;
+
+    @Value("${swagger.description:#{null}}")
+    private String description;
+
+    @Value("${swagger.version:#{null}}")
+    private String version;
+
+    @Value("${swagger.terms-of-service-url:#{null}}")
+    private String terms_of_service_url;
+
+    @Value("${swagger.contact-name:#{null}}")
+    private String contact_name;
+
+    @Value("${swagger.contact-url:#{null}}")
+    private String contact_url;
+
+    @Value("${swagger.contact-email:#{null}}")
+    private String contact_email;
+
+    @Value("${swagger.license:#{null}}")
+    private String license;
+
+    @Value("${swagger.license-url:#{null}}")
+    private String license_url;
+
+    private List<VendorExtension> VENDOR_EXTENSIONS = Collections.emptyList();
 
     @Bean
     Docket api() {
@@ -42,10 +61,10 @@ class SwaggerConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfo(TITLE, DESCRIPTION, VERSION, TERMS_OF_SERVICE_URL, contact(), LICENSE, LICENSE_URL, VENDOR_EXTENSIONS);
+        return new ApiInfo(title, description, version, terms_of_service_url, contact(), license, license_url, VENDOR_EXTENSIONS);
     }
 
     private Contact contact() {
-        return new Contact(CONTACT_NAME, CONTACT_URL, CONTACT_EMAIL);
+        return new Contact(contact_name, contact_url, contact_email);
     }
 }

@@ -3,11 +3,13 @@ package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 import org.gaborbalazs.smartplatform.loggingfilter.configuration.LogConfiguration;
 import org.gaborbalazs.smartplatform.loggingfilter.filter.CustomLoggingFilter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LoggingConfiguration {
+@ConditionalOnExpression("${customloggingfilter.enabled:false}")
+class FilterConfiguration {
 
     @Value("${customloggingfilter.logrequest:#{null}}")
     private Boolean logRequest;

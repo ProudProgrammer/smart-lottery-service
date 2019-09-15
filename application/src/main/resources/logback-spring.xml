@@ -24,7 +24,7 @@
     </appender>
 
     <springProfile name="default">
-        <logger name="org.gaborbalazs.smartplatform.lotteryservice.web" level="DEBUG"/>
+        <logger name="org.gaborbalazs.smartplatform.lotteryservice" level="DEBUG"/>
         <logger name="org.gaborbalazs.smartplatform.loggingfilter.filter.CustomLoggingFilter" level="DEBUG"/>
 
         <root level="INFO">
