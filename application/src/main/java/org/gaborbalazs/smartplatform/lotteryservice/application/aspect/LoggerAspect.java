@@ -21,7 +21,6 @@ public class LoggerAspect {
     private static final String AFTER = "<< ";
     private static final String BRACKET_PREFIX = "(";
     private static final String BRACKET_SUFFIX = ")";
-    private static final String BRACKET = "()";
 
     @Pointcut("within(org.gaborbalazs.smartplatform.lotteryservice.web..*)")
     private void inWebLayer() {
@@ -40,7 +39,7 @@ public class LoggerAspect {
 
         Object response = joinPoint.proceed();
 
-        logger.debug(AFTER + joinPoint.getSignature().getName() + BRACKET);
+        logger.debug(AFTER + joinPoint.getSignature().getName() + BRACKET_PREFIX + response + BRACKET_SUFFIX);
 
         return response;
     }

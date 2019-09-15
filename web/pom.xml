@@ -26,14 +26,10 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>logging-filter</artifactId>
         </dependency>
     </dependencies>
-
 </project>
