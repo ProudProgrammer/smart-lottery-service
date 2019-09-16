@@ -1,0 +1,7 @@
+# LoggerAspect
+loggeraspect:
+  enabled: false
+
+# CustomLoggingFilter
+customloggingfilter:
+  enabled: false

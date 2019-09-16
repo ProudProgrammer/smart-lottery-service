@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnExpression("${customloggingfilter.enabled:false}")
-class FilterConfiguration {
+class CustomLoggingFilterConfiguration {
 
     @Value("${customloggingfilter.logrequest:#{null}}")
     private Boolean logRequest;

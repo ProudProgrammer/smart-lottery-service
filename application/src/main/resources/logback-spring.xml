@@ -32,4 +32,11 @@
             <appender-ref ref="SMART_FILE"/>
         </root>
     </springProfile>
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="SMART_CONSOLE"/>
+            <appender-ref ref="SMART_FILE"/>
+        </root>
+    </springProfile>
 </configuration>
