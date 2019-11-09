@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_DIR" value="/smart-platform-logs/lottery-service"/>
-    <property name="LOTTERY_SERVICE" value="lottery-service"/>
-    <property name="LOG_FILE_BASE" value="${LOG_DIR}/${LOTTERY_SERVICE}"/>
     <property name="ENCODER_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{consumerName}] [%X{requestId}] %logger{36} : %msg%n"/>
+    <property name="LOG_FILE" value="target/logs/lottery-service.log"/>
+    <property name="LOG_FILE_NAME_PREFIX" value="target/logs/lottery-service"/>
 
     <appender name="SMART_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -12,9 +11,9 @@
         </encoder>
     </appender>
     <appender name="SMART_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE_BASE}.log</file>
+        <file>${LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE_BASE}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_FILE_NAME_PREFIX}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxHistory>10</maxHistory>
             <maxFileSize>50MB</maxFileSize>
         </rollingPolicy>
