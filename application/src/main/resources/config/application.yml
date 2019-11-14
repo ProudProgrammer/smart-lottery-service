@@ -39,3 +39,10 @@ customloggingfilter:
 # LoggerAspect
 loggeraspect:
   enabled: true
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

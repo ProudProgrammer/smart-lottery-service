@@ -23,6 +23,7 @@
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
+		<spring-boot.version>2.1.7.RELEASE</spring-boot.version>
 		<logging-filter.version>1.0-SNAPSHOT</logging-filter.version>
 	</properties>
 
@@ -106,15 +107,23 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

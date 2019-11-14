@@ -1,0 +1,14 @@
+# LoggerAspect
+loggeraspect:
+  enabled: false
+
+# CustomLoggingFilter
+customloggingfilter:
+  enabled: false
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
