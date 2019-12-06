@@ -29,12 +29,12 @@
 
 	<modules>
 		<module>application</module>
-		<module>web</module>
+		<module>common</module>
 		<module>service</module>
 		<module>db-dao</module>
 		<module>bet-dao</module>
+		<module>web</module>
 		<module>release</module>
-		<module>common</module>
 	</modules>
 
 	<dependencyManagement>
