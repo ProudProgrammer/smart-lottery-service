@@ -18,12 +18,17 @@
 	<properties>
 		<project.version>1.0-SNAPSHOT</project.version>
 		<java.version>11</java.version>
+
+		<!-- Project versions -->
+		<logging-filter.version>1.0-SNAPSHOT</logging-filter.version>
+
+		<!-- 3rd party versions -->
 		<mysql.version>8.0.17</mysql.version>
 		<swagger.version>2.9.2</swagger.version>
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
-		<logging-filter.version>1.0-SNAPSHOT</logging-filter.version>
+		<docker.plugin.version>1.4.13</docker.plugin.version>
 	</properties>
 
 	<modules>
@@ -35,6 +40,16 @@
 		<module>release</module>
 		<module>common</module>
 	</modules>
+
+	<!-- Profiles -->
+	<profiles>
+		<profile>
+			<id>fast</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencyManagement>
 		<dependencies>
@@ -139,4 +154,17 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<!-- Available plugins -->
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<version>${docker.plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

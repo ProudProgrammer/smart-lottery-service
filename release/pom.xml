@@ -19,6 +19,7 @@
         </dependency>
     </dependencies>
 
+    <!-- Build uber-jar -->
     <build>
         <plugins>
             <plugin>
@@ -39,4 +40,31 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <!-- Build docker image -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <contextDirectory>${project.parent.basedir}</contextDirectory>
+                            <repository>${project.parent.artifactId}</repository>
+                            <tag>${project.parent.version}</tag>
+                            <pullNewerImage>false</pullNewerImage>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
