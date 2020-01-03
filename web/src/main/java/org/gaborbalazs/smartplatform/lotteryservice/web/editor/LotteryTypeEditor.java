@@ -2,7 +2,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.web.editor;
 
 import java.beans.PropertyEditorSupport;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
 
 public class LotteryTypeEditor extends PropertyEditorSupport {
 

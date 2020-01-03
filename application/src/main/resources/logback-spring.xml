@@ -32,6 +32,16 @@
         </root>
     </springProfile>
 
+    <springProfile name="integration-test">
+        <logger name="org.gaborbalazs.smartplatform.lotteryservice" level="DEBUG"/>
+        <logger name="org.gaborbalazs.smartplatform.loggingfilter.filter.CustomLoggingFilter" level="DEBUG"/>
+
+        <root level="INFO">
+            <appender-ref ref="SMART_CONSOLE"/>
+            <appender-ref ref="SMART_FILE"/>
+        </root>
+    </springProfile>
+
     <springProfile name="prod">
         <root level="INFO">
             <appender-ref ref="SMART_CONSOLE"/>

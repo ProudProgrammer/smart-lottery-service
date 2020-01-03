@@ -2,7 +2,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.web.api;
 
 import java.util.SortedSet;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

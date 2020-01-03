@@ -28,6 +28,7 @@
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
+		<jayway.jsonpath.version>2.4.0</jayway.jsonpath.version>
 		<docker.plugin.version>1.4.13</docker.plugin.version>
 	</properties>
 
@@ -38,8 +39,9 @@
 		<module>db-dao</module>
 		<module>bet-dao</module>
 		<module>web</module>
+		<module>integration-test</module>
 		<module>release</module>
-	</modules>
+    </modules>
 
 	<!-- Profiles -->
 	<profiles>
@@ -51,8 +53,10 @@
 		</profile>
 	</profiles>
 
+	<!-- Available dependencies -->
 	<dependencyManagement>
 		<dependencies>
+			<!-- Module dependencies -->
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
 				<artifactId>lottery-service-application</artifactId>
@@ -89,6 +93,14 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<!-- Smart Platform dependencies -->
+			<dependency>
+				<groupId>org.gaborbalazs.smartplatform</groupId>
+				<artifactId>logging-filter</artifactId>
+				<version>${logging-filter.version}</version>
+			</dependency>
+
+			<!-- 3rd party dependencies -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -108,15 +120,17 @@
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
-
 			<dependency>
-				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>logging-filter</artifactId>
-				<version>${logging-filter.version}</version>
+				<groupId>com.jayway.jsonpath</groupId>
+				<artifactId>json-path</artifactId>
+				<version>${jayway.jsonpath.version}</version>
+				<scope>test</scope>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
+	<!-- Common dependencies, inherited by all child modules -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
