@@ -25,9 +25,11 @@ class DefaultLotteryNumberGeneratorStrategyTest {
     @Test
     void testGenerateShouldThrowExceptionWhenQuantityLargerThenPoolSize() {
         // GIVEN
+        Class expectedExceptionClass = IllegalArgumentException.class;
+
         // WHEN
         // THEN
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        Assertions.assertThrows(expectedExceptionClass, () -> {
             underTest.generate(10, 9);
         });
     }
@@ -35,33 +37,45 @@ class DefaultLotteryNumberGeneratorStrategyTest {
     @Test
     void testGenerateShouldReturn5ElementWhenQuantity5() {
         // GIVEN
+        int expectedResultSize = 5;
+        int lowerLimit = 0;
+        int upperLimit = 90;
+
         // WHEN
         var result = underTest.generate(5, 90);
 
         // THEN
-        Assertions.assertEquals(result.size(), 5);
-        result.forEach(number -> Assertions.assertTrue(number > 0 && number <= 90));
+        Assertions.assertEquals(result.size(), expectedResultSize);
+        result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 
     @Test
     void testGenerateShouldReturn6ElementWhenQuantity6() {
         // GIVEN
+        int expectedResultSize = 6;
+        int lowerLimit = 0;
+        int upperLimit = 45;
+
         // WHEN
         var result = underTest.generate(6, 45);
 
         // THEN
-        Assertions.assertEquals(result.size(), 6);
-        result.forEach(number -> Assertions.assertTrue(number > 0 && number <= 45));
+        Assertions.assertEquals(result.size(), expectedResultSize);
+        result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 
     @Test
     void testGenerateShouldReturn7ElementWhenQuantity7() {
         // GIVEN
+        int expectedResultSize = 7;
+        int lowerLimit = 0;
+        int upperLimit = 35;
+
         // WHEN
         var result = underTest.generate(7, 35);
 
         // THEN
-        Assertions.assertEquals(result.size(), 7);
-        result.forEach(number -> Assertions.assertTrue(number > 0 && number <= 35));
+        Assertions.assertEquals(result.size(), expectedResultSize);
+        result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 }
