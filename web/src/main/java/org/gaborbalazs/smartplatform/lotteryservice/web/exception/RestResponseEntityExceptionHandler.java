@@ -13,8 +13,11 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice(basePackages = {"org.gaborbalazs.smartplatform.lotteryservice"})
 class RestResponseEntityExceptionHandler {
 
-    @Autowired
-    private RequestContext requestContext;
+    private final RequestContext requestContext;
+
+    RestResponseEntityExceptionHandler(RequestContext requestContext) {
+        this.requestContext = requestContext;
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IllegalArgumentException.class)

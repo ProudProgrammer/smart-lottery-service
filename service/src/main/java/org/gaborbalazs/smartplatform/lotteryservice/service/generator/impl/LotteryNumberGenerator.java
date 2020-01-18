@@ -7,7 +7,7 @@ import java.util.SortedSet;
 
 public class LotteryNumberGenerator {
 
-    private LotteryNumberGeneratorStrategy lotteryNumberGeneratorStrategy;
+    private final LotteryNumberGeneratorStrategy lotteryNumberGeneratorStrategy;
 
     public LotteryNumberGenerator(LotteryNumberGeneratorStrategy lotteryNumberGeneratorStrategy) {
         this.lotteryNumberGeneratorStrategy = lotteryNumberGeneratorStrategy;

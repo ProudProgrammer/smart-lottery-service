@@ -10,8 +10,8 @@ import java.util.SortedSet;
 @Component
 public class LotteryNumberGeneratorFacade {
 
-    private LotteryNumberGenerator defaultLotteryNumberGenerator;
-    private LotteryNumberGenerator experimentalLotteryNumberGenerator;
+    private final LotteryNumberGenerator defaultLotteryNumberGenerator;
+    private final LotteryNumberGenerator experimentalLotteryNumberGenerator;
 
     public LotteryNumberGeneratorFacade(LotteryNumberGenerator defaultLotteryNumberGenerator, LotteryNumberGenerator experimentalLotteryNumberGenerator) {
         this.defaultLotteryNumberGenerator = defaultLotteryNumberGenerator;

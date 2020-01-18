@@ -16,7 +16,7 @@ import java.util.SortedSet;
 @RestController
 class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
 
-    private LotteryNumberGeneratorFacade lotteryNumberGeneratorFacade;
+    private final LotteryNumberGeneratorFacade lotteryNumberGeneratorFacade;
 
     LotteryNumberGeneratorController(LotteryNumberGeneratorFacade lotteryNumberGeneratorFacade) {
         this.lotteryNumberGeneratorFacade = lotteryNumberGeneratorFacade;

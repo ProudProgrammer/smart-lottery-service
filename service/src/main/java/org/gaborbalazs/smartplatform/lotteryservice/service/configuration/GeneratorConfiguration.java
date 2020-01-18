@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class GeneratorConfiguration {
 
-    private DefaultLotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
-    private ExperimentalLotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
+    private final DefaultLotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
+    private final ExperimentalLotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
 
     GeneratorConfiguration(DefaultLotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, ExperimentalLotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy) {
         this.defaultLotteryNumberGeneratorStrategy = defaultLotteryNumberGeneratorStrategy;

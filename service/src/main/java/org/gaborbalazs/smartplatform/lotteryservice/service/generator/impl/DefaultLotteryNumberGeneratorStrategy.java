@@ -9,7 +9,7 @@ import java.util.*;
 @Service
 public class DefaultLotteryNumberGeneratorStrategy implements LotteryNumberGeneratorStrategy {
 
-    private Random random;
+    private final Random random;
 
     DefaultLotteryNumberGeneratorStrategy(Random threadLocalRandom) {
         this.random = threadLocalRandom;
