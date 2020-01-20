@@ -33,12 +33,11 @@
 	</properties>
 
 	<modules>
-		<module>application</module>
-		<module>common</module>
-		<module>service</module>
 		<module>db-dao</module>
 		<module>bet-dao</module>
+		<module>service</module>
 		<module>web</module>
+		<module>application</module>
 		<module>integration-test</module>
 		<module>release</module>
     </modules>
@@ -59,21 +58,6 @@
 			<!-- Module dependencies -->
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>lottery-service-application</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>lottery-service-web</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>lottery-service-service</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.gaborbalazs.smartplatform</groupId>
 				<artifactId>lottery-service-db-dao</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -84,12 +68,22 @@
 			</dependency>
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>lottery-service-release</artifactId>
+				<artifactId>lottery-service-service</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>lottery-service-common</artifactId>
+				<artifactId>lottery-service-web</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.gaborbalazs.smartplatform</groupId>
+				<artifactId>lottery-service-application</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.gaborbalazs.smartplatform</groupId>
+				<artifactId>lottery-service-release</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

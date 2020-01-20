@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.editor;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 
 import java.beans.PropertyEditorSupport;
 

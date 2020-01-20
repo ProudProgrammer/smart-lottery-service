@@ -1,4 +1,4 @@
-package org.gaborbalazs.smartplatform.lotteryservice.common.enums;
+package org.gaborbalazs.smartplatform.lotteryservice.service.enums;
 
 import java.util.List;
 import java.util.Optional;

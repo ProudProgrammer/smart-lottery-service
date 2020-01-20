@@ -17,10 +17,6 @@
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-service</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.gaborbalazs.smartplatform</groupId>
-            <artifactId>lottery-service-common</artifactId>
-        </dependency>
 
         <!-- Smart Platform dependencies -->
         <dependency>

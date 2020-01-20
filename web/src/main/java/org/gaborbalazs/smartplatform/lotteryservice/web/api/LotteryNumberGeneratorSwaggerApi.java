@@ -1,8 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.api;
 
 import io.swagger.annotations.*;
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 
 import java.util.SortedSet;
 

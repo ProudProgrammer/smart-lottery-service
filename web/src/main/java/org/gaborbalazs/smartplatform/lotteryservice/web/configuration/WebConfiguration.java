@@ -2,9 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.context.RequestContext;
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.HeaderParameterName;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
@@ -12,8 +11,11 @@ import org.springframework.web.context.annotation.RequestScope;
 @Configuration
 class WebConfiguration {
 
-    @Autowired
-    private HttpServletRequest httpServletRequest;
+    private final HttpServletRequest httpServletRequest;
+
+    WebConfiguration(HttpServletRequest httpServletRequest) {
+        this.httpServletRequest = httpServletRequest;
+    }
 
     @Bean
     @RequestScope

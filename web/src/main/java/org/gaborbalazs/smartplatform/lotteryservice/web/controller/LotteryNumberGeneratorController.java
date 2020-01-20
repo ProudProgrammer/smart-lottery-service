@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorApi;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorSwaggerApi;
 import org.gaborbalazs.smartplatform.lotteryservice.web.editor.GeneratorTypeEditor;

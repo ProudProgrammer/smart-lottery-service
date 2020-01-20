@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.facade;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl.LotteryNumberGenerator;
 import org.springframework.stereotype.Component;
 

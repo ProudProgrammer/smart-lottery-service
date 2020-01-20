@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
 
 import java.util.SortedSet;

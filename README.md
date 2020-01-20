@@ -27,5 +27,12 @@ See readme: https://github.com/ProudProgrammer/smart-tools/blob/master/README.md
 Use helper of start script: $ ./start.sh -h
 ```
 
+### Modular architecture of Lottery Service
+![Modular Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/modular-architecture-lottery-service.png)
+
 ### System architecture of Smart Platform
+Applied software development techniques:
+- Microservice Architecture
+- API Gateway Pattern
+
 ![System Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/system-architecture.png)

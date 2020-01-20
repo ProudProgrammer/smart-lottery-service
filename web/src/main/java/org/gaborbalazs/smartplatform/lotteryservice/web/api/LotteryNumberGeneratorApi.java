@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.api;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

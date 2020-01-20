@@ -2,7 +2,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.test;
 
 import java.util.List;
 
-import org.gaborbalazs.smartplatform.lotteryservice.common.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
