@@ -10,4 +10,12 @@
     </parent>
 
     <artifactId>lottery-service-db-dao</artifactId>
+
+    <dependencies>
+        <!-- Module dependencies -->
+        <dependency>
+            <groupId>org.gaborbalazs.smartplatform</groupId>
+            <artifactId>lottery-service-service</artifactId>
+        </dependency>
+    </dependencies>
 </project>

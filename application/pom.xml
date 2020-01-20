@@ -15,11 +15,15 @@
         <!-- Module dependencies -->
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
-            <artifactId>lottery-service-service</artifactId>
+            <artifactId>lottery-service-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
-            <artifactId>lottery-service-web</artifactId>
+            <artifactId>lottery-service-db-dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.gaborbalazs.smartplatform</groupId>
+            <artifactId>lottery-service-bet-dao</artifactId>
         </dependency>
 
         <!-- 3rd party dependencies -->

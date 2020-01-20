@@ -33,9 +33,9 @@
 	</properties>
 
 	<modules>
+		<module>service</module>
 		<module>db-dao</module>
 		<module>bet-dao</module>
-		<module>service</module>
 		<module>web</module>
 		<module>application</module>
 		<module>integration-test</module>
@@ -58,17 +58,17 @@
 			<!-- Module dependencies -->
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
+				<artifactId>lottery-service-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.gaborbalazs.smartplatform</groupId>
 				<artifactId>lottery-service-db-dao</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
 				<artifactId>lottery-service-bet-dao</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>lottery-service-service</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
