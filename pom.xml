@@ -29,7 +29,7 @@
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
 		<jayway-jsonpath.version>2.4.0</jayway-jsonpath.version>
-		<spotify-dockerfile.version>1.4.10</spotify-dockerfile.version>
+		<spotify-dockerfile-plugin.version>1.4.10</spotify-dockerfile-plugin.version>
 	</properties>
 
 	<modules>
@@ -176,7 +176,7 @@
 				<plugin>
 					<groupId>com.spotify</groupId>
 					<artifactId>dockerfile-maven-plugin</artifactId>
-					<version>${spotify-dockerfile.version}</version>
+					<version>${spotify-dockerfile-plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
