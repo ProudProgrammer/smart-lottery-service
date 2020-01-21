@@ -14,19 +14,22 @@ Without tests and with docker image creation: mvn clean install -Pfast,docker
 ### Dependencies
 - https://github.com/ProudProgrammer/smart-logging-filter
 ### Build
+Manually (order is count):
 ```
-Manually:
 $ git clone https://github.com/ProudProgrammer/smart-logging-filter.git
 $ mvn clean install
 $ git clone https://github.com/ProudProgrammer/smart-lottery-service.git
 $ mvn clean install
-
+```
 With start script:
+- https://github.com/ProudProgrammer/smart-tools
+```
 $ git clone https://github.com/ProudProgrammer/smart-tools.git
 $ ./start.sh
-
-See readme: https://github.com/ProudProgrammer/smart-tools/blob/master/README.md
-Use helper of start script: $ ./start.sh -h
+```
+Usage of helper of start script:
+```
+$ ./start.sh -h
 ```
 ### Modular architecture of Lottery Service
 ![Modular Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/modular-architecture-lottery-service.png)
