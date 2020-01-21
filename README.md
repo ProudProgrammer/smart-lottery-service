@@ -12,7 +12,7 @@ With docker image creation: mvn clean install -Pdocker
 Without tests and with docker image creation: mvn clean install -Pfast,docker
 ```
 ### Dependencies
-https://github.com/ProudProgrammer/smart-logging-filter
+- https://github.com/ProudProgrammer/smart-logging-filter
 ### Build
 ```
 Manually:
