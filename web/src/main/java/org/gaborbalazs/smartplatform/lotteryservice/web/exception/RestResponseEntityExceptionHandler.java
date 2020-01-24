@@ -18,17 +18,23 @@ class RestResponseEntityExceptionHandler {
         this.requestContext = requestContext;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     ExceptionResponse handleIllegalArgumentException(Exception exception, WebRequest request) {
-        return createExceptionResponse(exception);
+        return createExceptionResponse(exception, HttpStatus.BAD_REQUEST);
     }
 
-    private ExceptionResponse createExceptionResponse(Exception exception) {
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    @ExceptionHandler(UnsupportedOperationException.class)
+    ExceptionResponse handle(Exception exception, WebRequest webRequest) {
+        return createExceptionResponse(exception, HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    private ExceptionResponse createExceptionResponse(Exception exception, HttpStatus httpStatus) {
         return ExceptionResponse.newBuilder()
                 .withTimestamp(ZonedDateTime.now())
-                .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .withError(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .withStatus(httpStatus.value())
+                .withError(httpStatus.getReasonPhrase())
                 .withMessage(exception.getMessage())
                 .withConsumerName(requestContext.getConsumerName())
                 .withRequestId(requestContext.getRequestId())

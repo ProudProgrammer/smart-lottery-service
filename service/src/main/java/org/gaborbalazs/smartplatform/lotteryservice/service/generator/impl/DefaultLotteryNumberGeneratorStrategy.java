@@ -1,5 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
+import org.springframework.stereotype.Service;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,9 +10,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultLotteryNumberGeneratorStrategy implements LotteryNumberGeneratorStrategy {
@@ -22,10 +22,7 @@ public class DefaultLotteryNumberGeneratorStrategy implements LotteryNumberGener
 
     @Override
     public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException {
-        if (!validate(quantity, poolSize)) {
-            String msg = MessageFormat.format("Pool size must be larger than quantity! Quantity: {0}, PoolSize: {1}", quantity, poolSize);
-            throw new IllegalArgumentException(msg);
-        }
+        validate(quantity, poolSize);
         SortedSet<Integer> result = new TreeSet<>();
         List<Integer> pool = createFilledPool(poolSize);
         int poolIndex;
@@ -46,7 +43,10 @@ public class DefaultLotteryNumberGeneratorStrategy implements LotteryNumberGener
         return pool;
     }
 
-    private boolean validate(int quantity, int poolSize) {
-        return poolSize > quantity;
+    private void validate(int quantity, int poolSize) throws IllegalArgumentException {
+        if (poolSize <= quantity) {
+            String msg = MessageFormat.format("Pool size must be larger than quantity! Quantity: {0}, PoolSize: {1}", quantity, poolSize);
+            throw new IllegalArgumentException(msg);
+        }
     }
 }
