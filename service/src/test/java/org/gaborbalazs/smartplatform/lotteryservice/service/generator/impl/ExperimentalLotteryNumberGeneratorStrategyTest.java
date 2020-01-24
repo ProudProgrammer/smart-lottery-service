@@ -5,16 +5,14 @@ import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-class DefaultLotteryNumberGeneratorStrategyTest {
+class ExperimentalLotteryNumberGeneratorStrategyTest {
 
     @InjectMocks
-    private DefaultLotteryNumberGeneratorStrategy underTest;
+    private ExperimentalLotteryNumberGeneratorStrategy underTest;
 
     @Mock
     private Random random;

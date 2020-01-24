@@ -1,10 +1,15 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
 import org.springframework.stereotype.Service;
-
-import java.text.MessageFormat;
-import java.util.*;
 
 @Service
 public class DefaultLotteryNumberGeneratorStrategy implements LotteryNumberGeneratorStrategy {
