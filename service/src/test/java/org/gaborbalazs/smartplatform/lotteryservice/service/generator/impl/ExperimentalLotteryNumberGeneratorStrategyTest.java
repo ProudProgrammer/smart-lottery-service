@@ -1,13 +1,13 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import java.util.Random;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Random;
 
 class ExperimentalLotteryNumberGeneratorStrategyTest {
 
@@ -35,6 +35,18 @@ class ExperimentalLotteryNumberGeneratorStrategyTest {
     }
 
     @Test
+    void testGenerateShouldThrowExceptionWhenQuantityIsNot5AndPoolSizeIsNot90() {
+        // GIVEN
+        Class expectedExceptionClass = UnsupportedOperationException.class;
+
+        // WHEN
+        // THEN
+        Assertions.assertThrows(expectedExceptionClass, () -> {
+            underTest.generate(6, 45);
+        });
+    }
+
+    @Test
     void testGenerateShouldReturn5ElementWhenQuantity5() {
         // GIVEN
         int expectedResultSize = 5;
@@ -43,36 +55,6 @@ class ExperimentalLotteryNumberGeneratorStrategyTest {
 
         // WHEN
         var result = underTest.generate(5, 90);
-
-        // THEN
-        Assertions.assertEquals(result.size(), expectedResultSize);
-        result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
-    }
-
-    @Test
-    void testGenerateShouldReturn6ElementWhenQuantity6() {
-        // GIVEN
-        int expectedResultSize = 6;
-        int lowerLimit = 0;
-        int upperLimit = 45;
-
-        // WHEN
-        var result = underTest.generate(6, 45);
-
-        // THEN
-        Assertions.assertEquals(result.size(), expectedResultSize);
-        result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
-    }
-
-    @Test
-    void testGenerateShouldReturn7ElementWhenQuantity7() {
-        // GIVEN
-        int expectedResultSize = 7;
-        int lowerLimit = 0;
-        int upperLimit = 35;
-
-        // WHEN
-        var result = underTest.generate(7, 35);
 
         // THEN
         Assertions.assertEquals(result.size(), expectedResultSize);
