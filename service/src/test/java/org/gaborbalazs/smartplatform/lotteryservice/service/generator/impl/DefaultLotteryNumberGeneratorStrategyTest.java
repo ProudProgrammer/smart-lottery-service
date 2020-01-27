@@ -1,39 +1,28 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 class DefaultLotteryNumberGeneratorStrategyTest {
 
-    @InjectMocks
     private DefaultLotteryNumberGeneratorStrategy underTest;
-
-    @Mock
-    private Random random;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        underTest = new DefaultLotteryNumberGeneratorStrategy(ThreadLocalRandom.current());
     }
 
     @Test
     void testGenerateShouldThrowExceptionWhenQuantityLargerThenPoolSize() {
         // GIVEN
-        Class expectedExceptionClass = IllegalArgumentException.class;
+        Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
 
         // WHEN
         // THEN
-        Assertions.assertThrows(expectedExceptionClass, () -> {
-            underTest.generate(10, 9);
-        });
+        Assertions.assertThrows(expectedExceptionClass, () -> underTest.generate(10, 9));
     }
 
     @Test
@@ -47,7 +36,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
         var result = underTest.generate(5, 90);
 
         // THEN
-        Assertions.assertEquals(result.size(), expectedResultSize);
+        Assertions.assertEquals(expectedResultSize, result.size());
         result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 
@@ -62,7 +51,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
         var result = underTest.generate(6, 45);
 
         // THEN
-        Assertions.assertEquals(result.size(), expectedResultSize);
+        Assertions.assertEquals(expectedResultSize, result.size());
         result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 
@@ -77,7 +66,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
         var result = underTest.generate(7, 35);
 
         // THEN
-        Assertions.assertEquals(result.size(), expectedResultSize);
+        Assertions.assertEquals(expectedResultSize, result.size());
         result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 }

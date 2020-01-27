@@ -24,10 +24,10 @@ public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumber
     @Override
     public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException, UnsupportedOperationException {
         validate(quantity, poolSize);
-        return switchToLotteryType(quantity, poolSize);
+        return callProperGenerate(quantity, poolSize);
     }
 
-    private SortedSet<Integer> switchToLotteryType(int quantity, int poolSize) throws UnsupportedOperationException {
+    private SortedSet<Integer> callProperGenerate(int quantity, int poolSize) throws UnsupportedOperationException {
         if (quantity == 5 && poolSize == 90) {
             return generate5from90();
         } else {
@@ -38,8 +38,8 @@ public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumber
 
     /**
      * Improve odds (5/90):
-     * - 2 or 3 even numbers from the 5 numbers
-     * - 3 or 4 fifth from the 5 fifth
+     * - 2 or 3 even numbers from the 5
+     * - 3 or 4 fifth from the 5
      *
      * @return set of drawn numbers
      */
