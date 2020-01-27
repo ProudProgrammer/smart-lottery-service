@@ -1,10 +1,13 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DefaultLotteryNumberGeneratorStrategyTest {
 
@@ -19,10 +22,12 @@ class DefaultLotteryNumberGeneratorStrategyTest {
     void testGenerateShouldThrowExceptionWhenQuantityLargerThenPoolSize() {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        int quantity = 10;
+        int poolSize = 9;
 
         // WHEN
         // THEN
-        Assertions.assertThrows(expectedExceptionClass, () -> underTest.generate(10, 9));
+        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize));
     }
 
     @Test
@@ -36,7 +41,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
         var result = underTest.generate(5, 90);
 
         // THEN
-        Assertions.assertEquals(expectedResultSize, result.size());
+        assertEquals(expectedResultSize, result.size());
         result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 
@@ -51,7 +56,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
         var result = underTest.generate(6, 45);
 
         // THEN
-        Assertions.assertEquals(expectedResultSize, result.size());
+        assertEquals(expectedResultSize, result.size());
         result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 
@@ -66,7 +71,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
         var result = underTest.generate(7, 35);
 
         // THEN
-        Assertions.assertEquals(expectedResultSize, result.size());
+        assertEquals(expectedResultSize, result.size());
         result.forEach(number -> Assertions.assertTrue(number > lowerLimit && number <= upperLimit));
     }
 }

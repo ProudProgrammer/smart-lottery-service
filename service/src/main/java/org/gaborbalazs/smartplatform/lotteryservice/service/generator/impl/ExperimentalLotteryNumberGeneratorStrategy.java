@@ -1,9 +1,11 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.SortedSet;
@@ -16,9 +18,11 @@ import java.util.TreeSet;
 public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumberGeneratorStrategy {
 
     private final Random random;
+    private final PartitionService partitionService;
 
-    ExperimentalLotteryNumberGeneratorStrategy(Random threadLocalRandom) {
+    ExperimentalLotteryNumberGeneratorStrategy(Random threadLocalRandom, PartitionService partitionService) {
         this.random = threadLocalRandom;
+        this.partitionService = partitionService;
     }
 
     @Override
@@ -39,11 +43,14 @@ public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumber
     /**
      * Improve odds (5/90):
      * - 2 or 3 even numbers from the 5
-     * - 3 or 4 fifth from the 5
+     * - 3 or 4 partition from the 5
      *
      * @return set of drawn numbers
      */
     private SortedSet<Integer> generate5from90() {
+        int evenNumbers = random.nextBoolean() ? 2 : 3;
+        int usedPartitions = random.nextBoolean() ? 3 : 4;
+        List<Partition> partitions = partitionService.createPartitions(usedPartitions, 5, 90);
         return new TreeSet<>(Set.of(1, 2, 3, 4, 5));
     }
 

@@ -2,8 +2,8 @@
 <configuration>
     <property name="ENCODER_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] [%X{consumerName}] [%X{requestId}] %logger{36} : %msg%n"/>
-    <property name="LOG_FILE" value="target/logs/lottery-service.log"/>
-    <property name="LOG_FILE_NAME_PREFIX" value="target/logs/lottery-service"/>
+    <property name="LOG_FILE" value="logs/lottery-service.log"/>
+    <property name="LOG_FILE_NAME_PREFIX" value="logs/lottery-service"/>
 
     <appender name="SMART_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

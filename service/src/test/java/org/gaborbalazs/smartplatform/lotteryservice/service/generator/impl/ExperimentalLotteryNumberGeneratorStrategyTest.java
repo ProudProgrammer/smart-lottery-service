@@ -1,8 +1,11 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,16 +14,15 @@ import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 class ExperimentalLotteryNumberGeneratorStrategyTest {
 
     private ExperimentalLotteryNumberGeneratorStrategy underTest;
+    private PartitionService partitionService;
 
     private static Stream<Arguments> provideUsedFifthsAndSortedSetAsDrawnNumbers() {
         return Stream.of(
@@ -36,12 +38,14 @@ class ExperimentalLotteryNumberGeneratorStrategyTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new ExperimentalLotteryNumberGeneratorStrategy(ThreadLocalRandom.current());
+        partitionService = mock(PartitionService.class);
+        underTest = new ExperimentalLotteryNumberGeneratorStrategy(ThreadLocalRandom.current(), partitionService);
     }
 
     /**
      * Test method to check unit test works well.
-     * @param sortedSet is the drawn numbers
+     *
+     * @param sortedSet          is the drawn numbers
      * @param expectedUsedFifths is the expected value
      */
     @ParameterizedTest
@@ -59,20 +63,24 @@ class ExperimentalLotteryNumberGeneratorStrategyTest {
     void testGenerateShouldThrowExceptionWhenQuantityLargerThenPoolSize() {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        int quantity = 10;
+        int poolSize = 9;
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generate(10, 9));
+        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize));
     }
 
     @Test
     void testGenerateShouldThrowExceptionWhenQuantityIsNot5AndPoolSizeIsNot90() {
         // GIVEN
         Class<UnsupportedOperationException> expectedExceptionClass = UnsupportedOperationException.class;
+        int quantity = 6;
+        int poolSize = 45;
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generate(6, 45));
+        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize));
     }
 
     @Test
