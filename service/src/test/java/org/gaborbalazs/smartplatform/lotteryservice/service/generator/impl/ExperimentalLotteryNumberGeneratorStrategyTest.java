@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 class ExperimentalLotteryNumberGeneratorStrategyTest {
 
     private ExperimentalLotteryNumberGeneratorStrategy underTest;
-    private PartitionService partitionService;
+    private PartitionGeneratorService partitionGeneratorService;
 
     private static Stream<Arguments> provideUsedFifthsAndSortedSetAsDrawnNumbers() {
         return Stream.of(
@@ -38,8 +38,8 @@ class ExperimentalLotteryNumberGeneratorStrategyTest {
 
     @BeforeEach
     void setUp() {
-        partitionService = mock(PartitionService.class);
-        underTest = new ExperimentalLotteryNumberGeneratorStrategy(ThreadLocalRandom.current(), partitionService);
+        partitionGeneratorService = mock(PartitionGeneratorService.class);
+        underTest = new ExperimentalLotteryNumberGeneratorStrategy(ThreadLocalRandom.current(), partitionGeneratorService);
     }
 
     /**

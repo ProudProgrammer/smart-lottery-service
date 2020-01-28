@@ -1,17 +1,22 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+class PartitionGeneratorServiceTest {
 
-class PartitionServiceTest {
-
-    private PartitionService underTest;
+    private PartitionGeneratorService underTest;
+    private NumberGeneratorService numberGeneratorService;
 
     @BeforeEach
     void setUp() {
-        underTest = new PartitionService();
+        numberGeneratorService = mock(NumberGeneratorService.class);
+        underTest = new PartitionGeneratorService(ThreadLocalRandom.current(), numberGeneratorService);
     }
 
     @Test
@@ -24,7 +29,7 @@ class PartitionServiceTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.createPartitions(usedPartitions, numberOfPartitions, setOfNumbers));
+        assertThrows(expectedExceptionClass, () -> underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers));
     }
 
     @Test
@@ -37,7 +42,7 @@ class PartitionServiceTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.createPartitions(usedPartitions, numberOfPartitions, setOfNumbers));
+        assertThrows(expectedExceptionClass, () -> underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers));
     }
 
     @Test
@@ -50,6 +55,6 @@ class PartitionServiceTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.createPartitions(usedPartitions, numberOfPartitions, setOfNumbers));
+        assertThrows(expectedExceptionClass, () -> underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers));
     }
 }

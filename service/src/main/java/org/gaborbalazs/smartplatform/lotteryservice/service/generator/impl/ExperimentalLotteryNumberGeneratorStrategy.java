@@ -18,11 +18,11 @@ import java.util.TreeSet;
 public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumberGeneratorStrategy {
 
     private final Random random;
-    private final PartitionService partitionService;
+    private final PartitionGeneratorService partitionGeneratorService;
 
-    ExperimentalLotteryNumberGeneratorStrategy(Random threadLocalRandom, PartitionService partitionService) {
+    ExperimentalLotteryNumberGeneratorStrategy(Random threadLocalRandom, PartitionGeneratorService partitionGeneratorService) {
         this.random = threadLocalRandom;
-        this.partitionService = partitionService;
+        this.partitionGeneratorService = partitionGeneratorService;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumber
     private SortedSet<Integer> generate5from90() {
         int evenNumbers = random.nextBoolean() ? 2 : 3;
         int usedPartitions = random.nextBoolean() ? 3 : 4;
-        List<Partition> partitions = partitionService.createPartitions(usedPartitions, 5, 90);
+        List<Partition> partitions = partitionGeneratorService.generatePartitions(usedPartitions, 5, 90);
         return new TreeSet<>(Set.of(1, 2, 3, 4, 5));
     }
 
