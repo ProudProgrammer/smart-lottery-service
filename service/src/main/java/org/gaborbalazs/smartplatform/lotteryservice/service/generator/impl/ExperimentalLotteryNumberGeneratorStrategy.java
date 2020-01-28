@@ -51,6 +51,7 @@ public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumber
         int evenNumbers = random.nextBoolean() ? 2 : 3;
         int usedPartitions = random.nextBoolean() ? 3 : 4;
         List<Partition> partitions = partitionGeneratorService.generatePartitions(usedPartitions, 5, 90);
+        // TODO
         return new TreeSet<>(Set.of(1, 2, 3, 4, 5));
     }
 
