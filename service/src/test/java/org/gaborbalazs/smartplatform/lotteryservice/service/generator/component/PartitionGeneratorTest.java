@@ -1,24 +1,24 @@
-package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.ThreadLocalRandom;
+package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-class PartitionGeneratorServiceTest {
+import java.util.concurrent.ThreadLocalRandom;
 
-    private PartitionGeneratorService underTest;
-    private NumberGeneratorService numberGeneratorService;
-    private FormationGeneratorService formationGeneratorService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class PartitionGeneratorTest {
+
+    private PartitionGenerator underTest;
+    private NumberGenerator numberGenerator;
+    private FormationGenerator formationGenerator;
 
     @BeforeEach
     void setUp() {
-        numberGeneratorService = mock(NumberGeneratorService.class);
-        formationGeneratorService = mock(FormationGeneratorService.class);
-        underTest = new PartitionGeneratorService(ThreadLocalRandom.current(), numberGeneratorService, formationGeneratorService);
+        numberGenerator = mock(NumberGenerator.class);
+        formationGenerator = mock(FormationGenerator.class);
+        underTest = new PartitionGenerator(ThreadLocalRandom.current(), numberGenerator, formationGenerator);
     }
 
     @Test

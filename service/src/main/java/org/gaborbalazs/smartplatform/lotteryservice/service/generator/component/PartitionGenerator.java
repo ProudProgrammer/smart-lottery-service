@@ -1,7 +1,4 @@
-package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
-
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
-import org.springframework.stereotype.Component;
+package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -9,17 +6,22 @@ import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.FormationGenerator;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.NumberGenerator;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
+import org.springframework.stereotype.Component;
+
 @Component
-public class PartitionGeneratorService {
+public class PartitionGenerator {
 
     private final Random random;
-    private final NumberGeneratorService numberGeneratorService;
-    private final FormationGeneratorService formationGeneratorService;
+    private final NumberGenerator numberGenerator;
+    private final FormationGenerator formationGenerator;
 
-    PartitionGeneratorService(Random threadLocalRandom, NumberGeneratorService numberGeneratorService, FormationGeneratorService formationGeneratorService) {
+    PartitionGenerator(Random threadLocalRandom, NumberGenerator numberGenerator, FormationGenerator formationGenerator) {
         this.random = threadLocalRandom;
-        this.numberGeneratorService = numberGeneratorService;
-        this.formationGeneratorService = formationGeneratorService;
+        this.numberGenerator = numberGenerator;
+        this.formationGenerator = formationGenerator;
     }
 
     /**
@@ -34,8 +36,8 @@ public class PartitionGeneratorService {
     public List<Partition> generatePartitions(int usedPartitions, int numberOfPartitions, int setOfNumbers) throws IllegalArgumentException {
         validate(usedPartitions, numberOfPartitions, setOfNumbers);
         List<Partition> partitions = new ArrayList<>();
-        List<Integer> formation = formationGeneratorService.generateFormation(usedPartitions, numberOfPartitions);
-        SortedSet<Integer> chosenPartitions = numberGeneratorService.generate(usedPartitions, numberOfPartitions);
+        List<Integer> formation = formationGenerator.generateFormation(usedPartitions, numberOfPartitions);
+        SortedSet<Integer> chosenPartitions = numberGenerator.generate(usedPartitions, numberOfPartitions);
         int range = setOfNumbers / numberOfPartitions;
         int pointer = 0;
         int occurrence = 0;

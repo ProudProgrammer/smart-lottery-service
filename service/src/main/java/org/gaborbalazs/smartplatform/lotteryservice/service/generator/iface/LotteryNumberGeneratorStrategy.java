@@ -2,6 +2,9 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface;
 
 import java.util.SortedSet;
 
+/**
+ * Strategy for lottery number generation, for example default, experimental.
+ */
 public interface LotteryNumberGeneratorStrategy {
 
     /**

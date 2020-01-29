@@ -1,4 +1,4 @@
-package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
+package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -11,14 +11,22 @@ import java.util.TreeSet;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NumberGeneratorService {
+public class NumberGenerator {
 
     private final Random random;
 
-    NumberGeneratorService(Random threadLocalRandom) {
+    NumberGenerator(Random threadLocalRandom) {
         this.random = threadLocalRandom;
     }
 
+    /**
+     * Number generator method based on quantity and pool size.
+     *
+     * @param quantity is the number of drawn numbers
+     * @param poolSize is the pool of numbers
+     * @return the drawn numbers
+     * @throws IllegalArgumentException when quantity is larger or equals than pool size
+     */
     public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException {
         validate(quantity, poolSize);
         SortedSet<Integer> result = new TreeSet<>();

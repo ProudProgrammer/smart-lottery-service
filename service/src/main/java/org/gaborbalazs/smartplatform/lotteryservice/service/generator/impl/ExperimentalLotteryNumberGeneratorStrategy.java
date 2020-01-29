@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.PartitionGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,11 @@ import java.util.TreeSet;
 public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumberGeneratorStrategy {
 
     private final Random random;
-    private final PartitionGeneratorService partitionGeneratorService;
+    private final PartitionGenerator partitionGenerator;
 
-    ExperimentalLotteryNumberGeneratorStrategy(Random threadLocalRandom, PartitionGeneratorService partitionGeneratorService) {
+    ExperimentalLotteryNumberGeneratorStrategy(Random threadLocalRandom, PartitionGenerator partitionGenerator) {
         this.random = threadLocalRandom;
-        this.partitionGeneratorService = partitionGeneratorService;
+        this.partitionGenerator = partitionGenerator;
     }
 
     @Override
@@ -50,7 +51,7 @@ public class ExperimentalLotteryNumberGeneratorStrategy implements LotteryNumber
     private SortedSet<Integer> generate5from90() {
         int evenNumbers = random.nextBoolean() ? 2 : 3;
         int usedPartitions = random.nextBoolean() ? 3 : 4;
-        List<Partition> partitions = partitionGeneratorService.generatePartitions(usedPartitions, 5, 90);
+        List<Partition> partitions = partitionGenerator.generatePartitions(usedPartitions, 5, 90);
         // TODO
         return new TreeSet<>(Set.of(1, 2, 3, 4, 5));
     }

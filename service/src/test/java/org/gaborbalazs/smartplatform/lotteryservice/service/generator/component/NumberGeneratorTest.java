@@ -1,21 +1,21 @@
-package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
+package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.ThreadLocalRandom;
+class NumberGeneratorTest {
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-class DefaultLotteryNumberGeneratorStrategyTest {
-
-    private DefaultLotteryNumberGeneratorStrategy underTest;
+    private NumberGenerator underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new DefaultLotteryNumberGeneratorStrategy(ThreadLocalRandom.current());
+        underTest = new NumberGenerator(ThreadLocalRandom.current());
     }
 
     @Test
@@ -31,7 +31,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
     }
 
     @Test
-    void testGenerateShouldReturn5ElementWhenQuantity5() {
+    void testGenerateShouldReturn5ElementWhenQuantity5AndPoolSize90() {
         // GIVEN
         int expectedResultSize = 5;
         int lowerLimit = 0;
@@ -46,7 +46,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
     }
 
     @Test
-    void testGenerateShouldReturn6ElementWhenQuantity6() {
+    void testGenerateShouldReturn6ElementWhenQuantity6AndPoolSize45() {
         // GIVEN
         int expectedResultSize = 6;
         int lowerLimit = 0;
@@ -61,7 +61,7 @@ class DefaultLotteryNumberGeneratorStrategyTest {
     }
 
     @Test
-    void testGenerateShouldReturn7ElementWhenQuantity7() {
+    void testGenerateShouldReturn7ElementWhenQuantity7AndPoolSize35() {
         // GIVEN
         int expectedResultSize = 7;
         int lowerLimit = 0;

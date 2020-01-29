@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.PartitionGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-class ExperimentalLotteryNumberGeneratorStrategyTest {
+class ExperimentalLotteryNumberGeneratorDelegatorStrategyTest {
 
     private ExperimentalLotteryNumberGeneratorStrategy underTest;
-    private PartitionGeneratorService partitionGeneratorService;
+    private PartitionGenerator partitionGenerator;
 
     private static Stream<Arguments> provideUsedFifthsAndSortedSetAsDrawnNumbers() {
         return Stream.of(
@@ -38,8 +39,8 @@ class ExperimentalLotteryNumberGeneratorStrategyTest {
 
     @BeforeEach
     void setUp() {
-        partitionGeneratorService = mock(PartitionGeneratorService.class);
-        underTest = new ExperimentalLotteryNumberGeneratorStrategy(ThreadLocalRandom.current(), partitionGeneratorService);
+        partitionGenerator = mock(PartitionGenerator.class);
+        underTest = new ExperimentalLotteryNumberGeneratorStrategy(ThreadLocalRandom.current(), partitionGenerator);
     }
 
     /**

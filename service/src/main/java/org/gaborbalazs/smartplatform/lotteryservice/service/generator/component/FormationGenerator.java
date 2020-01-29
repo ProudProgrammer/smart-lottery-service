@@ -1,18 +1,18 @@
-package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
-
-import org.springframework.stereotype.Component;
+package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.stereotype.Component;
+
 @Component
-public class FormationGeneratorService {
+class FormationGenerator {
 
     private final Random random;
 
-    FormationGeneratorService(Random threadLocalRandom) {
+    FormationGenerator(Random threadLocalRandom) {
         this.random = threadLocalRandom;
     }
 
@@ -24,7 +24,7 @@ public class FormationGeneratorService {
      * @return a list of numbers as formation
      * @throws IllegalArgumentException when used partitions is larger or equals than number of partitions
      */
-    public List<Integer> generateFormation(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
+    List<Integer> generateFormation(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
         validate(usedPartitions, numberOfPartitions);
         List<Integer> formation = new ArrayList<>();
         int availableDistributablePoints = numberOfPartitions;
@@ -44,7 +44,8 @@ public class FormationGeneratorService {
 
     private void validate(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
         if (numberOfPartitions <= usedPartitions) {
-            String msg = MessageFormat.format("Number of partitions must be larger than used partitions. Number of partitions: {0}, Used partitions: {1}", numberOfPartitions, usedPartitions);
+            String msg = MessageFormat
+                    .format("Number of partitions must be larger than used partitions. Number of partitions: {0}, Used partitions: {1}", numberOfPartitions, usedPartitions);
             throw new IllegalArgumentException(msg);
         }
     }
