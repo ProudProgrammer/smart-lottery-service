@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jayway.jsonpath.DocumentContext;
 
-class DefaultLotteryNumberGeneratorDelegatorStrategyTest extends TestBase {
+class LotteryNumberGeneratorTest extends TestBase {
 
     @Test
     void testFiveOutOfNinetyShouldReturnFiveNumbersWhenCalled() throws Exception {

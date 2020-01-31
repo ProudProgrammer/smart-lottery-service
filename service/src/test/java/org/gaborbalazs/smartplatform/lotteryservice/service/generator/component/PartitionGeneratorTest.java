@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
 class PartitionGeneratorTest {
 
     private PartitionGenerator underTest;
-    private NumberGenerator numberGenerator;
+    private SimpleNumberGenerator simpleNumberGenerator;
     private FormationGenerator formationGenerator;
 
     @BeforeEach
     void setUp() {
-        numberGenerator = mock(NumberGenerator.class);
+        simpleNumberGenerator = mock(SimpleNumberGenerator.class);
         formationGenerator = mock(FormationGenerator.class);
-        underTest = new PartitionGenerator(ThreadLocalRandom.current(), numberGenerator, formationGenerator);
+        underTest = new PartitionGenerator(ThreadLocalRandom.current(), simpleNumberGenerator, formationGenerator);
     }
 
     @Test

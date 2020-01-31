@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class LotteryNumberGeneratorControllerTest {
+class LotterySimpleNumberGeneratorControllerTest {
 
     @InjectMocks
     private LotteryNumberGeneratorController underTest;
