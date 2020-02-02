@@ -33,7 +33,7 @@ class FormationGeneratorTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generateFormation(usedPartitions, numberOfPartitions));
+        assertThrows(expectedExceptionClass, () -> underTest.generate(usedPartitions, numberOfPartitions));
     }
 
     @Test
@@ -45,7 +45,7 @@ class FormationGeneratorTest {
         when(random.nextInt(3)).thenReturn(2);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -64,7 +64,7 @@ class FormationGeneratorTest {
         when(random.nextInt(3)).thenReturn(0).thenReturn(2);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -83,7 +83,7 @@ class FormationGeneratorTest {
         when(random.nextInt(3)).thenReturn(0).thenReturn(0);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -103,7 +103,7 @@ class FormationGeneratorTest {
         when(random.nextInt(2)).thenReturn(1);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -123,7 +123,7 @@ class FormationGeneratorTest {
         when(random.nextInt(2)).thenReturn(0);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -142,7 +142,7 @@ class FormationGeneratorTest {
         when(random.nextInt(3)).thenReturn(0).thenReturn(1);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -161,7 +161,7 @@ class FormationGeneratorTest {
         when(random.nextInt(4)).thenReturn(3);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());
@@ -179,7 +179,7 @@ class FormationGeneratorTest {
         when(random.nextInt(4)).thenReturn(0);
 
         // WHEN
-        var result = underTest.generateFormation(usedPartitions, numberOfPartitions);
+        var result = underTest.generate(usedPartitions, numberOfPartitions);
 
         // THEN
         assertEquals(usedPartitions, result.size());

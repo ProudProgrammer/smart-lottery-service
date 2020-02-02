@@ -26,7 +26,7 @@ class FormationGenerator {
      * @throws IllegalArgumentException if used partitions is larger or equals than number of partitions
      * @throws IllegalArgumentException if used partitions is smaller or equals then 1
      */
-    List<Integer> generateFormation(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
+    List<Integer> generate(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
         validate(usedPartitions, numberOfPartitions);
         List<Integer> formation = new ArrayList<>();
         int availableDistributablePoints = numberOfPartitions;

@@ -16,18 +16,20 @@ public class PartitionGenerator {
     private final Random random;
     private final SimpleNumberGenerator simpleNumberGenerator;
     private final FormationGenerator formationGenerator;
+    private final ListShuffler listShuffler;
 
-    PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator) {
+    PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler) {
         this.random = threadLocalRandom;
         this.simpleNumberGenerator = simpleNumberGenerator;
         this.formationGenerator = formationGenerator;
+        this.listShuffler = listShuffler;
     }
 
     /**
      * Generate list of {@link Partition} with ranges and occurrence(s).
      * Example: Input: (3,5,90), Output: List{Partition{3,1,18}, Partition{1,19,36}, Partition{1,37,54}}.
-     * There are 3 partitions because of used partitions are 3. Sum of occurrences is 5 because of number of partitions are 5.
-     * The range is 18 because of set of numbers (90) divided with number of partitions (5) is 18.
+     * There are 3 partitions because of used partitions are 3. Sum of occurrences is 5 as number of partitions are 5.
+     * The range is 18 as set of numbers (90) divided by number of partitions (5) is 18.
      *
      * @param usedPartitions     is the number of used partitions
      * @param numberOfPartitions is the number of partitions
@@ -53,16 +55,15 @@ public class PartitionGenerator {
             upperLimit = pointer;
             if (chosenPartitions.contains(i + 1)) {
                 occurrence = formation.remove(random.nextInt(formation.size()));
+                partitions.add(new Partition(occurrence, lowerLimit, upperLimit));
             }
-            partitions.add(new Partition(occurrence, lowerLimit, upperLimit));
         }
         return partitions;
     }
 
     private List<Integer> getFormation(int usedPartitions, int numberOfPartitions) {
-        List<Integer> formation = formationGenerator.generateFormation(usedPartitions, numberOfPartitions);
-        Collections.shuffle(formation, random);
-        return formation;
+        List<Integer> formation = formationGenerator.generate(usedPartitions, numberOfPartitions);
+        return listShuffler.shuffle(formation);
     }
 
     private void validate(int usedPartitions, int numberOfPartitions, int setOfNumbers) throws IllegalArgumentException {

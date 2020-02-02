@@ -17,10 +17,12 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
 
     private final Random random;
     private final PartitionGenerator partitionGenerator;
+    private final SimpleNumberGenerator simpleNumberGenerator;
 
-    ExperimentalFiveOutOfNinetyNumberGenerator(Random threadLocalRandom, PartitionGenerator partitionGenerator) {
+    ExperimentalFiveOutOfNinetyNumberGenerator(Random threadLocalRandom, PartitionGenerator partitionGenerator, SimpleNumberGenerator simpleNumberGenerator) {
         this.random = threadLocalRandom;
         this.partitionGenerator = partitionGenerator;
+        this.simpleNumberGenerator = simpleNumberGenerator;
     }
 
     /**
@@ -31,10 +33,11 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
      * @return set of drawn numbers
      */
     public SortedSet<Integer> generate() {
+        SortedSet<Integer> result = new TreeSet<>();
         int evenNumbers = random.nextBoolean() ? 2 : 3;
         int usedPartitions = random.nextBoolean() ? 3 : 4;
         List<Partition> partitions = partitionGenerator.generatePartitions(usedPartitions, 5, 90);
         // TODO
-        return new TreeSet<>(Set.of(1, 2, 3, 4, 5));
+        return result;
     }
 }
