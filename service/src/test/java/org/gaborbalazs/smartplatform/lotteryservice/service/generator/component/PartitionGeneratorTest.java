@@ -46,7 +46,7 @@ class PartitionGeneratorTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers));
+        assertThrows(expectedExceptionClass, () -> underTest.generate(usedPartitions, numberOfPartitions, setOfNumbers));
     }
 
     @Test
@@ -68,7 +68,7 @@ class PartitionGeneratorTest {
         when(random.nextInt(2)).thenReturn(0);
 
         // WHEN
-        var result = underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers);
+        var result = underTest.generate(usedPartitions, numberOfPartitions, setOfNumbers);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
@@ -96,7 +96,7 @@ class PartitionGeneratorTest {
         when(random.nextInt(2)).thenReturn(0);
 
         // WHEN
-        var result = underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers);
+        var result = underTest.generate(usedPartitions, numberOfPartitions, setOfNumbers);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
@@ -126,7 +126,7 @@ class PartitionGeneratorTest {
         when(random.nextInt(2)).thenReturn(0);
 
         // WHEN
-        var result = underTest.generatePartitions(usedPartitions, numberOfPartitions, setOfNumbers);
+        var result = underTest.generate(usedPartitions, numberOfPartitions, setOfNumbers);
 
         // THEN
         assertEquals(expectedResultSize, result.size());

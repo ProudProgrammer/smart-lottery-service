@@ -1,14 +1,13 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
-import org.springframework.stereotype.Component;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
+
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PartitionGenerator {
@@ -39,22 +38,19 @@ public class PartitionGenerator {
      * @throws IllegalArgumentException if used partitions are larger or equals than number of partitions
      * @throws IllegalArgumentException if set of numbers divided by number of partitions remainder is not 0
      */
-    public List<Partition> generatePartitions(int usedPartitions, int numberOfPartitions, int setOfNumbers) throws IllegalArgumentException {
+    public List<Partition> generate(int usedPartitions, int numberOfPartitions, int setOfNumbers) throws IllegalArgumentException {
         validate(usedPartitions, numberOfPartitions, setOfNumbers);
         List<Partition> partitions = new ArrayList<>();
         List<Integer> formation = getFormation(usedPartitions, numberOfPartitions);
         SortedSet<Integer> chosenPartitions = simpleNumberGenerator.generate(usedPartitions, numberOfPartitions);
         int range = setOfNumbers / numberOfPartitions;
         int pointer = 0;
-        int occurrence = 0;
-        int lowerLimit;
-        int upperLimit;
         for (int i = 0; i < numberOfPartitions; i++) {
-            lowerLimit = ++pointer;
+            int lowerLimit = ++pointer;
             pointer += range - 1;
-            upperLimit = pointer;
+            int upperLimit = pointer;
             if (chosenPartitions.contains(i + 1)) {
-                occurrence = formation.remove(random.nextInt(formation.size()));
+                int occurrence = formation.remove(random.nextInt(formation.size()));
                 partitions.add(new Partition(occurrence, lowerLimit, upperLimit));
             }
         }
