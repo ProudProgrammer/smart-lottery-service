@@ -24,7 +24,7 @@ class DefaultLotteryNumberGeneratorTest {
     private SimpleNumberGenerator simpleNumberGenerator;
 
     @Test
-    void generate() {
+    void testGenerate() {
         // GIVEN
         int quantity = 5;
         int poolSize = 90;

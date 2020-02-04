@@ -17,16 +17,14 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
     private final Random random;
     private final PartitionGenerator partitionGenerator;
     private final SimpleNumberGenerator simpleNumberGenerator;
-    private final EvenOddFilter evenOddFilter;
-    private final ListShuffler listShuffler;
+    private final EvenOddNumberGenerator evenOddNumberGenerator;
 
     ExperimentalFiveOutOfNinetyNumberGenerator(Random threadLocalRandom, PartitionGenerator partitionGenerator, SimpleNumberGenerator simpleNumberGenerator,
-            EvenOddFilter evenOddFilter, ListShuffler listShuffler) {
+            EvenOddNumberGenerator evenOddNumberGenerator) {
         this.random = threadLocalRandom;
         this.partitionGenerator = partitionGenerator;
         this.simpleNumberGenerator = simpleNumberGenerator;
-        this.evenOddFilter = evenOddFilter;
-        this.listShuffler = listShuffler;
+        this.evenOddNumberGenerator = evenOddNumberGenerator;
     }
 
     /**
@@ -55,17 +53,12 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
     }
 
     private int getProperChosenNumber(int chosenNumber, int numberOfPartitions, int evenNumbers, Partition partition, SortedSet<Integer> result) {
-        List<Integer> filteredNumbers = null;
+        int properChosenNumber = chosenNumber;
         if (numberOfPartitions == evenNumbers && chosenNumber % 2 != 0) {
-            filteredNumbers = evenOddFilter.getEvenNumbers(partition.getLowerLimit(), partition.getUpperLimit());
+            properChosenNumber = evenOddNumberGenerator.generateEvenNumber(partition.getLowerLimit(), partition.getUpperLimit(), result);
         } else if (evenNumbers == 0 && chosenNumber % 2 == 0) {
-            filteredNumbers = evenOddFilter.getOddNumbers(partition.getLowerLimit(), partition.getUpperLimit());
+            properChosenNumber = evenOddNumberGenerator.generateOddNumber(partition.getLowerLimit(), partition.getUpperLimit(), result);
         }
-        if (filteredNumbers != null) {
-            filteredNumbers.stream().filter(result::contains).forEach(filteredNumbers::remove);
-            filteredNumbers = listShuffler.shuffle(filteredNumbers);
-            chosenNumber = filteredNumbers.get(random.nextInt(filteredNumbers.size()));
-        }
-        return chosenNumber;
+        return properChosenNumber;
     }
 }

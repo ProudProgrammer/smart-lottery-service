@@ -53,7 +53,7 @@ class FormationGenerator {
             throw new IllegalArgumentException(msg);
         } else if (numberOfPartitions <= usedPartitions) {
             String msg = MessageFormat
-                    .format("Number of partitions must be larger than used partitions. Number of partitions: {0}, Used partitions: {1}", numberOfPartitions, usedPartitions);
+                    .format("Number of partitions must be larger than used partitions. Number of partitions: {0}, used partitions: {1}", numberOfPartitions, usedPartitions);
             throw new IllegalArgumentException(msg);
         }
     }
