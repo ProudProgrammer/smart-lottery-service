@@ -1,15 +1,15 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.concurrent.ThreadLocalRandom;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SimpleNumberGeneratorTest {
 
@@ -21,7 +21,7 @@ class SimpleNumberGeneratorTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"0,90", "5,0", "5,1001", "5,5", "6,5"})
+    @CsvSource( {"0,90", "5,0", "5,1001", "5,5", "6,5"})
     void testGenerateShouldThrowException(int quantity, int poolSize) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;

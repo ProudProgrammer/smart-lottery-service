@@ -1,32 +1,31 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.Mockito;
-
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+import java.util.Random;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
 class FormationGeneratorTest {
 
+    @InjectMocks
     private FormationGenerator underTest;
+
+    @Mock
     private Random random;
 
-    @BeforeEach
-    void setUp() {
-        random = Mockito.spy(ThreadLocalRandom.current());
-        underTest = new FormationGenerator(random);
-    }
-
     @ParameterizedTest
-    @CsvSource({"0,5", "1,5", "5,5", "6,5"})
+    @CsvSource( {"0,5", "1,5", "5,5", "6,5"})
     void generateFormationShouldThrowException(int usedPartitions, int numberOfPartitions) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;

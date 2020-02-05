@@ -1,18 +1,18 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.SimpleNumberGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DefaultLotteryNumberGeneratorTest {

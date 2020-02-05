@@ -1,6 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.text.MessageFormat;
@@ -12,6 +13,8 @@ import java.util.TreeSet;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -184,6 +187,17 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
 
         // THEN
         assertEquals(expectedResult, result);
+    }
+
+    @ParameterizedTest
+    @CsvSource( {"1,3", "2,5", "3,5", "1,1"})
+    void testUnitTestShouldThrowException(int evenNumbers, int usedPartitions) {
+        // GIVEN
+        Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+
+        // WHEN
+        // THEN
+        assertThrows(expectedExceptionClass, () -> setEvenNumbersAndUsedPartitions(evenNumbers, usedPartitions));
     }
 
     private void setEvenNumbersAndUsedPartitions(int evenNumbers, int usedPartitions) {
