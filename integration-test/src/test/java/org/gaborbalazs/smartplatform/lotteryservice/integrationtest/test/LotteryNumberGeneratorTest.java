@@ -2,6 +2,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.test;
 
 import java.util.List;
 
+import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base.LotteryNumberGeneratorTestBase;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.jayway.jsonpath.DocumentContext;
 
-class LotteryNumberGeneratorTest extends TestBase {
+class LotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
     @Test
     void testFiveOutOfNinetyShouldReturnFiveNumbersWhenCalled() throws Exception {
@@ -20,7 +21,7 @@ class LotteryNumberGeneratorTest extends TestBase {
         int expectedResponseListSize = 5;
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getRandomLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY));
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         List<Integer> response = documentContext.read("$", List.class);
@@ -36,7 +37,7 @@ class LotteryNumberGeneratorTest extends TestBase {
         int expectedResponseListSize = 6;
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getRandomLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE));
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         List<Integer> response = documentContext.read("$", List.class);
@@ -52,7 +53,7 @@ class LotteryNumberGeneratorTest extends TestBase {
         int expectedResponseListSize = 7;
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getRandomLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN));
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         List<Integer> response = documentContext.read("$", List.class);
@@ -60,9 +61,5 @@ class LotteryNumberGeneratorTest extends TestBase {
         // THEN
         Assertions.assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         Assertions.assertEquals(expectedResponseListSize, response.size());
-    }
-
-    private String getRandomLotteryNumberGeneratorUrl(LotteryType lotteryType) {
-        return "/lottery/" + lotteryType.getPathVariableName() + "/numbers/random";
     }
 }

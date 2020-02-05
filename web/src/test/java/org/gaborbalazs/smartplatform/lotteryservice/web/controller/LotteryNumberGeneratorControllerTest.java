@@ -16,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class LotterySimpleNumberGeneratorControllerTest {
+class LotteryNumberGeneratorControllerTest {
 
     @InjectMocks
     private LotteryNumberGeneratorController underTest;
@@ -30,18 +30,33 @@ class LotterySimpleNumberGeneratorControllerTest {
     }
 
     @Test
-    void generate() {
+    void testGenerateWithLotteryType() {
         // GIVEN
         SortedSet<Integer> expectedResult = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        LotteryType testLotteryType = LotteryType.FIVE_OUT_OF_NINETY;
-        GeneratorType testGeneratorType = GeneratorType.DEFAULT;
-        when(lotteryNumberGenerator.generate(testLotteryType, testGeneratorType)).thenReturn(expectedResult);
+        LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
+        GeneratorType generatorType = GeneratorType.DEFAULT;
+        when(lotteryNumberGenerator.generate(lotteryType, generatorType)).thenReturn(expectedResult);
 
         // WHEN
-        var result = underTest.generate(testLotteryType, testGeneratorType);
+        var result = underTest.generate(lotteryType, generatorType);
 
         // THEN
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void testGenerateWithQuantityAndPoolSize() {
+        // GIVEN
+        SortedSet<Integer> expectedResult = new TreeSet<>(List.of(1, 2, 3, 4, 5, 6));
+        int quantity = 6;
+        int poolSize = 59;
+        GeneratorType generatorType = GeneratorType.DEFAULT;
+        when(lotteryNumberGenerator.generate(quantity, poolSize, generatorType)).thenReturn(expectedResult);
+
+        // WHEN
+        var result = underTest.generate(quantity, poolSize, generatorType);
+
+        // THEN
+        assertEquals(expectedResult, result);
+    }
 }

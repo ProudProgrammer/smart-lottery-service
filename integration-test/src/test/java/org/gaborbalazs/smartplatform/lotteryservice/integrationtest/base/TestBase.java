@@ -1,4 +1,4 @@
-package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.test;
+package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base;
 
 import java.io.UnsupportedEncodingException;
 
@@ -26,9 +26,9 @@ import com.jayway.jsonpath.Option;
 class TestBase {
 
     @Autowired
-    MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
-    DocumentContext getResponseAsJsonParser(MvcResult mvcResult) {
+    protected DocumentContext getResponseAsJsonParser(MvcResult mvcResult) {
         MockHttpServletResponse response = mvcResult.getResponse();
         Assertions.assertNotNull(response);
         String content = null;
