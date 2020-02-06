@@ -2,6 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
 import java.util.SortedSet;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
@@ -16,20 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
 
-    private final LotteryNumberGenerator lotteryNumberGenerator;
+    private static final String GENERATOR_TYPE = "Generator-Type";
 
-    LotteryNumberGeneratorController(LotteryNumberGenerator lotteryNumberGenerator) {
+    private final LotteryNumberGenerator lotteryNumberGenerator;
+    private final HttpServletResponse httpServletResponse;
+
+    LotteryNumberGeneratorController(LotteryNumberGenerator lotteryNumberGenerator, HttpServletResponse httpServletResponse) {
         this.lotteryNumberGenerator = lotteryNumberGenerator;
+        this.httpServletResponse = httpServletResponse;
     }
 
     @Override
     public SortedSet<Integer> generate(LotteryType lotteryType, GeneratorType generatorType) {
+        setResponseHeaders(generatorType);
         return lotteryNumberGenerator.generate(lotteryType, generatorType);
     }
 
     @Override
     public SortedSet<Integer> generate(int quantity, int poolSize, GeneratorType generatorType) {
+        setResponseHeaders(generatorType);
         return lotteryNumberGenerator.generate(quantity, poolSize, generatorType);
+    }
+
+    private void setResponseHeaders(GeneratorType generatorType) {
+        httpServletResponse.addHeader(GENERATOR_TYPE, generatorType.getValue());
     }
 
     @InitBinder

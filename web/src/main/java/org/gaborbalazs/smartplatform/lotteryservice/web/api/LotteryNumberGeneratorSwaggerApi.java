@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiResponses;
 @ApiModel(value = "Lottery Number Generator", description = "Endpoints for generating lottery number")
 public interface LotteryNumberGeneratorSwaggerApi {
 
-    @ApiOperation("Generate a set of random lottery numbers based on lottery type")
+    @ApiOperation("Generate a set of lottery numbers based on lottery type")
     @ApiImplicitParams( {
             @ApiImplicitParam(name = "Consumer-Name", value = "Name of the consumer", paramType = "header", defaultValue = "Swagger"),
             @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000")})
@@ -29,7 +29,7 @@ public interface LotteryNumberGeneratorSwaggerApi {
             @ApiParam(value = "Lottery type", required = true, allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian") LotteryType lotteryType,
             @ApiParam(value = "Generator type", allowableValues = "default,experimental") GeneratorType generatorType);
 
-    @ApiOperation("Generate a set of random lottery numbers based on quantity and pool size")
+    @ApiOperation("Generate a set of lottery numbers based on quantity and pool size")
     @ApiImplicitParams( {
             @ApiImplicitParam(name = "Consumer-Name", value = "Name of the consumer", paramType = "header", defaultValue = "Swagger"),
             @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000")})
