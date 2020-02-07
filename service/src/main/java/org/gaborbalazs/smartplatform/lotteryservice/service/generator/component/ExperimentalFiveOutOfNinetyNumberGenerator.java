@@ -6,6 +6,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,13 +15,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExperimentalFiveOutOfNinetyNumberGenerator {
 
+    private final Logger logger;
     private final Random random;
     private final PartitionGenerator partitionGenerator;
     private final SimpleNumberGenerator simpleNumberGenerator;
     private final EvenOddNumberGenerator evenOddNumberGenerator;
 
-    ExperimentalFiveOutOfNinetyNumberGenerator(Random threadLocalRandom, PartitionGenerator partitionGenerator, SimpleNumberGenerator simpleNumberGenerator,
+    ExperimentalFiveOutOfNinetyNumberGenerator(Logger logger, Random threadLocalRandom, PartitionGenerator partitionGenerator, SimpleNumberGenerator simpleNumberGenerator,
             EvenOddNumberGenerator evenOddNumberGenerator) {
+        this.logger = logger;
         this.random = threadLocalRandom;
         this.partitionGenerator = partitionGenerator;
         this.simpleNumberGenerator = simpleNumberGenerator;
@@ -36,8 +39,8 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
      */
     public SortedSet<Integer> generate() {
         SortedSet<Integer> result = new TreeSet<>();
-        int evenNumbers = random.nextBoolean() ? 2 : 3;
-        int usedPartitions = random.nextBoolean() ? 3 : 4;
+        int evenNumbers = generateEvenNumbers();
+        int usedPartitions = generateUsedPartitions();
         int numberOfPartitions = 5;
         List<Partition> partitions = partitionGenerator.generate(usedPartitions, numberOfPartitions, 90);
         for (Partition partition : partitions) {
@@ -52,11 +55,23 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
         return result;
     }
 
+    private int generateEvenNumbers() {
+        int evenNumbers = random.nextBoolean() ? 2 : 3;
+        logger.debug("Even numbers should be: {}.", evenNumbers);
+        return evenNumbers;
+    }
+
+    private int generateUsedPartitions() {
+        int usedPartitions = random.nextBoolean() ? 3 : 4;
+        logger.debug("Used partitions should be: {}.", usedPartitions);
+        return usedPartitions;
+    }
+
     private int getProperChosenNumber(int chosenNumber, int numberOfPartitions, int evenNumbers, Partition partition, SortedSet<Integer> result) {
         int properChosenNumber = chosenNumber;
-        if (numberOfPartitions == evenNumbers && chosenNumber % 2 != 0) {
+        if (numberOfPartitions == evenNumbers && (chosenNumber % 2 != 0 || result.contains(chosenNumber))) {
             properChosenNumber = evenOddNumberGenerator.generateEvenNumber(partition.getLowerLimit(), partition.getUpperLimit(), result);
-        } else if (evenNumbers == 0 && chosenNumber % 2 == 0) {
+        } else if (evenNumbers == 0 && (chosenNumber % 2 == 0 || result.contains(chosenNumber))) {
             properChosenNumber = evenOddNumberGenerator.generateOddNumber(partition.getLowerLimit(), partition.getUpperLimit(), result);
         }
         return properChosenNumber;

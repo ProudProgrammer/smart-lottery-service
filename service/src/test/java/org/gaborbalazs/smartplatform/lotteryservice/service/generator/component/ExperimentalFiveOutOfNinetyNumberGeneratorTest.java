@@ -2,6 +2,10 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.text.MessageFormat;
@@ -18,6 +22,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
 @ExtendWith(MockitoExtension.class)
 class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
@@ -27,6 +32,9 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
 
     @InjectMocks
     private ExperimentalFiveOutOfNinetyNumberGenerator underTest;
+
+    @Mock
+    private Logger logger;
 
     @Mock
     private Random random;
@@ -60,6 +68,7 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
         var result = underTest.generate();
 
         // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
         assertEquals(expectedResult, result);
     }
 
@@ -83,6 +92,7 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
         var result = underTest.generate();
 
         // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
         assertEquals(expectedResult, result);
     }
 
@@ -106,6 +116,7 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
         var result = underTest.generate();
 
         // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
         assertEquals(expectedResult, result);
     }
 
@@ -131,6 +142,7 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
         var result = underTest.generate();
 
         // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
         assertEquals(expectedResult, result);
     }
 
@@ -159,6 +171,7 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
         var result = underTest.generate();
 
         // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
         assertEquals(expectedResult, result);
     }
 
@@ -186,6 +199,59 @@ class ExperimentalFiveOutOfNinetyNumberGeneratorTest {
         var result = underTest.generate();
 
         // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void testGenerateShouldReturnSetOf3EvenAnd2OddNumbersFrom3PartitionsWith122FormationWhenEvenNumbers3AndUsedPartitions3AndNeedEvenCorrectionWithEvenNumberCollision() {
+        // GIVEN
+        int evenNumbers = 3;
+        int usedPartitions = 3;
+        SortedSet<Integer> expectedResult = new TreeSet<>(List.of(36, 41, 53, 66, 68));
+        List<Partition> expectedPartitions = List.of(
+                new Partition(1, 19, 36),
+                new Partition(2, 37, 54),
+                new Partition(2, 55, 72));
+        setEvenNumbersAndUsedPartitions(evenNumbers, usedPartitions);
+        when(partitionGenerator.generate(usedPartitions, NUMBER_OF_PARTITIONS, SET_OF_NUMBERS)).thenReturn(expectedPartitions);
+        when(simpleNumberGenerator.generate(1, 19, 36)).thenReturn(new TreeSet<>(List.of(36)));
+        when(simpleNumberGenerator.generate(2, 37, 54)).thenReturn(new TreeSet<>(List.of(41, 53)));
+        when(simpleNumberGenerator.generate(2, 55, 72)).thenReturn(new TreeSet<>(List.of(59, 66)));
+        when(evenOddNumberGenerator.generateEvenNumber(55, 72, new TreeSet<>(List.of(36, 41, 53)))).thenReturn(66);
+        when(evenOddNumberGenerator.generateEvenNumber(55, 72, new TreeSet<>(List.of(36, 41, 53, 66)))).thenReturn(68);
+
+        // WHEN
+        var result = underTest.generate();
+
+        // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void testGenerateShouldReturnSetOf2EvenAnd3OddNumbersFrom3PartitionsWith122FormationWhenEvenNumbers2AndUsedPartitions3AndNeedOddCorrectionWithOddNumberCollision() {
+        // GIVEN
+        int evenNumbers = 2;
+        int usedPartitions = 3;
+        SortedSet<Integer> expectedResult = new TreeSet<>(List.of(35, 42, 54, 67, 69));
+        List<Partition> expectedPartitions = List.of(
+                new Partition(1, 19, 36),
+                new Partition(2, 37, 54),
+                new Partition(2, 55, 72));
+        setEvenNumbersAndUsedPartitions(evenNumbers, usedPartitions);
+        when(partitionGenerator.generate(usedPartitions, NUMBER_OF_PARTITIONS, SET_OF_NUMBERS)).thenReturn(expectedPartitions);
+        when(simpleNumberGenerator.generate(1, 19, 36)).thenReturn(new TreeSet<>(List.of(35)));
+        when(simpleNumberGenerator.generate(2, 37, 54)).thenReturn(new TreeSet<>(List.of(42, 54)));
+        when(simpleNumberGenerator.generate(2, 55, 72)).thenReturn(new TreeSet<>(List.of(58, 67)));
+        when(evenOddNumberGenerator.generateOddNumber(55, 72, new TreeSet<>(List.of(35, 42, 54)))).thenReturn(67);
+        when(evenOddNumberGenerator.generateOddNumber(55, 72, new TreeSet<>(List.of(35, 42, 54, 67)))).thenReturn(69);
+
+        // WHEN
+        var result = underTest.generate();
+
+        // THEN
+        verify(logger, times(2)).debug(anyString(), any(Object.class));
         assertEquals(expectedResult, result);
     }
 

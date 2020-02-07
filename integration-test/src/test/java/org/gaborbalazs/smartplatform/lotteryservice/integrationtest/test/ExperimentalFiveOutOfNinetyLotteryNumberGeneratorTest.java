@@ -25,7 +25,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         // GIVEN
         int expectedResponseListSize = 5;
         List<Integer> expectedEvenNumbers = List.of(2, 3);
-        List<Integer> expectedUsedFifths = List.of(3, 4);
+        List<Integer> expectedUsedPartitions = List.of(3, 4);
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
@@ -35,13 +35,13 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
 
         // THEN
         Integer evenNumbers = countEvenNumbers(response);
-        Integer usedFifths = countUsedPartitions(response);
+        Integer usedPartitions = countUsedPartitions(response);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertEquals(GeneratorType.EXPERIMENTAL.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
         assertEquals(expectedResponseListSize, response.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
-        assertTrue(expectedUsedFifths.stream().anyMatch(usedFifths::equals));
+        assertTrue(expectedUsedPartitions.stream().anyMatch(usedPartitions::equals));
     }
 
     @RepeatedTest(50)
@@ -50,7 +50,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         int quantity = 5;
         int poolSize = 90;
         List<Integer> expectedEvenNumbers = List.of(2, 3);
-        List<Integer> expectedUsedFifths = List.of(3, 4);
+        List<Integer> expectedUsedPartitions = List.of(3, 4);
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
@@ -60,12 +60,12 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
 
         // THEN
         Integer evenNumbers = countEvenNumbers(response);
-        Integer usedFifths = countUsedPartitions(response);
+        Integer usedPartitions = countUsedPartitions(response);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertEquals(GeneratorType.EXPERIMENTAL.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
         assertEquals(quantity, response.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
-        assertTrue(expectedUsedFifths.stream().anyMatch(usedFifths::equals));
+        assertTrue(expectedUsedPartitions.stream().anyMatch(usedPartitions::equals));
     }
 }
