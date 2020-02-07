@@ -12,6 +12,16 @@ public final class ExceptionResponse {
     private final String requestId;
     private final String path;
 
+    private ExceptionResponse(Builder builder) {
+        this.timestamp = builder.timestamp;
+        this.status = builder.status;
+        this.error = builder.error;
+        this.message = builder.message;
+        this.consumerName = builder.consumerName;
+        this.requestId = builder.requestId;
+        this.path = builder.path;
+    }
+
     public ZonedDateTime getTimestamp() {
         return timestamp;
     }
@@ -38,16 +48,6 @@ public final class ExceptionResponse {
 
     public String getPath() {
         return path;
-    }
-
-    private ExceptionResponse(Builder builder) {
-        this.timestamp = builder.timestamp;
-        this.status = builder.status;
-        this.error = builder.error;
-        this.message = builder.message;
-        this.consumerName = builder.consumerName;
-        this.requestId = builder.requestId;
-        this.path = builder.path;
     }
 
     public static Builder newBuilder() {

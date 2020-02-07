@@ -31,6 +31,7 @@
 		<jayway-jsonpath.version>2.4.0</jayway-jsonpath.version>
 		<spotify-dockerfile-plugin.version>1.4.10</spotify-dockerfile-plugin.version>
 		<surefire-plugin.version>2.22.2</surefire-plugin.version>
+		<apache-commons-lang3.version>3.9</apache-commons-lang3.version>
 	</properties>
 
 	<modules>
@@ -143,6 +144,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache-commons-lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

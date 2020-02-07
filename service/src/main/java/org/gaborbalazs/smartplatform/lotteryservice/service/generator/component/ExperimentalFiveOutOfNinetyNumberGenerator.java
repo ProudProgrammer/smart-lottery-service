@@ -57,13 +57,13 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
 
     private int generateEvenNumbers() {
         int evenNumbers = random.nextBoolean() ? 2 : 3;
-        logger.debug("Even numbers should be: {}.", evenNumbers);
+        logger.debug("Even numbers: {}.", evenNumbers);
         return evenNumbers;
     }
 
     private int generateUsedPartitions() {
         int usedPartitions = random.nextBoolean() ? 3 : 4;
-        logger.debug("Used partitions should be: {}.", usedPartitions);
+        logger.debug("Used partitions: {}.", usedPartitions);
         return usedPartitions;
     }
 
