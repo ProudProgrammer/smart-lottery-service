@@ -46,7 +46,7 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
         if (quantity == 0) {
             throw new IllegalArgumentException("Quantity must not be 0.");
         } else if (poolSize > 1000) {
-            String msg = MessageFormat.format("Pool size must not be larger than 1000. Pool size: {0}", poolSize);
+            String msg = MessageFormat.format("Pool size must not be larger than 1 000. Pool size: {0}", poolSize);
             throw new IllegalArgumentException(msg);
         } else if (poolSize <= quantity) {
             String msg = MessageFormat.format("Pool size must be larger than quantity. Quantity: {0}, Pool size: {1}", quantity, poolSize);

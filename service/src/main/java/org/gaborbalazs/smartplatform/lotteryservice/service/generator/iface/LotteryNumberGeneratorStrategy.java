@@ -8,7 +8,7 @@ import java.util.SortedSet;
 public interface LotteryNumberGeneratorStrategy {
 
     /**
-     * Lottery number generator method
+     * Lottery number generator method.
      * @param quantity is the quantity of drawn numbers
      * @param poolSize is the size of set of numbers
      * @return set of drawn numbers

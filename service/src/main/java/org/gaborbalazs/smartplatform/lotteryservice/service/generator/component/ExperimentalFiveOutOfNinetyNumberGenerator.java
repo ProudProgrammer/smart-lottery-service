@@ -39,8 +39,8 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
      */
     public SortedSet<Integer> generate() {
         SortedSet<Integer> result = new TreeSet<>();
-        int evenNumbers = generateEvenNumbers();
-        int usedPartitions = generateUsedPartitions();
+        int evenNumbers = getEvenNumbers();
+        int usedPartitions = getUsedPartitions();
         int numberOfPartitions = 5;
         List<Partition> partitions = partitionGenerator.generate(usedPartitions, numberOfPartitions, 90);
         for (Partition partition : partitions) {
@@ -55,13 +55,13 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
         return result;
     }
 
-    private int generateEvenNumbers() {
+    private int getEvenNumbers() {
         int evenNumbers = random.nextBoolean() ? 2 : 3;
         logger.debug("Even numbers: {}.", evenNumbers);
         return evenNumbers;
     }
 
-    private int generateUsedPartitions() {
+    private int getUsedPartitions() {
         int usedPartitions = random.nextBoolean() ? 3 : 4;
         logger.debug("Used partitions: {}.", usedPartitions);
         return usedPartitions;
