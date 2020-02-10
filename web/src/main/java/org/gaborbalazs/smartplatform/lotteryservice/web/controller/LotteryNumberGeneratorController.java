@@ -1,9 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
-import java.util.SortedSet;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
@@ -16,6 +12,9 @@ import org.gaborbalazs.smartplatform.lotteryservice.web.editor.LotteryTypeEditor
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.SortedSet;
 
 @RestController
 class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
@@ -44,7 +43,7 @@ class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, Lot
 
     private void setResponseHeaders(GeneratorType generatorType) {
         httpServletResponse.addHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName(), generatorType.getValue());
-        httpServletResponse.addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().getDisplayName());
+        httpServletResponse.addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().toString());
     }
 
     @InitBinder

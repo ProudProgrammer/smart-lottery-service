@@ -1,9 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
@@ -11,6 +7,9 @@ import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 @Configuration
 class WebConfiguration {
@@ -40,11 +39,16 @@ class WebConfiguration {
     private Locale getLocal(String localeAsString) {
         Locale locale;
         if (StringUtils.isNotBlank(localeAsString)) {
-            locale = Locale.forLanguageTag(localeAsString);
-            logger.debug("Request specifies locale. Locale will be used: " + locale.getDisplayName());
+            String[] localeParts = localeAsString.split("[-_]");
+            Locale.Builder localeBuilder = new Locale.Builder().setLanguage(localeParts[0]);
+            if (localeParts.length > 1) {
+                localeBuilder.setRegion(localeParts[1]);
+            }
+            locale = localeBuilder.build();
+            logger.debug("Request specifies locale. Locale will be used: " + locale.toString());
         } else {
             locale = Locale.getDefault();
-            logger.debug("Request does not specify locale. Default locale will be used: " + locale.getDisplayName());
+            logger.debug("Request does not specify locale. Default locale will be used: " + locale.toString());
         }
         return locale;
     }

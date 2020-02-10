@@ -24,7 +24,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int expectedResponseListSize = 5;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY));
@@ -44,7 +44,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int expectedResponseListSize = 5;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.DEFAULT));
@@ -64,7 +64,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int expectedResponseListSize = 6;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE));
@@ -84,7 +84,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int expectedResponseListSize = 6;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE, GeneratorType.DEFAULT));
@@ -104,7 +104,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int expectedResponseListSize = 7;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN));
@@ -124,7 +124,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int expectedResponseListSize = 7;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN, GeneratorType.DEFAULT));
@@ -145,7 +145,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         int quantity = 6;
         int poolSize = 59;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
@@ -166,7 +166,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         int quantity = 6;
         int poolSize = 59;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.DEFAULT));
@@ -188,7 +188,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 59;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
         String requestLocaleHeader = "hu-HU";
-        String expectedResponseLocaleHeader = Locale.forLanguageTag(requestLocaleHeader).getDisplayName();
+        String expectedResponseLocaleHeader = new Locale("hu", "HU").toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders

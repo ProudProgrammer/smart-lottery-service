@@ -29,7 +29,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         List<Integer> expectedEvenNumbers = List.of(2, 3);
         List<Integer> expectedUsedPartitions = List.of(3, 4);
         String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
@@ -57,7 +57,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         List<Integer> expectedEvenNumbers = List.of(2, 3);
         List<Integer> expectedUsedPartitions = List.of(3, 4);
         String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));

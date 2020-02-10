@@ -56,7 +56,7 @@ class LotteryNumberGeneratorControllerTest {
 
         // THEN
         verify(httpServletResponse).addHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName(), generatorType.getValue());
-        verify(httpServletResponse).addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().getDisplayName());
+        verify(httpServletResponse).addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().toString());
         assertEquals(expectedResult, result);
     }
 
@@ -74,7 +74,7 @@ class LotteryNumberGeneratorControllerTest {
 
         // THEN
         verify(httpServletResponse).addHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName(), generatorType.getValue());
-        verify(httpServletResponse).addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().getDisplayName());
+        verify(httpServletResponse).addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().toString());
         assertEquals(expectedResult, result);
     }
 }

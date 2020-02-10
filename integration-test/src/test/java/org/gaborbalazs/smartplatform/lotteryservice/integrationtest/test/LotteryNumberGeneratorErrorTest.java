@@ -1,11 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.ZonedDateTime;
-import java.util.Locale;
-
+import com.jayway.jsonpath.DocumentContext;
 import org.apache.commons.lang3.StringUtils;
 import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base.LotteryNumberGeneratorTestBase;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
@@ -16,7 +11,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.jayway.jsonpath.DocumentContext;
+import java.time.ZonedDateTime;
+import java.util.Locale;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
@@ -27,7 +26,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 59;
         HttpStatus expectedHttpStatus = HttpStatus.NOT_IMPLEMENTED;
         String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
@@ -57,7 +56,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 1001;
         HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
@@ -87,7 +86,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 90;
         HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
@@ -117,7 +116,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 90;
         HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
+        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
