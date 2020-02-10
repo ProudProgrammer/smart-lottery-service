@@ -20,7 +20,8 @@ public interface LotteryNumberGeneratorSwaggerApi {
     @ApiOperation("Generate a set of lottery numbers based on lottery type")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Consumer-Name", value = "Name of the consumer", paramType = "header", defaultValue = "Swagger"),
-            @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000")})
+            @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000"),
+            @ApiImplicitParam(name = "Locale", value = "Locale for response message localization. Changes only numbers, dates, currency, etc.", paramType = "header", defaultValue = "en-US")})
     @ApiResponses({
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 501, message = "Not Implemented")})
@@ -31,7 +32,8 @@ public interface LotteryNumberGeneratorSwaggerApi {
     @ApiOperation("Generate a set of lottery numbers based on quantity and pool size")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Consumer-Name", value = "Name of the consumer", paramType = "header", defaultValue = "Swagger"),
-            @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000")})
+            @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000"),
+            @ApiImplicitParam(name = "Locale", value = "Locale for response message localization. Changes only numbers, dates, currency, etc.", paramType = "header", defaultValue = "en-US")})
     @ApiResponses({
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 501, message = "Not Implemented")})

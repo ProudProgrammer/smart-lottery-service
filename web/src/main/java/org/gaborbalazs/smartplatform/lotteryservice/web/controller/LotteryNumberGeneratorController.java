@@ -1,6 +1,12 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
+import java.util.SortedSet;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorApi;
@@ -11,20 +17,17 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.SortedSet;
-
 @RestController
 class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
 
-    private static final String GENERATOR_TYPE = "Generator-Type";
-
     private final LotteryNumberGenerator lotteryNumberGenerator;
     private final HttpServletResponse httpServletResponse;
+    private final RequestContext requestContext;
 
-    LotteryNumberGeneratorController(LotteryNumberGenerator lotteryNumberGenerator, HttpServletResponse httpServletResponse) {
+    LotteryNumberGeneratorController(LotteryNumberGenerator lotteryNumberGenerator, HttpServletResponse httpServletResponse, RequestContext requestContext) {
         this.lotteryNumberGenerator = lotteryNumberGenerator;
         this.httpServletResponse = httpServletResponse;
+        this.requestContext = requestContext;
     }
 
     @Override
@@ -40,7 +43,8 @@ class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, Lot
     }
 
     private void setResponseHeaders(GeneratorType generatorType) {
-        httpServletResponse.addHeader(GENERATOR_TYPE, generatorType.getValue());
+        httpServletResponse.addHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName(), generatorType.getValue());
+        httpServletResponse.addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().getDisplayName());
     }
 
     @InitBinder

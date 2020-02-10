@@ -1,24 +1,26 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import java.util.SortedSet;
+
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.text.MessageFormat;
-import java.util.SortedSet;
 
 @Service
 class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
 
     private final LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private final LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
+    private final MessageFactory messageFactory;
 
-    LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy) {
+    LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy,
+            MessageFactory messageFactory) {
         this.defaultLotteryNumberGeneratorStrategy = defaultLotteryNumberGeneratorStrategy;
         this.experimentalLotteryNumberGeneratorStrategy = experimentalLotteryNumberGeneratorStrategy;
+        this.messageFactory = messageFactory;
     }
 
     @Override
@@ -46,10 +48,10 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
         if (quantity == 0) {
             throw new IllegalArgumentException("Quantity must not be 0.");
         } else if (poolSize > 1000) {
-            String msg = MessageFormat.format("Pool size must not be larger than 1 000. Pool size: {0}", poolSize);
+            String msg = messageFactory.create("Pool size must not be larger than {0}. Pool size: {1}", 1000, poolSize);
             throw new IllegalArgumentException(msg);
         } else if (poolSize <= quantity) {
-            String msg = MessageFormat.format("Pool size must be larger than quantity. Quantity: {0}, Pool size: {1}", quantity, poolSize);
+            String msg = messageFactory.create("Pool size must be larger than quantity. Quantity: {0}, Pool size: {1}", quantity, poolSize);
             throw new IllegalArgumentException(msg);
         }
     }

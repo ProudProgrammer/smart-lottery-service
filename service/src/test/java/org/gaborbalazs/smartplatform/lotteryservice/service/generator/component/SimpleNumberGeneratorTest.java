@@ -3,6 +3,10 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,10 +18,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 class SimpleNumberGeneratorTest {
 
     private SimpleNumberGenerator underTest;
+    private MessageFactory messageFactory;
 
     @BeforeEach
     void setUp() {
-        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current());
+        messageFactory = mock(MessageFactory.class);
+        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current(), messageFactory);
     }
 
     @ParameterizedTest
@@ -25,6 +31,7 @@ class SimpleNumberGeneratorTest {
     void testGenerateShouldThrowException(int quantity, int poolSize) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN

@@ -11,9 +11,11 @@ import java.util.Random;
 class FormationGenerator {
 
     private final Random random;
+    private final MessageFactory messageFactory;
 
-    FormationGenerator(Random threadLocalRandom) {
+    FormationGenerator(Random threadLocalRandom, MessageFactory messageFactory) {
         this.random = threadLocalRandom;
+        this.messageFactory = messageFactory;
     }
 
     /**
@@ -48,12 +50,10 @@ class FormationGenerator {
 
     private void validate(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
         if (usedPartitions <= 1) {
-            String msg = MessageFormat
-                    .format("Used partitions must be larger than 1. Used partitions: {0}", usedPartitions);
+            String msg = messageFactory.create("Used partitions must be larger than 1. Used partitions: {0}", usedPartitions);
             throw new IllegalArgumentException(msg);
         } else if (numberOfPartitions <= usedPartitions) {
-            String msg = MessageFormat
-                    .format("Number of partitions must be larger than used partitions. Number of partitions: {0}, used partitions: {1}", numberOfPartitions, usedPartitions);
+            String msg = messageFactory.create("Number of partitions must be larger than used partitions. Number of partitions: {0}, used partitions: {1}", numberOfPartitions, usedPartitions);
             throw new IllegalArgumentException(msg);
         }
     }

@@ -2,6 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -24,11 +26,15 @@ class FormationGeneratorTest {
     @Mock
     private Random random;
 
+    @Mock
+    private MessageFactory messageFactory;
+
     @ParameterizedTest
     @CsvSource( {"0,5", "1,5", "5,5", "6,5"})
     void generateFormationShouldThrowException(int usedPartitions, int numberOfPartitions) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN

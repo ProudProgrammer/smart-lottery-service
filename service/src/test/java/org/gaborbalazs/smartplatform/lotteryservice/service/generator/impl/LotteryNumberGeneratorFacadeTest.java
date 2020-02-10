@@ -11,6 +11,7 @@ import java.util.TreeSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,12 +29,14 @@ class LotteryNumberGeneratorFacadeTest {
     private LotteryNumberGeneratorFacade underTest;
     private LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
+    private MessageFactory messageFactory;
 
     @BeforeEach
     void setUp() {
         defaultLotteryNumberGeneratorStrategy = mock(DefaultLotteryNumberGenerator.class);
         experimentalLotteryNumberGeneratorStrategy = mock(ExperimentalLotteryNumberGenerator.class);
-        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy);
+        messageFactory = mock(MessageFactory.class);
+        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy, messageFactory);
     }
 
     @ParameterizedTest

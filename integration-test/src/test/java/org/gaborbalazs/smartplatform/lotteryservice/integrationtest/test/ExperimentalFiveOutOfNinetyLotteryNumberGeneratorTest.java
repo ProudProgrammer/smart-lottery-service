@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base.LotteryNumberGeneratorTestBase;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.junit.jupiter.api.RepeatedTest;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         int expectedResponseListSize = 5;
         List<Integer> expectedEvenNumbers = List.of(2, 3);
         List<Integer> expectedUsedPartitions = List.of(3, 4);
+        String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
@@ -38,7 +42,8 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         Integer usedPartitions = countUsedPartitions(response);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.EXPERIMENTAL.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
         assertTrue(expectedUsedPartitions.stream().anyMatch(usedPartitions::equals));
@@ -51,6 +56,8 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         int poolSize = 90;
         List<Integer> expectedEvenNumbers = List.of(2, 3);
         List<Integer> expectedUsedPartitions = List.of(3, 4);
+        String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
@@ -63,7 +70,8 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         Integer usedPartitions = countUsedPartitions(response);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.EXPERIMENTAL.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(quantity, response.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
         assertTrue(expectedUsedPartitions.stream().anyMatch(usedPartitions::equals));

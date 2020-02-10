@@ -3,9 +3,11 @@ package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base.LotteryNumberGeneratorTestBase;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
     void testWithLotteryTypeOfFiveOutOfNinetyWithoutGeneratorType() throws Exception {
         // GIVEN
         int expectedResponseListSize = 5;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY));
@@ -30,7 +34,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
     }
 
@@ -38,6 +43,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
     void testWithLotteryTypeOfFiveOutOfNinetyWithGeneratorType() throws Exception {
         // GIVEN
         int expectedResponseListSize = 5;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.DEFAULT));
@@ -47,7 +54,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
     }
 
@@ -55,6 +63,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
     void testWithLotteryTypeOfSixOutOfFortyFiveWithoutGeneratorType() throws Exception {
         // GIVEN
         int expectedResponseListSize = 6;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE));
@@ -64,7 +74,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
     }
 
@@ -72,6 +83,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
     void testWithLotteryTypeOfSixOutOfFortyFiveWithGeneratorType() throws Exception {
         // GIVEN
         int expectedResponseListSize = 6;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE, GeneratorType.DEFAULT));
@@ -81,7 +94,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
     }
 
@@ -89,6 +103,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
     void testWithLotteryTypeOfScandinavianWithoutGeneratorType() throws Exception {
         // GIVEN
         int expectedResponseListSize = 7;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN));
@@ -98,7 +114,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
     }
 
@@ -106,6 +123,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
     void testWithLotteryTypeOfScandinavianWithGeneratorType() throws Exception {
         // GIVEN
         int expectedResponseListSize = 7;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN, GeneratorType.DEFAULT));
@@ -115,7 +134,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
     }
 
@@ -124,6 +144,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int quantity = 6;
         int poolSize = 59;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
@@ -133,7 +155,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(quantity, response.size());
     }
 
@@ -142,6 +165,8 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         // GIVEN
         int quantity = 6;
         int poolSize = 59;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String expectedLocaleHeader = Locale.getDefault().getDisplayName();
 
         // WHEN
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.DEFAULT));
@@ -151,7 +176,32 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertEquals(GeneratorType.DEFAULT.getValue(), mvcResult.getResponse().getHeader(GENERATOR_TYPE));
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(quantity, response.size());
+    }
+
+    @Test
+    void testResponseShouldContainLocaleHeaderBasedOnRequestLocaleHeader() throws Exception {
+        // GIVEN
+        int quantity = 6;
+        int poolSize = 59;
+        String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
+        String requestLocaleHeader = "hu-HU";
+        String expectedResponseLocaleHeader = Locale.forLanguageTag(requestLocaleHeader).getDisplayName();
+
+        // WHEN
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.DEFAULT))
+                .header(HeaderParameterName.LOCALE.getHeaderName(), requestLocaleHeader);
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
+        List<Integer> response = documentContext.read("$", List.class);
+
+        // THEN
+        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+        assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(expectedResponseLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(quantity, response.size());
     }
 }

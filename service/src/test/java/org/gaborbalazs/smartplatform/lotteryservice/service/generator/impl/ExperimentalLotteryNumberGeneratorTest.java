@@ -2,6 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.ExperimentalFiveOutOfNinetyNumberGenerator;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,12 +27,16 @@ class ExperimentalLotteryNumberGeneratorTest {
     @Mock
     private ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator;
 
+    @Mock
+    private MessageFactory messageFactory;
+
     @Test
     void testGenerateShouldThrowExceptionWhenQuantityLargerOrEqualsThenPoolSize() {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
         int quantity = 5;
         int poolSize = 5;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN
@@ -42,6 +49,7 @@ class ExperimentalLotteryNumberGeneratorTest {
         Class<UnsupportedOperationException> expectedExceptionClass = UnsupportedOperationException.class;
         int quantity = 6;
         int poolSize = 45;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN

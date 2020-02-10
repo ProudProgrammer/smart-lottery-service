@@ -2,6 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -37,11 +39,15 @@ class PartitionGeneratorTest {
     @Mock
     private ListShuffler listShuffler;
 
+    @Mock
+    private MessageFactory messageFactory;
+
     @ParameterizedTest
     @CsvSource( {"3,90,90", "3,91,90", "5,5,90", "6,5,90", "3,7,90",})
     void testGeneratePartitionsShouldThrowException(int usedPartitions, int numberOfPartitions, int setOfNumbers) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN

@@ -1,6 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,10 +13,12 @@ class EvenOddNumberGenerator {
 
     private final Random random;
     private final ListShuffler listShuffler;
+    private final MessageFactory messageFactory;
 
-    EvenOddNumberGenerator(Random threadLocalRandom, ListShuffler listShuffler) {
+    EvenOddNumberGenerator(Random threadLocalRandom, ListShuffler listShuffler, MessageFactory messageFactory) {
         this.random = threadLocalRandom;
         this.listShuffler = listShuffler;
+        this.messageFactory = messageFactory;
     }
 
     int generateEvenNumber(int lowerLimit, int upperLimit, Collection<Integer> exceptions) {
@@ -51,7 +52,7 @@ class EvenOddNumberGenerator {
 
     private void validate(int lowerLimit, int upperLimit) {
         if (upperLimit <= lowerLimit) {
-            String msg = MessageFormat.format("Upper limit must be larger than lower limit. Lower limit: {0}, upper limit: {1}", lowerLimit, upperLimit);
+            String msg = messageFactory.create("Upper limit must be larger than lower limit. Lower limit: {0}, upper limit: {1}", lowerLimit, upperLimit);
             throw new IllegalArgumentException(msg);
         }
     }

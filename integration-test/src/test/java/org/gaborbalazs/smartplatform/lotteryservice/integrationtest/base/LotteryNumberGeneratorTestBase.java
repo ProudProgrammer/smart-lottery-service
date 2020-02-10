@@ -16,8 +16,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class LotteryNumberGeneratorTestBase extends TestBase {
 
-    protected static final String GENERATOR_TYPE = "Generator-Type";
-
     private static Stream<Arguments> provideUsedPartitionsAndSortedSetAsDrawnNumbers() {
         return Stream.of(
                 Arguments.of(1, new TreeSet<>(List.of(1, 2, 3, 4, 5))),

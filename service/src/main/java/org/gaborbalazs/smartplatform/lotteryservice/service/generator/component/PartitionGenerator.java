@@ -1,6 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,12 +15,15 @@ public class PartitionGenerator {
     private final SimpleNumberGenerator simpleNumberGenerator;
     private final FormationGenerator formationGenerator;
     private final ListShuffler listShuffler;
+    private final MessageFactory messageFactory;
 
-    PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler) {
+    PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler,
+            MessageFactory messageFactory) {
         this.random = threadLocalRandom;
         this.simpleNumberGenerator = simpleNumberGenerator;
         this.formationGenerator = formationGenerator;
         this.listShuffler = listShuffler;
+        this.messageFactory = messageFactory;
     }
 
     /**
@@ -64,8 +66,8 @@ public class PartitionGenerator {
 
     private void validate(int usedPartitions, int numberOfPartitions, int setOfNumbers) throws IllegalArgumentException {
         if (setOfNumbers <= numberOfPartitions || numberOfPartitions <= usedPartitions || setOfNumbers % numberOfPartitions != 0) {
-            String msg = MessageFormat
-                    .format("Set of numbers must be larger than number of partitions and their division with remainder must be 0 and number of partitions must be larger than used partitions. Set of numbers: {0}, number of partitions: {1}, used partitions: {2}",
+            String msg = messageFactory
+                    .create("Set of numbers must be larger than number of partitions and their division with remainder must be 0 and number of partitions must be larger than used partitions. Set of numbers: {0}, number of partitions: {1}, used partitions: {2}",
                             setOfNumbers, numberOfPartitions, usedPartitions);
             throw new IllegalArgumentException(msg);
         }

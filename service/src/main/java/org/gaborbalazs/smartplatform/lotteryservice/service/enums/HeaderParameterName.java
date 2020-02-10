@@ -3,7 +3,9 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.enums;
 public enum HeaderParameterName {
 
     CONSUMER_NAME("Consumer-Name"),
-    REQUEST_ID("Request-Id");
+    REQUEST_ID("Request-Id"),
+    GENERATOR_TYPE("Generator-Type"),
+    LOCALE("Locale");
 
     private String headerName;
 

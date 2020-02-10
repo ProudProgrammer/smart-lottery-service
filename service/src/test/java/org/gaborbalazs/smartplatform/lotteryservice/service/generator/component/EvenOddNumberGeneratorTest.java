@@ -2,6 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
@@ -27,6 +29,9 @@ class EvenOddNumberGeneratorTest {
     @Mock
     private ListShuffler listShuffler;
 
+    @Mock
+    private MessageFactory messageFactory;
+
     @Test
     void testGenerateEvenNumberShouldThrowExceptionWhenUpperLimitLessOrEqualThanLowerLimit() {
         // GIVEN
@@ -34,6 +39,7 @@ class EvenOddNumberGeneratorTest {
         int lowerLimit = 19;
         int upperLimit = 19;
         Set<Integer> exceptions = Collections.EMPTY_SET;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN
@@ -47,6 +53,7 @@ class EvenOddNumberGeneratorTest {
         int lowerLimit = 20;
         int upperLimit = 19;
         Set<Integer> exceptions = Collections.EMPTY_SET;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN
