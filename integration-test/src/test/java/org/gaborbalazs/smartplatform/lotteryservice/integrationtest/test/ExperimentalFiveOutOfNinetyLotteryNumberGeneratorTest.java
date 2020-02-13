@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base.LotteryNumberGeneratorTestBase;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
@@ -35,11 +33,12 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        SortedSet<Integer> response = new TreeSet<>(documentContext.read("$", List.class));
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
-        Integer evenNumbers = countEvenNumbers(response);
-        Integer usedPartitions = countUsedPartitions(response);
+        List<Integer> castedResponse = castToListOfIntegers(response);
+        Integer evenNumbers = countEvenNumbers(castedResponse);
+        Integer usedPartitions = countUsedPartitions(castedResponse);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
@@ -63,11 +62,12 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        SortedSet<Integer> response = new TreeSet<>(documentContext.read("$", List.class));
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
-        Integer evenNumbers = countEvenNumbers(response);
-        Integer usedPartitions = countUsedPartitions(response);
+        List<Integer> castedResponse = castToListOfIntegers(response);
+        Integer evenNumbers = countEvenNumbers(castedResponse);
+        Integer usedPartitions = countUsedPartitions(castedResponse);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));

@@ -30,7 +30,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -50,7 +50,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.DEFAULT));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -70,7 +70,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -90,7 +90,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SIX_OUT_OF_FORTY_FIVE, GeneratorType.DEFAULT));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -110,7 +110,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -130,7 +130,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.SCANDINAVIAN, GeneratorType.DEFAULT));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -151,7 +151,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -172,7 +172,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.DEFAULT));
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -196,7 +196,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
                 .header(HeaderParameterName.LOCALE.getHeaderName(), requestLocaleHeader);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
-        List<Integer> response = documentContext.read("$", List.class);
+        List<?> response = documentContext.read("$", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
