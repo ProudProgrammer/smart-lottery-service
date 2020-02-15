@@ -8,11 +8,10 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParamete
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.ZonedDateTime;
-import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,10 +25,10 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 59;
         HttpStatus expectedHttpStatus = HttpStatus.NOT_IMPLEMENTED;
         String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
-        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
+        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         String responseTime = documentContext.read("$.timestamp", String.class);
@@ -41,7 +40,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
-        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertTrue(ZonedDateTime.now().isAfter(ZonedDateTime.parse(responseTime)));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -56,10 +57,10 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 1001;
         HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
+        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         String responseTime = documentContext.read("$.timestamp", String.class);
@@ -71,7 +72,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
-        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertTrue(ZonedDateTime.now().isAfter(ZonedDateTime.parse(responseTime)));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -86,10 +89,10 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 90;
         HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
+        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         String responseTime = documentContext.read("$.timestamp", String.class);
@@ -101,7 +104,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
-        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertTrue(ZonedDateTime.now().isAfter(ZonedDateTime.parse(responseTime)));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -116,10 +121,10 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         int poolSize = 90;
         HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
         String expectedGeneratorTypeHeader = GeneratorType.DEFAULT.getValue();
-        String expectedLocaleHeader = Locale.getDefault().toString();
 
         // WHEN
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize));
+        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
         String responseTime = documentContext.read("$.timestamp", String.class);
@@ -131,7 +136,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
-        assertEquals(expectedLocaleHeader, mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertTrue(ZonedDateTime.now().isAfter(ZonedDateTime.parse(responseTime)));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);

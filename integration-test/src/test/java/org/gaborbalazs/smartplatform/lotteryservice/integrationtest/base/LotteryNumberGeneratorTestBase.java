@@ -1,19 +1,26 @@
 package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
-
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class LotteryNumberGeneratorTestBase extends TestBase {
+
+    protected static Map<String, String> DEFAULT_REQUEST_HEADERS = Map.of(
+            HeaderParameterName.REQUEST_ID.getHeaderName(), "test0000-0000-0000-0000-test00000000",
+            HeaderParameterName.CONSUMER_NAME.getHeaderName(), "test",
+            HeaderParameterName.LOCALE.getHeaderName(), "hu_HU");
 
     private static Stream<Arguments> provideUsedPartitionsAndDrawnNumbers() {
         return Stream.of(
@@ -77,5 +84,17 @@ public class LotteryNumberGeneratorTestBase extends TestBase {
         List<Integer> parameterizedList = new ArrayList<>();
         wildcardList.stream().filter(e -> e instanceof Integer).map(e -> (Integer) e).forEach(parameterizedList::add);
         return parameterizedList;
+    }
+
+    protected String getDefaultRequestIdHeader() {
+        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.REQUEST_ID.getHeaderName());
+    }
+
+    protected String getDefaultConsumerNameHeader() {
+        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.CONSUMER_NAME.getHeaderName());
+    }
+
+    protected String getDefaultLocaleHeader() {
+        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.LOCALE.getHeaderName());
     }
 }

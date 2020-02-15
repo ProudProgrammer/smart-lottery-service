@@ -43,7 +43,6 @@ class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, Lot
 
     private void setResponseHeaders(GeneratorType generatorType) {
         httpServletResponse.addHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName(), generatorType.getValue());
-        httpServletResponse.addHeader(HeaderParameterName.LOCALE.getHeaderName(), requestContext.getLocale().toString());
     }
 
     @InitBinder
