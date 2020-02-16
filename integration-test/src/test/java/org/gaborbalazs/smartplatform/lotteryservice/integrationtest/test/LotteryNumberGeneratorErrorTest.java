@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
@@ -36,6 +37,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         String responseError = documentContext.read("$.error", String.class);
         String responseMessage = documentContext.read("$.message", String.class);
         String responsePath = documentContext.read("$.path", String.class);
+        String responseQuery = documentContext.read("$.query", String.class);
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
@@ -48,6 +50,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
         assertTrue(StringUtils.isNotBlank(responseMessage));
         assertEquals("/lottery/numbers", responsePath);
+        assertEquals("quantity=" + quantity + "&poolSize=" + poolSize + "&generatorType=" + GeneratorType.EXPERIMENTAL.getValue(), responseQuery);
     }
 
     @Test
@@ -68,6 +71,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         String responseError = documentContext.read("$.error", String.class);
         String responseMessage = documentContext.read("$.message", String.class);
         String responsePath = documentContext.read("$.path", String.class);
+        String responseQuery = documentContext.read("$.query", String.class);
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
@@ -80,6 +84,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
         assertTrue(StringUtils.isNotBlank(responseMessage));
         assertEquals("/lottery/numbers", responsePath);
+        assertEquals("quantity=" + quantity + "&poolSize=" + poolSize, responseQuery);
     }
 
     @Test
@@ -100,6 +105,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         String responseError = documentContext.read("$.error", String.class);
         String responseMessage = documentContext.read("$.message", String.class);
         String responsePath = documentContext.read("$.path", String.class);
+        String responseQuery = documentContext.read("$.query", String.class);
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
@@ -112,6 +118,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
         assertTrue(StringUtils.isNotBlank(responseMessage));
         assertEquals("/lottery/numbers", responsePath);
+        assertEquals("quantity=" + quantity + "&poolSize=" + poolSize, responseQuery);
     }
 
     @Test
@@ -132,6 +139,7 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         String responseError = documentContext.read("$.error", String.class);
         String responseMessage = documentContext.read("$.message", String.class);
         String responsePath = documentContext.read("$.path", String.class);
+        String responseQuery = documentContext.read("$.query", String.class);
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
@@ -144,5 +152,37 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
         assertTrue(StringUtils.isNotBlank(responseMessage));
         assertEquals("/lottery/numbers", responsePath);
+        assertEquals("quantity=" + quantity + "&poolSize=" + poolSize, responseQuery);
+    }
+
+    @Test
+    void testShouldRespond400WhenLotteryTypePathWrong() throws Exception {
+        // GIVEN
+        String wrongLotteryType = "wrong_lottery_type";
+        HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
+
+        // WHEN
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(wrongLotteryType));
+        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
+        MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
+        DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
+        String responseTime = documentContext.read("$.timestamp", String.class);
+        String responseStatus = documentContext.read("$.status", String.class);
+        String responseError = documentContext.read("$.error", String.class);
+        String responseMessage = documentContext.read("$.message", String.class);
+        String responsePath = documentContext.read("$.path", String.class);
+        String responseQuery = documentContext.read("$.query", String.class);
+
+        // THEN
+        assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
+        assertNull(mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
+        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertTrue(ZonedDateTime.now().isAfter(ZonedDateTime.parse(responseTime)));
+        assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
+        assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
+        assertTrue(StringUtils.isNotBlank(responseMessage));
+        assertEquals("/lottery/" + wrongLotteryType + "/numbers", responsePath);
     }
 }

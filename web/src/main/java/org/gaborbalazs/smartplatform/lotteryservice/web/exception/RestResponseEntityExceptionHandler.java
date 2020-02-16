@@ -26,7 +26,7 @@ class RestResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     @ExceptionHandler(UnsupportedOperationException.class)
-    ExceptionResponse handleUnsupportedOperationException(Exception exception, WebRequest webRequest) {
+    ExceptionResponse handleUnsupportedOperationException(Exception exception, WebRequest request) {
         return createExceptionResponse(exception, HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -37,6 +37,7 @@ class RestResponseEntityExceptionHandler {
                 .withError(httpStatus.getReasonPhrase())
                 .withMessage(exception.getMessage())
                 .withPath(requestContext.getRequestURI())
+                .withQuery(requestContext.getRequestQuery())
                 .build();
     }
 }

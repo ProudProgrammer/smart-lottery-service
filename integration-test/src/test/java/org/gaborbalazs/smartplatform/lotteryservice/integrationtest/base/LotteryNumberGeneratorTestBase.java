@@ -59,6 +59,10 @@ public class LotteryNumberGeneratorTestBase extends TestBase {
         return "/lottery/" + lotteryType.getPathVariableName() + "/numbers?generatorType=" + generatorType.getValue();
     }
 
+    protected String getLotteryNumberGeneratorUrl(String lotteryType) {
+        return "/lottery/" + lotteryType + "/numbers";
+    }
+
     protected String getLotteryNumberGeneratorUrl(int quantity, int poolSize) {
         return "/lottery/numbers?quantity=" + quantity + "&poolSize=" + poolSize;
     }

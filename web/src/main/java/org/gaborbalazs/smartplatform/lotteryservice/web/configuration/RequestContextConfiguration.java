@@ -1,10 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 
-import java.util.Locale;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
@@ -12,6 +7,10 @@ import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * {@link RequestContext} configuration.
@@ -39,6 +38,7 @@ class RequestContextConfiguration {
                 .withConsumerName(consumerName)
                 .withRequestId(requestId)
                 .withRequestURI(httpServletRequest.getRequestURI())
+                .withRequestQuery(httpServletRequest.getQueryString())
                 .withLocale(locale)
                 .build();
     }

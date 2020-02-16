@@ -9,6 +9,7 @@ public final class ExceptionResponse {
     private final String error;
     private final String message;
     private final String path;
+    private final String query;
 
     private ExceptionResponse(Builder builder) {
         this.timestamp = builder.timestamp;
@@ -16,6 +17,7 @@ public final class ExceptionResponse {
         this.error = builder.error;
         this.message = builder.message;
         this.path = builder.path;
+        this.query = builder.query;
     }
 
     public ZonedDateTime getTimestamp() {
@@ -38,6 +40,10 @@ public final class ExceptionResponse {
         return path;
     }
 
+    public String getQuery() {
+        return query;
+    }
+
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -48,6 +54,7 @@ public final class ExceptionResponse {
         private String error;
         private String message;
         private String path;
+        private String query;
 
         private Builder() {
         }
@@ -74,6 +81,11 @@ public final class ExceptionResponse {
 
         public Builder withPath(String path) {
             this.path = path;
+            return this;
+        }
+
+        public Builder withQuery(String query) {
+            this.query = query;
             return this;
         }
 
