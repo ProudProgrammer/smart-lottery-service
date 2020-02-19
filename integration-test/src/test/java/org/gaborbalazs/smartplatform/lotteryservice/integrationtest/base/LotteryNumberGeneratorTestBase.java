@@ -1,26 +1,26 @@
 package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.component.LotteryNumberGeneratorHeaderFactory;
+import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.component.LotteryNumberGeneratorUrlFactory;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class LotteryNumberGeneratorTestBase extends TestBase {
 
-    protected static Map<String, String> DEFAULT_REQUEST_HEADERS = Map.of(
-            HeaderParameterName.REQUEST_ID.getHeaderName(), "test0000-0000-0000-0000-test00000000",
-            HeaderParameterName.CONSUMER_NAME.getHeaderName(), "test",
-            HeaderParameterName.LOCALE.getHeaderName(), "hu_HU");
+    @Autowired
+    protected LotteryNumberGeneratorUrlFactory lotteryNumberGeneratorUrlFactory;
+
+    @Autowired
+    protected LotteryNumberGeneratorHeaderFactory lotteryNumberGeneratorHeaderFactory;
 
     private static Stream<Arguments> provideUsedPartitionsAndDrawnNumbers() {
         return Stream.of(
@@ -51,26 +51,6 @@ public class LotteryNumberGeneratorTestBase extends TestBase {
         assertEquals(expectedUsedPartitions, result);
     }
 
-    protected String getLotteryNumberGeneratorUrl(LotteryType lotteryType) {
-        return "/lottery/" + lotteryType.getPathVariableName() + "/numbers";
-    }
-
-    protected String getLotteryNumberGeneratorUrl(LotteryType lotteryType, GeneratorType generatorType) {
-        return "/lottery/" + lotteryType.getPathVariableName() + "/numbers?generatorType=" + generatorType.getValue();
-    }
-
-    protected String getLotteryNumberGeneratorUrl(String lotteryType) {
-        return "/lottery/" + lotteryType + "/numbers";
-    }
-
-    protected String getLotteryNumberGeneratorUrl(int quantity, int poolSize) {
-        return "/lottery/numbers?quantity=" + quantity + "&poolSize=" + poolSize;
-    }
-
-    protected String getLotteryNumberGeneratorUrl(int quantity, int poolSize, GeneratorType generatorType) {
-        return "/lottery/numbers?quantity=" + quantity + "&poolSize=" + poolSize + "&generatorType=" + generatorType.getValue();
-    }
-
     protected int countEvenNumbers(List<Integer> drawnNumbers) {
         return (int) drawnNumbers.stream().filter(number -> number % 2 == 0).count();
     }
@@ -88,17 +68,5 @@ public class LotteryNumberGeneratorTestBase extends TestBase {
         List<Integer> parameterizedList = new ArrayList<>();
         wildcardList.stream().filter(e -> e instanceof Integer).map(e -> (Integer) e).forEach(parameterizedList::add);
         return parameterizedList;
-    }
-
-    protected String getDefaultRequestIdHeader() {
-        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.REQUEST_ID.getHeaderName());
-    }
-
-    protected String getDefaultConsumerNameHeader() {
-        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.CONSUMER_NAME.getHeaderName());
-    }
-
-    protected String getDefaultLocaleHeader() {
-        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.LOCALE.getHeaderName());
     }
 }

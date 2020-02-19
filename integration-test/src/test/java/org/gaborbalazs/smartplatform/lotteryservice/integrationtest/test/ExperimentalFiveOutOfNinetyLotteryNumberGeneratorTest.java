@@ -1,6 +1,10 @@
 package org.gaborbalazs.smartplatform.lotteryservice.integrationtest.test;
 
-import com.jayway.jsonpath.DocumentContext;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
 import org.gaborbalazs.smartplatform.lotteryservice.integrationtest.base.LotteryNumberGeneratorTestBase;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
@@ -11,10 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.jayway.jsonpath.DocumentContext;
 
 class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
 
@@ -27,10 +28,11 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
 
         // WHEN
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
-        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get(lotteryNumberGeneratorUrlFactory.create(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
+        lotteryNumberGeneratorHeaderFactory.getDefaultRequestHeaders().forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-        DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
+        DocumentContext documentContext = documentContextFactory.create(mvcResult);
         List<?> response = documentContext.read("$", List.class);
 
         // THEN
@@ -40,9 +42,9 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
-        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(expectedResponseListSize, response.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
         assertTrue(expectedUsedPartitions.stream().anyMatch(usedPartitions::equals));
@@ -58,10 +60,10 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         String expectedGeneratorTypeHeader = GeneratorType.EXPERIMENTAL.getValue();
 
         // WHEN
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(getLotteryNumberGeneratorUrl(quantity, poolSize, GeneratorType.EXPERIMENTAL));
-        DEFAULT_REQUEST_HEADERS.forEach(requestBuilder::header);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(lotteryNumberGeneratorUrlFactory.create(quantity, poolSize, GeneratorType.EXPERIMENTAL));
+        lotteryNumberGeneratorHeaderFactory.getDefaultRequestHeaders().forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-        DocumentContext documentContext = getResponseAsJsonParser(mvcResult);
+        DocumentContext documentContext = documentContextFactory.create(mvcResult);
         List<?> response = documentContext.read("$", List.class);
 
         // THEN
@@ -71,9 +73,9 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertEquals(expectedGeneratorTypeHeader, mvcResult.getResponse().getHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName()));
-        assertEquals(getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
         assertEquals(quantity, response.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
         assertTrue(expectedUsedPartitions.stream().anyMatch(usedPartitions::equals));
