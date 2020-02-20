@@ -185,5 +185,6 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
         assertTrue(StringUtils.isNotBlank(responseMessage));
         assertEquals("/lottery/" + wrongLotteryType + "/numbers", responsePath);
+        assertNull(responseQuery);
     }
 }
