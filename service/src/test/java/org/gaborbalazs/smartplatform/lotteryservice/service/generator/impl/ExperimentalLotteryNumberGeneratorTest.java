@@ -1,15 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.ExperimentalFiveOutOfNinetyNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.junit.jupiter.api.Test;
@@ -17,6 +9,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ExperimentalLotteryNumberGeneratorTest {
@@ -61,8 +63,9 @@ class ExperimentalLotteryNumberGeneratorTest {
         // GIVEN
         int quantity = 5;
         int poolSize = 90;
-        SortedSet<Integer> expectedResult = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        when(experimentalFiveOutOfNinetyNumberGenerator.generate()).thenReturn(expectedResult);
+        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        DrawnNumbers expectedResult = new DrawnNumbers(GeneratorType.EXPERIMENTAL, drawnNumbers);
+        when(experimentalFiveOutOfNinetyNumberGenerator.generate()).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(quantity, poolSize);

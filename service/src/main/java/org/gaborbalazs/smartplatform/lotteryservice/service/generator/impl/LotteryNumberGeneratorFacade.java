@@ -1,7 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import java.util.SortedSet;
-
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
@@ -17,19 +16,19 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
     private final MessageFactory messageFactory;
 
     LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy,
-            MessageFactory messageFactory) {
+                                 MessageFactory messageFactory) {
         this.defaultLotteryNumberGeneratorStrategy = defaultLotteryNumberGeneratorStrategy;
         this.experimentalLotteryNumberGeneratorStrategy = experimentalLotteryNumberGeneratorStrategy;
         this.messageFactory = messageFactory;
     }
 
     @Override
-    public SortedSet<Integer> generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
+    public DrawnNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
         return getLotteryNumberGeneratorStrategy(generatorType).generate(lotteryType.getQuantity(), lotteryType.getPool());
     }
 
     @Override
-    public SortedSet<Integer> generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
+    public DrawnNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
         validate(quantity, poolSize);
         return getLotteryNumberGeneratorStrategy(generatorType).generate(quantity, poolSize);
     }

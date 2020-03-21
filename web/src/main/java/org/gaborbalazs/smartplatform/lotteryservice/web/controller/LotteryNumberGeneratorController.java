@@ -1,8 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorApi;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.SortedSet;
 
 @RestController
 class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
@@ -30,19 +29,13 @@ class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, Lot
     }
 
     @Override
-    public SortedSet<Integer> generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
-        setResponseHeaders(generatorType);
+    public DrawnNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
         return lotteryNumberGenerator.generate(lotteryType, generatorType);
     }
 
     @Override
-    public SortedSet<Integer> generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
-        setResponseHeaders(generatorType);
+    public DrawnNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
         return lotteryNumberGenerator.generate(quantity, poolSize, generatorType);
-    }
-
-    private void setResponseHeaders(GeneratorType generatorType) {
-        httpServletResponse.addHeader(HeaderParameterName.GENERATOR_TYPE.getHeaderName(), generatorType.getValue());
     }
 
     @InitBinder

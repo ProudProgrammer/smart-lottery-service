@@ -1,10 +1,10 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.SimpleNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
 import org.springframework.stereotype.Service;
-
-import java.util.SortedSet;
 
 @Service("defaultLotteryNumberGeneratorStrategy")
 public class DefaultLotteryNumberGenerator implements LotteryNumberGeneratorStrategy {
@@ -16,7 +16,7 @@ public class DefaultLotteryNumberGenerator implements LotteryNumberGeneratorStra
     }
 
     @Override
-    public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException {
-        return simpleNumberGenerator.generate(quantity, poolSize);
+    public DrawnNumbers generate(int quantity, int poolSize) throws IllegalArgumentException {
+        return new DrawnNumbers(GeneratorType.DEFAULT, simpleNumberGenerator.generate(quantity, poolSize));
     }
 }
