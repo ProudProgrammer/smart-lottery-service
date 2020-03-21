@@ -2,6 +2,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.domain;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
@@ -21,7 +22,7 @@ public final class DrawnNumbers {
     }
 
     public Set<Integer> getDrawnNumbers() {
-        return drawnNumbers;
+        return Collections.unmodifiableSortedSet(drawnNumbers);
     }
 
     @Override
