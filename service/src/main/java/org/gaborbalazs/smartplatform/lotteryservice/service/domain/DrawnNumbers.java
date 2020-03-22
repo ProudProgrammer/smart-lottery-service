@@ -4,7 +4,6 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
 import java.util.SortedSet;
 
 public final class DrawnNumbers {
@@ -21,7 +20,7 @@ public final class DrawnNumbers {
         return generatorType;
     }
 
-    public Set<Integer> getDrawnNumbers() {
+    public SortedSet<Integer> getDrawnNumbers() {
         return Collections.unmodifiableSortedSet(drawnNumbers);
     }
 
