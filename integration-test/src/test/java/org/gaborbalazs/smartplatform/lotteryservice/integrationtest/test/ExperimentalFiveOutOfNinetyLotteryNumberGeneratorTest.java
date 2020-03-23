@@ -21,17 +21,18 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
     @RepeatedTest(50)
     void testWithLotteryTypeOfFiveOutOfNinety() throws Exception {
         // GIVEN
+        LotteryType expectedLotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType expectedGeneratorType = GeneratorType.EXPERIMENTAL;
         int expectedResponseListSize = 5;
         List<Integer> expectedEvenNumbers = List.of(2, 3);
         List<Integer> expectedUsedPartitions = List.of(3, 4);
 
         // WHEN
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get(lotteryNumberGeneratorUrlFactory.create(LotteryType.FIVE_OUT_OF_NINETY, GeneratorType.EXPERIMENTAL));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(lotteryNumberGeneratorUrlFactory.create(expectedLotteryType, expectedGeneratorType));
         lotteryNumberGeneratorHeaderFactory.getDefaultRequestHeaders().forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
+        String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
         List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
 
@@ -44,6 +45,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
         assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
         assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(expectedLotteryType.name(), lotteryTypeResponse);
         assertEquals(expectedGeneratorType, generatorTypeResponse);
         assertEquals(expectedResponseListSize, drawnNumbersResponse.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));
@@ -56,14 +58,16 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         GeneratorType expectedGeneratorType = GeneratorType.EXPERIMENTAL;
         int quantity = 5;
         int poolSize = 90;
+        String expectedLotteryType = quantity + "/" + poolSize;
         List<Integer> expectedEvenNumbers = List.of(2, 3);
         List<Integer> expectedUsedPartitions = List.of(3, 4);
 
         // WHEN
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(lotteryNumberGeneratorUrlFactory.create(quantity, poolSize, GeneratorType.EXPERIMENTAL));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(lotteryNumberGeneratorUrlFactory.create(quantity, poolSize, expectedGeneratorType));
         lotteryNumberGeneratorHeaderFactory.getDefaultRequestHeaders().forEach(requestBuilder::header);
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
+        String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
         List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
 
@@ -76,6 +80,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
         assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
         assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(expectedLotteryType, lotteryTypeResponse);
         assertEquals(expectedGeneratorType, generatorTypeResponse);
         assertEquals(quantity, drawnNumbersResponse.size());
         assertTrue(expectedEvenNumbers.stream().anyMatch(evenNumbers::equals));

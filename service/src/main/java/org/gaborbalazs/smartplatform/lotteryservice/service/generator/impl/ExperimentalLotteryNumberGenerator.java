@@ -1,7 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.ExperimentalFiveOutOfNinetyNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
@@ -21,9 +19,9 @@ public class ExperimentalLotteryNumberGenerator implements LotteryNumberGenerato
     }
 
     @Override
-    public DrawnNumbers generate(int quantity, int poolSize) throws IllegalArgumentException, UnsupportedOperationException {
+    public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException, UnsupportedOperationException {
         validate(quantity, poolSize);
-        return new DrawnNumbers(GeneratorType.EXPERIMENTAL, callProperGenerator(quantity, poolSize));
+        return callProperGenerator(quantity, poolSize);
     }
 
     private SortedSet<Integer> callProperGenerator(int quantity, int poolSize) throws UnsupportedOperationException {

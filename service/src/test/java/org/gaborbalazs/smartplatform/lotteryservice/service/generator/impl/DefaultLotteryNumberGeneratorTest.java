@@ -1,7 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.SimpleNumberGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,13 +29,12 @@ class DefaultLotteryNumberGeneratorTest {
         int quantity = 5;
         int poolSize = 90;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = new DrawnNumbers(GeneratorType.DEFAULT, drawnNumbers);
         when(simpleNumberGenerator.generate(quantity, poolSize)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(quantity, poolSize);
 
         // THEN
-        assertEquals(expectedResult, result);
+        assertEquals(drawnNumbers, result);
     }
 }

@@ -2,6 +2,8 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
 
+import java.util.SortedSet;
+
 /**
  * Strategy for lottery number generation, for example default, experimental.
  */
@@ -14,5 +16,5 @@ public interface LotteryNumberGeneratorStrategy {
      * @param poolSize is the size of set of numbers
      * @return set of drawn numbers
      */
-    DrawnNumbers generate(int quantity, int poolSize) throws IllegalArgumentException;
+    SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException;
 }

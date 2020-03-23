@@ -36,7 +36,11 @@ class LotteryNumberGeneratorControllerTest {
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.DEFAULT;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = new DrawnNumbers(generatorType, drawnNumbers);
+        DrawnNumbers expectedResult = DrawnNumbers.newDrawnNumbers()
+                .lotteryType(lotteryType.name())
+                .generatorType(generatorType)
+                .drawnNumbers(drawnNumbers)
+                .build();
         when(lotteryNumberGenerator.generate(lotteryType, generatorType)).thenReturn(expectedResult);
 
         // WHEN
@@ -53,7 +57,11 @@ class LotteryNumberGeneratorControllerTest {
         int poolSize = 59;
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = new DrawnNumbers(generatorType, drawnNumbers);
+        DrawnNumbers expectedResult = DrawnNumbers.newDrawnNumbers()
+                .lotteryType(quantity + "/" + poolSize)
+                .generatorType(generatorType)
+                .drawnNumbers(drawnNumbers)
+                .build();
         when(lotteryNumberGenerator.generate(quantity, poolSize, generatorType)).thenReturn(expectedResult);
 
         // WHEN
