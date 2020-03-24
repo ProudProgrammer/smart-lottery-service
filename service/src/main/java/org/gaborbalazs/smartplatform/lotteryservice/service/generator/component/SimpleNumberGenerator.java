@@ -1,8 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,10 +15,12 @@ public class SimpleNumberGenerator {
 
     private final Random random;
     private final MessageFactory messageFactory;
+    private final Logger logger;
 
-    SimpleNumberGenerator(Random threadLocalRandom, MessageFactory messageFactory) {
+    SimpleNumberGenerator(Random threadLocalRandom, MessageFactory messageFactory, Logger logger) {
         this.random = threadLocalRandom;
         this.messageFactory = messageFactory;
+        this.logger = logger;
     }
 
     /**
@@ -72,12 +74,16 @@ public class SimpleNumberGenerator {
 
     private void validate(int quantity, int poolSize) throws IllegalArgumentException {
         if (quantity == 0) {
-            throw new IllegalArgumentException("Quantity must not be 0.");
+            String msg = "Quantity must not be 0.";
+            logger.error(msg);
+            throw new IllegalArgumentException(msg);
         } else if (poolSize > 1000) {
             String msg = messageFactory.create("Pool size must not be larger than {0}. Pool size: {1}", 1000, poolSize);
+            logger.error(msg);
             throw new IllegalArgumentException(msg);
         } else if (poolSize <= quantity) {
             String msg = messageFactory.create("Pool size must be larger than quantity. Quantity: {0}, pool size: {1}", quantity, poolSize);
+            logger.error(msg);
             throw new IllegalArgumentException(msg);
         }
     }

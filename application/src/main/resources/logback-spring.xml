@@ -43,6 +43,8 @@
     </springProfile>
 
     <springProfile name="prod">
+        <logger name="org.gaborbalazs.smartplatform.lotteryservice" level="ERROR"/>
+
         <root level="INFO">
             <appender-ref ref="SMART_CONSOLE"/>
             <appender-ref ref="SMART_FILE"/>

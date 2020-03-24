@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -29,6 +30,9 @@ class ExperimentalLotteryNumberGeneratorTest {
 
     @Mock
     private MessageFactory messageFactory;
+
+    @Mock
+    private Logger logger;
 
     @Test
     void testGenerateShouldThrowExceptionWhenQuantityLargerOrEqualsThenPoolSize() {

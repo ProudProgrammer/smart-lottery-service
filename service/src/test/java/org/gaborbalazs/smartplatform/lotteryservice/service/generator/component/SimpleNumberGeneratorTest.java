@@ -1,5 +1,13 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.slf4j.Logger;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,26 +16,21 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
 class SimpleNumberGeneratorTest {
 
     private SimpleNumberGenerator underTest;
     private MessageFactory messageFactory;
+    private Logger logger;
 
     @BeforeEach
     void setUp() {
         messageFactory = mock(MessageFactory.class);
-        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current(), messageFactory);
+        logger = mock(Logger.class);
+        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current(), messageFactory, logger);
     }
 
     @ParameterizedTest
-    @CsvSource( {"0,90", "5,0", "5,1001", "5,5", "6,5"})
+    @CsvSource({"0,90", "5,0", "5,1001", "5,5", "6,5"})
     void testGenerateShouldThrowException(int quantity, int poolSize) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;

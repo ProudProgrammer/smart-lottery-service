@@ -1,21 +1,23 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EvenOddNumberGeneratorTest {
@@ -32,32 +34,53 @@ class EvenOddNumberGeneratorTest {
     @Mock
     private MessageFactory messageFactory;
 
+    @Mock
+    private Logger logger;
+
     @Test
     void testGenerateEvenNumberShouldThrowExceptionWhenUpperLimitLessOrEqualThanLowerLimit() {
         // GIVEN
-        Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        Exception exception = null;
         int lowerLimit = 19;
         int upperLimit = 19;
         Set<Integer> exceptions = Collections.EMPTY_SET;
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+        String msg = "exception";
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
+        try {
+            underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions);
+        } catch (IllegalArgumentException e) {
+            exception = e;
+        }
+
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions));
+        verify(logger).error(msg);
+        assertNotNull(exception);
+        assertEquals(msg, exception.getMessage());
     }
 
     @Test
     void testGenerateOddNumberShouldThrowExceptionWhenUpperLimitLessOrEqualThanLowerLimit() {
         // GIVEN
-        Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        Exception exception = null;
         int lowerLimit = 20;
         int upperLimit = 19;
         Set<Integer> exceptions = Collections.EMPTY_SET;
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+        String msg = "exception";
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
+        try {
+            underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions);
+        } catch (IllegalArgumentException e) {
+            exception = e;
+        }
+
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generateOddNumber(lowerLimit, upperLimit, exceptions));
+        verify(logger).error(msg);
+        assertNotNull(exception);
+        assertEquals(msg, exception.getMessage());
     }
 
     @Test

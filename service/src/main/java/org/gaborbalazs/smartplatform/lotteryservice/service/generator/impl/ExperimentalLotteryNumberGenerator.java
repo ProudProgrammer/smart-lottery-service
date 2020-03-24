@@ -3,6 +3,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.ExperimentalFiveOutOfNinetyNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.SortedSet;
@@ -12,10 +13,12 @@ public class ExperimentalLotteryNumberGenerator implements LotteryNumberGenerato
 
     private final ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator;
     private final MessageFactory messageFactory;
+    private final Logger logger;
 
-    ExperimentalLotteryNumberGenerator(ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator, MessageFactory messageFactory) {
+    ExperimentalLotteryNumberGenerator(ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator, MessageFactory messageFactory, Logger logger) {
         this.experimentalFiveOutOfNinetyNumberGenerator = experimentalFiveOutOfNinetyNumberGenerator;
         this.messageFactory = messageFactory;
+        this.logger = logger;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class ExperimentalLotteryNumberGenerator implements LotteryNumberGenerato
         } else {
             String msg = messageFactory
                     .create("Quantity {0} and pool size {1} together are unsupported. Only quantity 5 and pool size 90 together are supported.", quantity, poolSize);
+            logger.error(msg);
             throw new UnsupportedOperationException(msg);
         }
     }
@@ -37,6 +41,7 @@ public class ExperimentalLotteryNumberGenerator implements LotteryNumberGenerato
     private void validate(int quantity, int poolSize) throws IllegalArgumentException {
         if (poolSize <= quantity) {
             String msg = messageFactory.create("Pool size must be larger than quantity! Quantity: {0}, pool size: {1}", quantity, poolSize);
+            logger.error(msg);
             throw new IllegalArgumentException(msg);
         }
     }

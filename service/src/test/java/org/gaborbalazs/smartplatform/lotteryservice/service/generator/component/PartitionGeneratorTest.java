@@ -1,17 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +8,19 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PartitionGeneratorTest {
@@ -42,8 +43,11 @@ class PartitionGeneratorTest {
     @Mock
     private MessageFactory messageFactory;
 
+    @Mock
+    private Logger logger;
+
     @ParameterizedTest
-    @CsvSource( {"3,90,90", "3,91,90", "5,5,90", "6,5,90", "3,7,90",})
+    @CsvSource({"3,90,90", "3,91,90", "5,5,90", "6,5,90", "3,7,90",})
     void testGeneratePartitionsShouldThrowException(int usedPartitions, int numberOfPartitions, int setOfNumbers) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;

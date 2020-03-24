@@ -1,12 +1,13 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
+import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.SortedSet;
-
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
-import org.springframework.stereotype.Component;
 
 @Component
 public class PartitionGenerator {
@@ -16,14 +17,16 @@ public class PartitionGenerator {
     private final FormationGenerator formationGenerator;
     private final ListShuffler listShuffler;
     private final MessageFactory messageFactory;
+    private final Logger logger;
 
     PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler,
-            MessageFactory messageFactory) {
+                       MessageFactory messageFactory, Logger logger) {
         this.random = threadLocalRandom;
         this.simpleNumberGenerator = simpleNumberGenerator;
         this.formationGenerator = formationGenerator;
         this.listShuffler = listShuffler;
         this.messageFactory = messageFactory;
+        this.logger = logger;
     }
 
     /**
@@ -69,6 +72,7 @@ public class PartitionGenerator {
             String msg = messageFactory
                     .create("Set of numbers must be larger than number of partitions and their division with remainder must be 0 and number of partitions must be larger than used partitions. Set of numbers: {0}, number of partitions: {1}, used partitions: {2}",
                             setOfNumbers, numberOfPartitions, usedPartitions);
+            logger.error(msg);
             throw new IllegalArgumentException(msg);
         }
     }

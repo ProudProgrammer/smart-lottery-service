@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -17,6 +18,7 @@ import java.util.TreeSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 /**
@@ -31,13 +33,15 @@ class LotteryNumberGeneratorFacadeTest {
     private LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
     private MessageFactory messageFactory;
+    private Logger logger;
 
     @BeforeEach
     void setUp() {
         defaultLotteryNumberGeneratorStrategy = mock(DefaultLotteryNumberGenerator.class);
         experimentalLotteryNumberGeneratorStrategy = mock(ExperimentalLotteryNumberGenerator.class);
         messageFactory = mock(MessageFactory.class);
-        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy, messageFactory);
+        logger = spy(Logger.class);
+        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy, messageFactory, logger);
     }
 
     @ParameterizedTest
