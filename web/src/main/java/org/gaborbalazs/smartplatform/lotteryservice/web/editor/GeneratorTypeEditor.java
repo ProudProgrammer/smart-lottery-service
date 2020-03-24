@@ -8,12 +8,12 @@ import java.beans.PropertyEditorSupport;
 
 public class GeneratorTypeEditor extends PropertyEditorSupport {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(GeneratorTypeEditor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GeneratorTypeEditor.class);
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        String msg = "Request param cannot be converted to GeneratorType: " + text;
         GeneratorType generatorType = GeneratorType.fromValue(text).orElseThrow(() -> {
+            String msg = "Request param cannot be converted to GeneratorType: " + text;
             LOGGER.error(msg);
             return new IllegalArgumentException(msg);
         });
