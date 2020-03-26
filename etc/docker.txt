@@ -3,4 +3,8 @@ docker build -t lottery-service . (in the same folder as Dockerfile)
 docker run -p 8081:8081 lottery-service
 
 # Pass properties to Spring via Docker as environment variables
-docker run -p 8080:8080 -e swagger.title="Hello World" -e swagger.contact-name="Bob" lottery-service:1.0-SNAPSHOT
+docker run -p 8081:8081 -e swagger.title="Hello World" -e swagger.contact-name="Bob" lottery-service:1.0-SNAPSHOT
+docker run -p 8081:8081 -e SWAGGER_TITLE="Hello World" -e swagger.contact-name="Bob" lottery-service:1.0-SNAPSHOT
+
+# Run and listening on debug port 5006
+docker run -p 8081:8081 -p 5006:5006 -e JAVA_ARGS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006" -e SPRING_PROFILES_ACTIVE=default lottery-service:1.0-SNAPSHOT
