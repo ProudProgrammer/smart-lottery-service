@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.ZonedDateTime;
@@ -28,6 +29,12 @@ class RestResponseEntityExceptionHandler {
     @ExceptionHandler(UnsupportedOperationException.class)
     ExceptionResponse handleUnsupportedOperationException(Exception exception, WebRequest request) {
         return createExceptionResponse(exception, HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RestClientException.class)
+    ExceptionResponse handleLotteryNumberGeneratorClientException(Exception exception, WebRequest request) {
+        return createExceptionResponse(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ExceptionResponse createExceptionResponse(Exception exception, HttpStatus httpStatus) {

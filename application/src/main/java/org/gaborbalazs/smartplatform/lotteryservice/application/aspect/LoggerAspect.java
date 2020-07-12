@@ -30,6 +30,10 @@ public class LoggerAspect {
     private void inServiceLayer() {
     }
 
+    @Pointcut("within(org.gaborbalazs.smartplatform.lotteryservice.betdao..*)")
+    private void inBetDaoLayer() {
+    }
+
     @Around("inWebLayer() || inServiceLayer()")
     Object aroundMethods(ProceedingJoinPoint joinPoint) throws Throwable {
         Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());

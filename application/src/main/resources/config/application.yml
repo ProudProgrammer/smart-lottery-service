@@ -6,7 +6,14 @@ spring:
 
 # Server
 server:
-  port : 8081
+  port: 8081
+
+# Bet DAO urls
+bet:
+  url:
+    five-out-of-ninety: https://bet.szerencsejatek.hu/cmsfiles/otos.csv
+    six-out-of-forty-five: https://bet.szerencsejatek.hu/cmsfiles/hatos.csv
+    scandinavian: https://bet.szerencsejatek.hu/cmsfiles/skandi.csv
 
 # Swagger
 swagger:
