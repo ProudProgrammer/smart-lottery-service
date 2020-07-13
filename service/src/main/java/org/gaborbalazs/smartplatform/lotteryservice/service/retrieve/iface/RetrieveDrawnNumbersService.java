@@ -1,6 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.retrieve.iface;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.FiveOutOfNinetyDraw;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.JokerDraw;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.ScandinavianDraw;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.SixOutOfFortyFiveDraw;
 
@@ -13,4 +14,6 @@ public interface RetrieveDrawnNumbersService {
     List<SixOutOfFortyFiveDraw> retrieveAllSixOutOfFortyFiveDraws();
 
     List<ScandinavianDraw> retrieveAllScandinavianDraws();
+
+    List<JokerDraw> retrieveAllJokerDraws();
 }

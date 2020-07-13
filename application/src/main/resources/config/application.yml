@@ -14,6 +14,7 @@ bet:
     five-out-of-ninety: https://bet.szerencsejatek.hu/cmsfiles/otos.csv
     six-out-of-forty-five: https://bet.szerencsejatek.hu/cmsfiles/hatos.csv
     scandinavian: https://bet.szerencsejatek.hu/cmsfiles/skandi.csv
+    joker: https://bet.szerencsejatek.hu/cmsfiles/joker.csv
 
 # Swagger
 swagger:

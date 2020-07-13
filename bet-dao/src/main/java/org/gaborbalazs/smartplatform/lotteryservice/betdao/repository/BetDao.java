@@ -1,9 +1,11 @@
 package org.gaborbalazs.smartplatform.lotteryservice.betdao.repository;
 
 import org.gaborbalazs.smartplatform.lotteryservice.betdao.factory.FiveOutOfNinetyDrawFactory;
+import org.gaborbalazs.smartplatform.lotteryservice.betdao.factory.JokerDrawFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.betdao.factory.ScandinavianDrawFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.betdao.factory.SixOutOfFortyFiveDrawFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.FiveOutOfNinetyDraw;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.JokerDraw;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.ScandinavianDraw;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.SixOutOfFortyFiveDraw;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
@@ -23,12 +25,14 @@ public class BetDao {
     private final FiveOutOfNinetyDrawFactory fiveOutOfNinetyDrawFactory;
     private final SixOutOfFortyFiveDrawFactory sixOutOfFortyFiveDrawFactory;
     private final ScandinavianDrawFactory scandinavianDrawFactory;
+    private final JokerDrawFactory jokerDrawFactory;
 
-    BetDao(BetRetrieveService betRetrieveService, FiveOutOfNinetyDrawFactory fiveOutOfNinetyDrawFactory, SixOutOfFortyFiveDrawFactory sixOutOfFortyFiveDrawFactory, ScandinavianDrawFactory scandinavianDrawFactory) {
+    BetDao(BetRetrieveService betRetrieveService, FiveOutOfNinetyDrawFactory fiveOutOfNinetyDrawFactory, SixOutOfFortyFiveDrawFactory sixOutOfFortyFiveDrawFactory, ScandinavianDrawFactory scandinavianDrawFactory, JokerDrawFactory jokerDrawFactory) {
         this.betRetrieveService = betRetrieveService;
         this.fiveOutOfNinetyDrawFactory = fiveOutOfNinetyDrawFactory;
         this.sixOutOfFortyFiveDrawFactory = sixOutOfFortyFiveDrawFactory;
         this.scandinavianDrawFactory = scandinavianDrawFactory;
+        this.jokerDrawFactory = jokerDrawFactory;
     }
 
     public List<FiveOutOfNinetyDraw> getAllFiveOutOfNinetyDraws() throws RestClientException {
@@ -44,5 +48,10 @@ public class BetDao {
     public List<ScandinavianDraw> getAllScandinavianDraws() throws RestClientException {
         String rawData = betRetrieveService.retrieveEveryDraws(LotteryType.SCANDINAVIAN);
         return Arrays.stream(rawData.split(LINE_DELIMITER)).map(scandinavianDrawFactory::create).collect(Collectors.toList());
+    }
+
+    public List<JokerDraw> getAllJokerDraws() throws RestClientException {
+        String rawData = betRetrieveService.retrieveEveryDraws(LotteryType.JOKER);
+        return Arrays.stream(rawData.split(LINE_DELIMITER)).map(jokerDrawFactory::create).collect(Collectors.toList());
     }
 }

@@ -6,7 +6,8 @@ import java.util.Optional;
 public enum LotteryType {
     FIVE_OUT_OF_NINETY(5, 90, "five-out-of-ninety"),
     SIX_OUT_OF_FORTY_FIVE(6, 45, "six-out-of-forty-five"),
-    SCANDINAVIAN(7, 35, "scandinavian");
+    SCANDINAVIAN(7, 35, "scandinavian"),
+    JOKER(6, 10, "joker");
 
     private final int quantity;
     private final int pool;

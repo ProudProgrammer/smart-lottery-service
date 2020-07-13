@@ -28,6 +28,8 @@ public class RetrieveDrawnLotteryNumbersController extends BaseController implem
             result = retrieveDrawnNumbersService.retrieveAllSixOutOfFortyFiveDraws();
         } else if (lotteryType == LotteryType.SCANDINAVIAN) {
             result = retrieveDrawnNumbersService.retrieveAllScandinavianDraws();
+        } else if (lotteryType == LotteryType.JOKER) {
+            result = retrieveDrawnNumbersService.retrieveAllJokerDraws();
         }
         return result;
     }
