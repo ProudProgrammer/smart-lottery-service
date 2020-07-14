@@ -34,7 +34,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         List<Integer> castedResponse = castToListOfIntegers(drawnNumbersResponse);
@@ -69,7 +69,7 @@ class ExperimentalFiveOutOfNinetyLotteryNumberGeneratorTest extends LotteryNumbe
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         List<Integer> castedResponse = castToListOfIntegers(drawnNumbersResponse);

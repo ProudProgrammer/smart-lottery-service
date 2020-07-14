@@ -34,7 +34,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -60,7 +60,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -86,7 +86,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -112,7 +112,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -138,7 +138,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -164,7 +164,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -191,7 +191,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -218,7 +218,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
@@ -246,7 +246,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         DocumentContext documentContext = documentContextFactory.create(mvcResult);
         String lotteryTypeResponse = documentContext.read("$.lotteryType", String.class);
         GeneratorType generatorTypeResponse = GeneratorType.valueOf(documentContext.read("$.generatorType", String.class));
-        List<?> drawnNumbersResponse = documentContext.read("$.drawnNumbers", List.class);
+        List<?> drawnNumbersResponse = documentContext.read("$.generatedNumbers", List.class);
 
         // THEN
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
