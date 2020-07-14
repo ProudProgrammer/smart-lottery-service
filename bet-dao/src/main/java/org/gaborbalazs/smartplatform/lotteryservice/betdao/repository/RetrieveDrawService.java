@@ -7,7 +7,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Repository
-public class BetRetrieveService {
+public class RetrieveDrawService {
 
     @Value("${bet.url.five-out-of-ninety}")
     private String betFiveOutOfNinetyUrl;
@@ -23,11 +23,11 @@ public class BetRetrieveService {
 
     private final RestTemplate restTemplate;
 
-    BetRetrieveService(RestTemplate restTemplate) {
+    RetrieveDrawService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    String retrieveEveryDraws(LotteryType lotteryType) throws RestClientException {
+    String retrieveAllByLotteryType(LotteryType lotteryType) throws RestClientException {
         String result = "";
         if (lotteryType == LotteryType.FIVE_OUT_OF_NINETY) {
             result = restTemplate.getForEntity(betFiveOutOfNinetyUrl, String.class).getBody();

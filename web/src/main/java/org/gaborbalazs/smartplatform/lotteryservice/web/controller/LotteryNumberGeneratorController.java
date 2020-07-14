@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
@@ -22,12 +22,12 @@ class LotteryNumberGeneratorController extends BaseController implements Lottery
     }
 
     @Override
-    public DrawnNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
+    public GeneratedNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
         return lotteryNumberGenerator.generate(lotteryType, generatorType);
     }
 
     @Override
-    public DrawnNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
+    public GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
         return lotteryNumberGenerator.generate(quantity, poolSize, generatorType);
     }
 }

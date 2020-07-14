@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 
@@ -24,7 +24,7 @@ public interface LotteryNumberGeneratorSwaggerApi {
     @ApiResponses({
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 501, message = "Not Implemented")})
-    DrawnNumbers generate(
+    GeneratedNumbers generate(
             @ApiParam(value = "Lottery type", required = true, allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian") LotteryType lotteryType,
             @ApiParam(value = "Generator type", allowableValues = "default,experimental") GeneratorType generatorType) throws UnsupportedOperationException;
 
@@ -36,7 +36,7 @@ public interface LotteryNumberGeneratorSwaggerApi {
     @ApiResponses({
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 501, message = "Not Implemented")})
-    DrawnNumbers generate(
+    GeneratedNumbers generate(
             @ApiParam(value = "Quantity of drawn numbers", required = true) int quantity,
             @ApiParam(value = "Pool size of numbers", required = true) int poolSize,
             @ApiParam(value = "Generator type", allowableValues = "default,experimental") GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException;

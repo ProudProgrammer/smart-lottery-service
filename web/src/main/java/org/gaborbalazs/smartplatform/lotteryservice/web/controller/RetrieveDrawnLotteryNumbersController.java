@@ -7,7 +7,6 @@ import org.gaborbalazs.smartplatform.lotteryservice.web.api.RetrieveDrawnLottery
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.RetrieveDrawnLotteryNumbersSwaggerApi;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -20,17 +19,7 @@ public class RetrieveDrawnLotteryNumbersController extends BaseController implem
     }
 
     @Override
-    public List<? extends Draw> retrieve(LotteryType lotteryType) {
-        List<? extends Draw> result = Collections.emptyList();
-        if (lotteryType == LotteryType.FIVE_OUT_OF_NINETY) {
-            result = retrieveDrawnNumbersService.retrieveAllFiveOutOfNinetyDraws();
-        } else if (lotteryType == LotteryType.SIX_OUT_OF_FORTY_FIVE) {
-            result = retrieveDrawnNumbersService.retrieveAllSixOutOfFortyFiveDraws();
-        } else if (lotteryType == LotteryType.SCANDINAVIAN) {
-            result = retrieveDrawnNumbersService.retrieveAllScandinavianDraws();
-        } else if (lotteryType == LotteryType.JOKER) {
-            result = retrieveDrawnNumbersService.retrieveAllJokerDraws();
-        }
-        return result;
+    public List<Draw> retrieve(LotteryType lotteryType) {
+        return retrieveDrawnNumbersService.retrieveAllByLotteryType(lotteryType);
     }
 }

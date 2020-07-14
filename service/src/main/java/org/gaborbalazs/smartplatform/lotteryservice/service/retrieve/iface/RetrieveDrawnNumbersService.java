@@ -1,19 +1,11 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.retrieve.iface;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.FiveOutOfNinetyDraw;
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.JokerDraw;
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.ScandinavianDraw;
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.SixOutOfFortyFiveDraw;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.Draw;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 
 import java.util.List;
 
 public interface RetrieveDrawnNumbersService {
 
-    List<FiveOutOfNinetyDraw> retrieveAllFiveOutOfNinetyDraws();
-
-    List<SixOutOfFortyFiveDraw> retrieveAllSixOutOfFortyFiveDraws();
-
-    List<ScandinavianDraw> retrieveAllScandinavianDraws();
-
-    List<JokerDraw> retrieveAllJokerDraws();
+    List<Draw> retrieveAllByLotteryType(LotteryType lotteryType);
 }

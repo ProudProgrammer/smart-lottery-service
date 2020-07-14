@@ -1,8 +1,11 @@
 package org.gaborbalazs.smartplatform.lotteryservice.betdao.factory;
 
 import org.apache.commons.lang3.StringUtils;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.Draw;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.Hit;
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.JokerDraw;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.DrawType;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -16,9 +19,10 @@ public class JokerDrawFactory {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd.");
     private static final String CSV_DELIMITER = ";";
 
-    public JokerDraw create(String csvLine) {
+    public Draw create(String csvLine) {
         String[] values = csvLine.split(CSV_DELIMITER);
-        return JokerDraw.newJokerDraw()
+        return Draw.newDraw()
+                .lotteryType(LotteryType.JOKER)
                 .year(Integer.parseInt(values[0]))
                 .week(Integer.parseInt(values[1]))
                 .date(StringUtils.isBlank(values[2]) ? null : LocalDate.parse(values[2], DATE_TIME_FORMATTER))
@@ -53,13 +57,13 @@ public class JokerDrawFactory {
                                 .prize(Long.parseLong((values[12].substring(0, values[12].length() - 3)).replaceAll(" ", "")))
                                 .currency(Currency.getInstance("HUF"))
                                 .build()))
-                .drawnNumbers(List.of(
+                .drawnNumbers(List.of(DrawnNumbers.newDrawnNumbers().drawType(DrawType.MECHANICAL).numbers(List.of(
                         Integer.parseInt(values[13]),
                         Integer.parseInt(values[14]),
                         Integer.parseInt(values[15]),
                         Integer.parseInt(values[16]),
                         Integer.parseInt(values[17]),
-                        Integer.parseInt(values[18])))
+                        Integer.parseInt(values[18]))).build()))
                 .build();
     }
 }

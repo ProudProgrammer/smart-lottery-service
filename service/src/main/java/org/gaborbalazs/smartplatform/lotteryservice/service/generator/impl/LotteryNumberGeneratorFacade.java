@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
@@ -28,23 +28,23 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
     }
 
     @Override
-    public DrawnNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
+    public GeneratedNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
         SortedSet<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generate(lotteryType.getQuantity(), lotteryType.getPool());
-        return DrawnNumbers.newDrawnNumbers()
+        return GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
-                .drawnNumbers(drawnNumbers)
+                .generatedNumbers(drawnNumbers)
                 .build();
     }
 
     @Override
-    public DrawnNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
+    public GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
         validate(quantity, poolSize);
         SortedSet<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generate(quantity, poolSize);
-        return DrawnNumbers.newDrawnNumbers()
+        return GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)
-                .drawnNumbers(drawnNumbers)
+                .generatedNumbers(drawnNumbers)
                 .build();
     }
 

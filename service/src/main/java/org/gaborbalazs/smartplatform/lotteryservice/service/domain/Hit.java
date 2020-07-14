@@ -16,10 +16,6 @@ public final class Hit {
         this.currency = builder.currency;
     }
 
-    public static Builder newHit() {
-        return new Builder();
-    }
-
     public int getHits() {
         return hits;
     }
@@ -36,17 +32,12 @@ public final class Hit {
         return currency;
     }
 
-    @Override
-    public String toString() {
-        return "Hit{" +
-                "hits=" + hits +
-                ", tickets=" + tickets +
-                ", prize=" + prize +
-                ", currency=" + currency +
-                '}';
+    public static Builder newHit() {
+        return new Builder();
     }
 
     public static final class Builder {
+
         private int hits;
         private int tickets;
         private long prize;

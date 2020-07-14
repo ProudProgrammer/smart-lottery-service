@@ -24,6 +24,6 @@ public interface RetrieveDrawnLotteryNumbersSwaggerApi {
             @ApiImplicitParam(name = "Locale", value = "Locale for response message localization.", paramType = "header", defaultValue = "en-US")})
     @ApiResponses({
             @ApiResponse(code = 400, message = "Bad Request")})
-    List<? extends Draw> retrieve(
+    List<Draw> retrieve(
             @ApiParam(value = "Lottery type", required = true, allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian,joker") LotteryType lotteryType);
 }

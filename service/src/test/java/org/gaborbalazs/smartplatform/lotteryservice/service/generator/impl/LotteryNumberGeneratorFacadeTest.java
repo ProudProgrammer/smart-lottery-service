@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
@@ -62,10 +62,10 @@ class LotteryNumberGeneratorFacadeTest {
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.DEFAULT;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = DrawnNumbers.newDrawnNumbers()
+        GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
-                .drawnNumbers(drawnNumbers)
+                .generatedNumbers(drawnNumbers)
                 .build();
         when(defaultLotteryNumberGeneratorStrategy.generate(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
 
@@ -82,10 +82,10 @@ class LotteryNumberGeneratorFacadeTest {
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = DrawnNumbers.newDrawnNumbers()
+        GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
-                .drawnNumbers(drawnNumbers)
+                .generatedNumbers(drawnNumbers)
                 .build();
         when(experimentalLotteryNumberGeneratorStrategy.generate(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
 
@@ -103,10 +103,10 @@ class LotteryNumberGeneratorFacadeTest {
         int poolSize = 60;
         GeneratorType generatorType = GeneratorType.DEFAULT;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = DrawnNumbers.newDrawnNumbers()
+        GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)
-                .drawnNumbers(drawnNumbers)
+                .generatedNumbers(drawnNumbers)
                 .build();
         when(defaultLotteryNumberGeneratorStrategy.generate(quantity, poolSize)).thenReturn(drawnNumbers);
 
@@ -124,10 +124,10 @@ class LotteryNumberGeneratorFacadeTest {
         int poolSize = 60;
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
         SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        DrawnNumbers expectedResult = DrawnNumbers.newDrawnNumbers()
+        GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)
-                .drawnNumbers(drawnNumbers)
+                .generatedNumbers(drawnNumbers)
                 .build();
         when(experimentalLotteryNumberGeneratorStrategy.generate(quantity, poolSize)).thenReturn(drawnNumbers);
 

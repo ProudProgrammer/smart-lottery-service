@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.api;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
+import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.springframework.http.MediaType;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface LotteryNumberGeneratorApi {
 
     @RequestMapping(value = "/{lotteryType}/numbers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    DrawnNumbers generate(@PathVariable("lotteryType") LotteryType lotteryType, @RequestParam(defaultValue = "default") GeneratorType generatorType) throws UnsupportedOperationException;
+    GeneratedNumbers generate(@PathVariable("lotteryType") LotteryType lotteryType, @RequestParam(defaultValue = "default") GeneratorType generatorType) throws UnsupportedOperationException;
 
     @RequestMapping(value = "/numbers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    DrawnNumbers generate(@RequestParam int quantity, @RequestParam int poolSize, @RequestParam(defaultValue = "default") GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException;
+    GeneratedNumbers generate(@RequestParam int quantity, @RequestParam int poolSize, @RequestParam(defaultValue = "default") GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException;
 }

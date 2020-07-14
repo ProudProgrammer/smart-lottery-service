@@ -1,7 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.domain.DrawnNumbers;
-
 import java.util.SortedSet;
 
 /**
