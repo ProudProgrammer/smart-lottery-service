@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.SortedSet;
 
 @Component
 public class PartitionGenerator {
@@ -47,7 +46,7 @@ public class PartitionGenerator {
         validate(usedPartitions, numberOfPartitions, setOfNumbers);
         List<Partition> partitions = new ArrayList<>();
         List<Integer> formation = getFormation(usedPartitions, numberOfPartitions);
-        SortedSet<Integer> chosenPartitions = simpleNumberGenerator.generate(usedPartitions, numberOfPartitions);
+        List<Integer> chosenPartitions = simpleNumberGenerator.generateUniqueNumbersFromSamePool(usedPartitions, numberOfPartitions);
         int range = setOfNumbers / numberOfPartitions;
         int pointer = 0;
         for (int i = 0; i < numberOfPartitions; i++) {

@@ -2,15 +2,16 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.domain;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
-import java.util.SortedSet;
 
 public final class GeneratedNumbers {
 
     private final String lotteryType;
     private final GeneratorType generatorType;
-    private final SortedSet<Integer> generatedNumbers;
+    private final List<Integer> generatedNumbers;
 
     private GeneratedNumbers(Builder builder) {
         this.lotteryType = builder.lotteryType;
@@ -26,8 +27,8 @@ public final class GeneratedNumbers {
         return generatorType;
     }
 
-    public SortedSet<Integer> getGeneratedNumbers() {
-        return Collections.unmodifiableSortedSet(generatedNumbers);
+    public List<Integer> getGeneratedNumbers() {
+        return Collections.unmodifiableList(generatedNumbers);
     }
 
     @Override
@@ -52,7 +53,7 @@ public final class GeneratedNumbers {
     public static final class Builder {
         private String lotteryType;
         private GeneratorType generatorType;
-        private SortedSet<Integer> generatedNumbers;
+        private List<Integer> generatedNumbers;
 
         private Builder() {
         }
@@ -71,8 +72,8 @@ public final class GeneratedNumbers {
             return this;
         }
 
-        public Builder generatedNumbers(SortedSet<Integer> generatedNumbers) {
-            this.generatedNumbers = generatedNumbers;
+        public Builder generatedNumbers(List<Integer> generatedNumbers) {
+            this.generatedNumbers = new ArrayList<>(generatedNumbers);
             return this;
         }
     }

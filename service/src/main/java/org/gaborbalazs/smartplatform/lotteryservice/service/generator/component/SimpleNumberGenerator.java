@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class SimpleNumberGenerator {
@@ -34,8 +34,8 @@ public class SimpleNumberGenerator {
      * @throws IllegalArgumentException if pool size is larger than 1000
      * @throws IllegalArgumentException if quantity is 0
      */
-    public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException {
-        return generate(quantity, 1, poolSize);
+    public List<Integer> generateUniqueNumbersFromSamePool(int quantity, int poolSize) throws IllegalArgumentException {
+        return generateUniqueNumbersFromSamePool(quantity, 1, poolSize);
     }
 
     /**
@@ -50,10 +50,10 @@ public class SimpleNumberGenerator {
      * @throws IllegalArgumentException if pool size is larger than 1000
      * @throws IllegalArgumentException if quantity is 0
      */
-    public SortedSet<Integer> generate(int quantity, int lowerLimit, int upperLimit) throws IllegalArgumentException {
+    public List<Integer> generateUniqueNumbersFromSamePool(int quantity, int lowerLimit, int upperLimit) throws IllegalArgumentException {
         int poolSize = upperLimit - lowerLimit + 1;
-        validate(quantity, poolSize);
-        SortedSet<Integer> result = new TreeSet<>();
+        validateQuantityAndPoolSize(quantity, poolSize);
+        List<Integer> result = new ArrayList<>();
         List<Integer> pool = createFilledPoolWithNumbersBetweenLimits(lowerLimit, upperLimit);
         int poolIndex;
         for (int i = 0; i < quantity; i++) {
@@ -61,7 +61,23 @@ public class SimpleNumberGenerator {
             poolIndex = random.nextInt(poolSize - i);
             result.add(pool.remove(poolIndex));
         }
+        Collections.sort(result);
         return result;
+    }
+
+    /**
+     * Number generator method based on quantity and upper limit.
+     * Numbers do not have to be unique.
+     * It draws as many numbers as quantity from a pool with lower limit 0 (inclusive) and upper limit (exclusive).
+     *
+     * @param quantity   is the number of drawn numbers
+     * @param upperLimit is the upper limit (inclusive) of drawn numbers
+     * @return is list of drawn numbers
+     * @throws IllegalArgumentException if quantity or upperLimit are negative
+     */
+    public List<Integer> generateWithRecurrence(int quantity, int upperLimit) throws IllegalArgumentException {
+        validateQuantityAndUpperLimit(quantity, upperLimit);
+        return Stream.generate(() -> random.nextInt(upperLimit)).limit(quantity).collect(Collectors.toList());
     }
 
     private List<Integer> createFilledPoolWithNumbersBetweenLimits(int lowerLimit, int upperLimit) {
@@ -72,9 +88,9 @@ public class SimpleNumberGenerator {
         return pool;
     }
 
-    private void validate(int quantity, int poolSize) throws IllegalArgumentException {
-        if (quantity == 0) {
-            String msg = "Quantity must not be 0.";
+    private void validateQuantityAndPoolSize(int quantity, int poolSize) throws IllegalArgumentException {
+        if (quantity < 1 || poolSize < 1) {
+            String msg = "Quantity and upper limit can not be smaller than 1.";
             logger.error(msg);
             throw new IllegalArgumentException(msg);
         } else if (poolSize > 1000) {
@@ -83,6 +99,14 @@ public class SimpleNumberGenerator {
             throw new IllegalArgumentException(msg);
         } else if (poolSize <= quantity) {
             String msg = messageFactory.create("Pool size must be larger than quantity. Quantity: {0}, pool size: {1}", quantity, poolSize);
+            logger.error(msg);
+            throw new IllegalArgumentException(msg);
+        }
+    }
+
+    private void validateQuantityAndUpperLimit(int quantity, int upperLimit) throws IllegalArgumentException {
+        if (quantity < 1 || upperLimit < 1) {
+            String msg = "Quantity and upper limit can not be smaller than 1.";
             logger.error(msg);
             throw new IllegalArgumentException(msg);
         }

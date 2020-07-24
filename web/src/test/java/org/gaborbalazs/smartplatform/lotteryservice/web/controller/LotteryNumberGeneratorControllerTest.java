@@ -11,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -35,7 +33,7 @@ class LotteryNumberGeneratorControllerTest {
         // GIVEN
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.DEFAULT;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
@@ -56,7 +54,7 @@ class LotteryNumberGeneratorControllerTest {
         int quantity = 6;
         int poolSize = 59;
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)

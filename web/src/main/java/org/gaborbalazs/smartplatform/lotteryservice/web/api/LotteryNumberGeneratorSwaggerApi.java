@@ -25,7 +25,7 @@ public interface LotteryNumberGeneratorSwaggerApi {
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 501, message = "Not Implemented")})
     GeneratedNumbers generate(
-            @ApiParam(value = "Lottery type", required = true, allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian") LotteryType lotteryType,
+            @ApiParam(value = "Lottery type", required = true, allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian,joker") LotteryType lotteryType,
             @ApiParam(value = "Generator type", allowableValues = "default,experimental") GeneratorType generatorType) throws UnsupportedOperationException;
 
     @ApiOperation("Generate a set of lottery numbers based on quantity and pool size")

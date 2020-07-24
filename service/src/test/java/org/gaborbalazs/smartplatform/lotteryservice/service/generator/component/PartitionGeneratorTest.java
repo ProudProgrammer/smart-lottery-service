@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -68,9 +66,9 @@ class PartitionGeneratorTest {
         Partition expectedPartition2 = new Partition(1, 19, 36);
         Partition expectedPartition3 = new Partition(1, 37, 54);
         int expectedResultSize = 3;
-        SortedSet<Integer> expectedPartitions = new TreeSet<>(List.of(1, 2, 3));
+        List<Integer> expectedPartitions = List.of(1, 2, 3);
         List<Integer> expectedFormation = new ArrayList<>(List.of(3, 1, 1));
-        when(simpleNumberGenerator.generate(usedPartitions, numberOfPartitions)).thenReturn(expectedPartitions);
+        when(simpleNumberGenerator.generateUniqueNumbersFromSamePool(usedPartitions, numberOfPartitions)).thenReturn(expectedPartitions);
         when(formationGenerator.generate(usedPartitions, numberOfPartitions)).thenReturn(expectedFormation);
         when(listShuffler.shuffle(expectedFormation)).thenReturn(expectedFormation);
         when(random.nextInt(3)).thenReturn(0);
@@ -96,9 +94,9 @@ class PartitionGeneratorTest {
         Partition expectedPartition2 = new Partition(2, 37, 54);
         Partition expectedPartition3 = new Partition(1, 73, 90);
         int expectedResultSize = 3;
-        SortedSet<Integer> expectedPartitions = new TreeSet<>(List.of(2, 3, 5));
+        List<Integer> expectedPartitions = List.of(2, 3, 5);
         List<Integer> expectedFormation = new ArrayList<>(List.of(2, 2, 1));
-        when(simpleNumberGenerator.generate(usedPartitions, numberOfPartitions)).thenReturn(expectedPartitions);
+        when(simpleNumberGenerator.generateUniqueNumbersFromSamePool(usedPartitions, numberOfPartitions)).thenReturn(expectedPartitions);
         when(formationGenerator.generate(usedPartitions, numberOfPartitions)).thenReturn(expectedFormation);
         when(listShuffler.shuffle(expectedFormation)).thenReturn(expectedFormation);
         when(random.nextInt(3)).thenReturn(0);
@@ -125,9 +123,9 @@ class PartitionGeneratorTest {
         Partition expectedPartition3 = new Partition(1, 37, 54);
         Partition expectedPartition4 = new Partition(1, 55, 72);
         int expectedResultSize = 4;
-        SortedSet<Integer> expectedPartitions = new TreeSet<>(List.of(1, 2, 3, 4));
+        List<Integer> expectedPartitions = List.of(1, 2, 3, 4);
         List<Integer> expectedFormation = new ArrayList<>(List.of(2, 1, 1, 1));
-        when(simpleNumberGenerator.generate(usedPartitions, numberOfPartitions)).thenReturn(expectedPartitions);
+        when(simpleNumberGenerator.generateUniqueNumbersFromSamePool(usedPartitions, numberOfPartitions)).thenReturn(expectedPartitions);
         when(formationGenerator.generate(usedPartitions, numberOfPartitions)).thenReturn(expectedFormation);
         when(listShuffler.shuffle(expectedFormation)).thenReturn(expectedFormation);
         when(random.nextInt(4)).thenReturn(0);

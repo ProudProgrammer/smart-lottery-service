@@ -6,7 +6,7 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.Lott
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.SortedSet;
+import java.util.List;
 
 @Service("experimentalLotteryNumberGeneratorStrategy")
 public class ExperimentalLotteryNumberGenerator implements LotteryNumberGeneratorStrategy {
@@ -22,12 +22,19 @@ public class ExperimentalLotteryNumberGenerator implements LotteryNumberGenerato
     }
 
     @Override
-    public SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException, UnsupportedOperationException {
+    public List<Integer> generateWithoutReplacement(int quantity, int poolSize) throws IllegalArgumentException, UnsupportedOperationException {
         validate(quantity, poolSize);
         return callProperGenerator(quantity, poolSize);
     }
 
-    private SortedSet<Integer> callProperGenerator(int quantity, int poolSize) throws UnsupportedOperationException {
+    @Override
+    public List<Integer> generateWitHReplacement(int quantity, int upperLimit) throws IllegalArgumentException {
+        String msg = "Unsupported operation";
+        logger.error(msg);
+        throw new UnsupportedOperationException(msg);
+    }
+
+    private List<Integer> callProperGenerator(int quantity, int poolSize) throws UnsupportedOperationException {
         if (quantity == 5 && poolSize == 90) {
             return experimentalFiveOutOfNinetyNumberGenerator.generate();
         } else {

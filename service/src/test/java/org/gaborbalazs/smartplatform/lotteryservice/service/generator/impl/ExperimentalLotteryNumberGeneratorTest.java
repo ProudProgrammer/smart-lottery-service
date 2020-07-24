@@ -10,8 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,7 +42,7 @@ class ExperimentalLotteryNumberGeneratorTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize));
+        assertThrows(expectedExceptionClass, () -> underTest.generateWithoutReplacement(quantity, poolSize));
     }
 
     @Test
@@ -57,7 +55,7 @@ class ExperimentalLotteryNumberGeneratorTest {
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize));
+        assertThrows(expectedExceptionClass, () -> underTest.generateWithoutReplacement(quantity, poolSize));
     }
 
     @Test
@@ -65,11 +63,11 @@ class ExperimentalLotteryNumberGeneratorTest {
         // GIVEN
         int quantity = 5;
         int poolSize = 90;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         when(experimentalFiveOutOfNinetyNumberGenerator.generate()).thenReturn(drawnNumbers);
 
         // WHEN
-        var result = underTest.generate(quantity, poolSize);
+        var result = underTest.generateWithoutReplacement(quantity, poolSize);
 
         // THEN
         assertEquals(drawnNumbers, result);

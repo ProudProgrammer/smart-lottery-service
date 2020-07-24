@@ -2,6 +2,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.domain;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.DrawType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public final class DrawnNumbers {
         }
 
         public Builder numbers(List<Integer> numbers) {
-            this.numbers = numbers;
+            this.numbers = new ArrayList<>(numbers);
             return this;
         }
     }

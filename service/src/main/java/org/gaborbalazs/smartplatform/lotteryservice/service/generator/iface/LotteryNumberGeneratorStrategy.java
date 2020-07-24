@@ -1,6 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface;
 
-import java.util.SortedSet;
+import java.util.List;
 
 /**
  * Strategy for lottery number generation, for example default, experimental.
@@ -8,11 +8,20 @@ import java.util.SortedSet;
 public interface LotteryNumberGeneratorStrategy {
 
     /**
-     * Lottery number generator method.
+     * Lottery number generator method without number replacement.
      *
      * @param quantity is the quantity of drawn numbers
      * @param poolSize is the size of set of numbers
      * @return set of drawn numbers
      */
-    SortedSet<Integer> generate(int quantity, int poolSize) throws IllegalArgumentException;
+    List<Integer> generateWithoutReplacement(int quantity, int poolSize) throws IllegalArgumentException;
+
+    /**
+     * Lottery number generator method with number replacement.
+     *
+     * @param quantity   is the quantity of drawn numbers
+     * @param upperLimit is the upper limit (exclusive) for generated numbers
+     * @return set of drawn numbers
+     */
+    List<Integer> generateWitHReplacement(int quantity, int upperLimit) throws IllegalArgumentException;
 }

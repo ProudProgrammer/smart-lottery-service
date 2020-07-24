@@ -9,7 +9,7 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.Lott
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.SortedSet;
+import java.util.List;
 
 @Service
 class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
@@ -29,7 +29,12 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
 
     @Override
     public GeneratedNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
-        SortedSet<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generate(lotteryType.getQuantity(), lotteryType.getPool());
+        List<Integer> drawnNumbers;
+        if (lotteryType == LotteryType.JOKER) {
+            drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generateWitHReplacement(lotteryType.getQuantity(), lotteryType.getPool());
+        } else {
+            drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool());
+        }
         return GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
@@ -40,7 +45,7 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
     @Override
     public GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
         validate(quantity, poolSize);
-        SortedSet<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generate(quantity, poolSize);
+        List<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generateWithoutReplacement(quantity, poolSize);
         return GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)

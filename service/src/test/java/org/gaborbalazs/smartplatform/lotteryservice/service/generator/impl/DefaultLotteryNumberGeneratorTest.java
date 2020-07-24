@@ -8,8 +8,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -28,11 +26,11 @@ class DefaultLotteryNumberGeneratorTest {
         // GIVEN
         int quantity = 5;
         int poolSize = 90;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
-        when(simpleNumberGenerator.generate(quantity, poolSize)).thenReturn(drawnNumbers);
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
+        when(simpleNumberGenerator.generateUniqueNumbersFromSamePool(quantity, poolSize)).thenReturn(drawnNumbers);
 
         // WHEN
-        var result = underTest.generate(quantity, poolSize);
+        var result = underTest.generateWithoutReplacement(quantity, poolSize);
 
         // THEN
         assertEquals(drawnNumbers, result);

@@ -12,8 +12,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -61,13 +59,13 @@ class LotteryNumberGeneratorFacadeTest {
         // GIVEN
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.DEFAULT;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(defaultLotteryNumberGeneratorStrategy.generate(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
+        when(defaultLotteryNumberGeneratorStrategy.generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(lotteryType, generatorType);
@@ -81,13 +79,13 @@ class LotteryNumberGeneratorFacadeTest {
         // GIVEN
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(experimentalLotteryNumberGeneratorStrategy.generate(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
+        when(experimentalLotteryNumberGeneratorStrategy.generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(lotteryType, generatorType);
@@ -102,13 +100,13 @@ class LotteryNumberGeneratorFacadeTest {
         int quantity = 6;
         int poolSize = 60;
         GeneratorType generatorType = GeneratorType.DEFAULT;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(defaultLotteryNumberGeneratorStrategy.generate(quantity, poolSize)).thenReturn(drawnNumbers);
+        when(defaultLotteryNumberGeneratorStrategy.generateWithoutReplacement(quantity, poolSize)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(quantity, poolSize, generatorType);
@@ -123,13 +121,13 @@ class LotteryNumberGeneratorFacadeTest {
         int quantity = 6;
         int poolSize = 60;
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
-        SortedSet<Integer> drawnNumbers = new TreeSet<>(List.of(1, 2, 3, 4, 5));
+        List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(experimentalLotteryNumberGeneratorStrategy.generate(quantity, poolSize)).thenReturn(drawnNumbers);
+        when(experimentalLotteryNumberGeneratorStrategy.generateWithoutReplacement(quantity, poolSize)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(quantity, poolSize, generatorType);

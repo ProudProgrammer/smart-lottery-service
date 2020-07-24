@@ -30,26 +30,26 @@ class SimpleNumberGeneratorTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"0,90", "5,0", "5,1001", "5,5", "6,5"})
-    void testGenerateShouldThrowException(int quantity, int poolSize) {
+    @CsvSource({"0,90", "5,0", "5,1001", "5,5", "6,5", "-1,90", "5,-1"})
+    void testGenerateUniqueNumbersFromSamePoolShouldThrowException(int quantity, int poolSize) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
         when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
 
         // WHEN
         // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize));
+        assertThrows(expectedExceptionClass, () -> underTest.generateUniqueNumbersFromSamePool(quantity, poolSize));
     }
 
     @Test
-    void testGenerateShouldReturn5ElementsWhenQuantity5AndPoolSize90() {
+    void testGenerateUniqueNumbersFromSamePoolShouldReturn5ElementsWhenQuantity5AndPoolSize90() {
         // GIVEN
         int expectedResultSize = 5;
         int lowerLimit = 1;
         int upperLimit = 90;
 
         // WHEN
-        var result = underTest.generate(expectedResultSize, upperLimit);
+        var result = underTest.generateUniqueNumbersFromSamePool(expectedResultSize, upperLimit);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
@@ -57,14 +57,14 @@ class SimpleNumberGeneratorTest {
     }
 
     @Test
-    void testGenerateShouldReturn6ElementsWhenQuantity6AndPoolSize45() {
+    void testGenerateUniqueNumbersFromSamePoolShouldReturn6ElementsWhenQuantity6AndPoolSize45() {
         // GIVEN
         int expectedResultSize = 6;
         int lowerLimit = 1;
         int upperLimit = 45;
 
         // WHEN
-        var result = underTest.generate(expectedResultSize, upperLimit);
+        var result = underTest.generateUniqueNumbersFromSamePool(expectedResultSize, upperLimit);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
@@ -72,14 +72,14 @@ class SimpleNumberGeneratorTest {
     }
 
     @Test
-    void testGenerateShouldReturn7ElementsWhenQuantity7AndPoolSize35() {
+    void testGenerateUniqueNumbersFromSamePoolShouldReturn7ElementsWhenQuantity7AndPoolSize35() {
         // GIVEN
         int expectedResultSize = 7;
         int lowerLimit = 1;
         int upperLimit = 35;
 
         // WHEN
-        var result = underTest.generate(expectedResultSize, upperLimit);
+        var result = underTest.generateUniqueNumbersFromSamePool(expectedResultSize, upperLimit);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
@@ -87,14 +87,14 @@ class SimpleNumberGeneratorTest {
     }
 
     @Test
-    void testGenerateShouldReturn10ElementsWhenQuantity10AndPoolSize100() {
+    void testGenerateUniqueNumbersFromSamePoolShouldReturn10ElementsWhenQuantity10AndPoolSize100() {
         // GIVEN
         int expectedResultSize = 10;
         int lowerLimit = 1;
         int upperLimit = 100;
 
         // WHEN
-        var result = underTest.generate(expectedResultSize, upperLimit);
+        var result = underTest.generateUniqueNumbersFromSamePool(expectedResultSize, upperLimit);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
@@ -102,17 +102,43 @@ class SimpleNumberGeneratorTest {
     }
 
     @Test
-    void testGenerateShouldReturn9ElementsWhenQuantity9AndLowerLimit1001AndUpperLimit1010() {
+    void testGenerateUniqueNumbersFromSamePoolShouldReturn9ElementsWhenQuantity9AndLowerLimit1001AndUpperLimit1010() {
         // GIVEN
         int expectedResultSize = 9;
         int lowerLimit = 1001;
         int upperLimit = 1010;
 
         // WHEN
-        var result = underTest.generate(expectedResultSize, lowerLimit, upperLimit);
+        var result = underTest.generateUniqueNumbersFromSamePool(expectedResultSize, lowerLimit, upperLimit);
 
         // THEN
         assertEquals(expectedResultSize, result.size());
         result.forEach(number -> assertTrue(number >= lowerLimit && number <= upperLimit));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"-1,9", "6,-1", "0, 9", "6, 0"})
+    void testGenerateWithRecurrenceShouldThrowException(int quantity, int upperLimit) {
+        // GIVEN
+        Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
+        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+
+        // WHEN
+        // THEN
+        assertThrows(expectedExceptionClass, () -> underTest.generateWithRecurrence(quantity, upperLimit));
+    }
+
+    @Test
+    void testGenerateWithRecurrenceShouldReturn6ElementsWhenQuantity6AndUpperLimit9() {
+        // GIVEN
+        int expectedResultSize = 6;
+        int upperLimit = 9;
+
+        // WHEN
+        var result = underTest.generateWithRecurrence(expectedResultSize, upperLimit);
+
+        // THEN
+        assertEquals(expectedResultSize, result.size());
+        result.forEach(number -> assertTrue(number < upperLimit));
     }
 }

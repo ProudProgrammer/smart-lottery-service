@@ -3,6 +3,7 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.domain;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public final class Draw {
     }
 
     public List<Hit> getHits() {
-        return hits;
+        return Collections.unmodifiableList(hits);
     }
 
     public List<DrawnNumbers> getDrawnNumbers() {
@@ -88,12 +89,12 @@ public final class Draw {
         }
 
         public Builder hits(List<Hit> hits) {
-            this.hits = hits;
+            this.hits = new ArrayList<>(hits);
             return this;
         }
 
         public Builder drawnNumbers(List<DrawnNumbers> drawnNumbers) {
-            this.drawnNumbers = drawnNumbers;
+            this.drawnNumbers = new ArrayList<>(drawnNumbers);
             return this;
         }
     }
