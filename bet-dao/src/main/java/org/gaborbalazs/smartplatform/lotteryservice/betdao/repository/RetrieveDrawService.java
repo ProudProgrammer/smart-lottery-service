@@ -1,6 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.betdao.repository;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestClientException;
@@ -23,21 +24,33 @@ public class RetrieveDrawService {
 
     private final RestTemplate restTemplate;
 
-    RetrieveDrawService(RestTemplate restTemplate) {
+    private final Logger logger;
+
+    RetrieveDrawService(RestTemplate restTemplate, Logger logger) {
         this.restTemplate = restTemplate;
+        this.logger = logger;
     }
 
     String retrieveAllByLotteryType(LotteryType lotteryType) throws RestClientException {
         String result = "";
         if (lotteryType == LotteryType.FIVE_OUT_OF_NINETY) {
-            result = restTemplate.getForEntity(betFiveOutOfNinetyUrl, String.class).getBody();
+            result = getResult(betFiveOutOfNinetyUrl);
         } else if (lotteryType == LotteryType.SIX_OUT_OF_FORTY_FIVE) {
-            result = restTemplate.getForEntity(betSixOutOfFortyFiveUrl, String.class).getBody();
+            result = getResult(betSixOutOfFortyFiveUrl);
         } else if (lotteryType == LotteryType.SCANDINAVIAN) {
-            result = restTemplate.getForEntity(betScandinavianUrl, String.class).getBody();
+            result = getResult(betScandinavianUrl);
         } else if (lotteryType == LotteryType.JOKER) {
-            result = restTemplate.getForEntity(betJokerUrl, String.class).getBody();
+            result = getResult(betJokerUrl);
         }
         return result;
+    }
+
+    private String getResult(String url) {
+        try {
+            return restTemplate.getForEntity(url, String.class).getBody();
+        } catch (RestClientException e) {
+            logger.error("Cannot retrieve lottery numbers from external service.", e);
+            throw e;
+        }
     }
 }
