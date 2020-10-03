@@ -20,20 +20,20 @@ public class LocaleFactory {
         this.logger = logger;
     }
 
-    public Locale create(String localeAsString) {
-        if (StringUtils.isBlank(localeAsString)) {
-            return getLocaleDefault();
-        } else if (localeAsString.matches(PATTERN_LANGUAGE_COUNTRY)) {
-            String[] localeParts = localeAsString.split(PATTERN_SPLIT);
+    public Locale create(String locale) {
+        if (StringUtils.isBlank(locale)) {
+            return getDefaultLocale();
+        } else if (locale.matches(PATTERN_LANGUAGE_COUNTRY)) {
+            String[] localeParts = locale.split(PATTERN_SPLIT);
             return getLocale(localeParts[0], localeParts[1]);
-        } else if (localeAsString.matches(PATTERN_LANGUAGE)) {
-            return getLocale(localeAsString, null);
+        } else if (locale.matches(PATTERN_LANGUAGE)) {
+            return getLocale(locale, null);
         } else {
-            return getLocaleDefault();
+            return getDefaultLocale();
         }
     }
 
-    private Locale getLocaleDefault() {
+    private Locale getDefaultLocale() {
         logger.debug("Locale is not specified or not appropriate. Default locale will be used: " + LOCALE_DEFAULT.toString());
         return LOCALE_DEFAULT;
     }
