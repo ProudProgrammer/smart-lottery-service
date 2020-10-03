@@ -1,8 +1,5 @@
 package org.gaborbalazs.smartplatform.lotteryservice.application.aspect;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,6 +18,8 @@ public class LoggerAspect {
     private static final String AFTER = "<< ";
     private static final String BRACKET_PREFIX = "(";
     private static final String BRACKET_SUFFIX = ")";
+    private static final String NULL_ARGUMENT = "null";
+    private static final String DELIMITER_ARGUMENT = ", ";
 
     @Pointcut("within(org.gaborbalazs.smartplatform.lotteryservice.web..*)")
     private void inWebLayer() {
@@ -37,10 +36,28 @@ public class LoggerAspect {
     @Around("inWebLayer() || inServiceLayer()")
     Object aroundMethods(ProceedingJoinPoint joinPoint) throws Throwable {
         Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
-        List<Object> args = List.of(joinPoint.getArgs());
-        logger.debug(BEFORE + joinPoint.getSignature().getName() + BRACKET_PREFIX + args.stream().map(Object::toString).collect(Collectors.joining(", ")) + BRACKET_SUFFIX);
+        String arguments = getArgumentsAsString(joinPoint.getArgs());
+        logger.debug(BEFORE + joinPoint.getSignature().getName() + BRACKET_PREFIX + arguments + BRACKET_SUFFIX);
         Object response = joinPoint.proceed();
         logger.debug(AFTER + joinPoint.getSignature().getName() + BRACKET_PREFIX + response + BRACKET_SUFFIX);
         return response;
+    }
+
+    private String getArgumentsAsString(Object[] arguments) {
+        if (arguments == null) {
+            return NULL_ARGUMENT;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < arguments.length; i++) {
+            if (arguments[i] == null) {
+                stringBuilder.append(NULL_ARGUMENT);
+            } else {
+                stringBuilder.append(arguments[i].toString());
+            }
+            if (i < arguments.length - 1) {
+                stringBuilder.append(DELIMITER_ARGUMENT);
+            }
+        }
+        return stringBuilder.toString();
     }
 }

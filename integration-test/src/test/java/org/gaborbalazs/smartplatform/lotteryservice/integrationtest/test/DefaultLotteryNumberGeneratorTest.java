@@ -237,7 +237,7 @@ class DefaultLotteryNumberGeneratorTest extends LotteryNumberGeneratorTestBase {
         int quantity = 6;
         int poolSize = 59;
         String expectedLotteryType = quantity + "/" + poolSize;
-        String expectedLocaleHeader = Locale.getDefault().toString();
+        String expectedLocaleHeader = Locale.US.toString();
         String expectedConsumerName = "unidentified";
 
         // WHEN

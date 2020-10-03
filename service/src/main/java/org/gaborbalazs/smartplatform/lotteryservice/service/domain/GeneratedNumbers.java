@@ -46,6 +46,15 @@ public final class GeneratedNumbers {
         return Objects.hash(lotteryType, generatorType, generatedNumbers);
     }
 
+    @Override
+    public String toString() {
+        return "GeneratedNumbers{" +
+                "lotteryType='" + lotteryType + '\'' +
+                ", generatorType=" + generatorType +
+                ", generatedNumbers=" + generatedNumbers +
+                '}';
+    }
+
     public static Builder newGeneratedNumbers() {
         return new Builder();
     }
