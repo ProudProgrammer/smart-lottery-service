@@ -3,21 +3,15 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.validator.LotteryNumberGeneratorFacadeValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.slf4j.Logger;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * In this case {@link org.mockito.Mock} and {@link org.mockito.InjectMocks} annotations cannot be used
@@ -30,28 +24,14 @@ class LotteryNumberGeneratorFacadeTest {
     private LotteryNumberGeneratorFacade underTest;
     private LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
-    private MessageFactory messageFactory;
-    private Logger logger;
+    private LotteryNumberGeneratorFacadeValidator lotteryNumberGeneratorFacadeValidator;
 
     @BeforeEach
     void setUp() {
         defaultLotteryNumberGeneratorStrategy = mock(DefaultLotteryNumberGenerator.class);
         experimentalLotteryNumberGeneratorStrategy = mock(ExperimentalLotteryNumberGenerator.class);
-        messageFactory = mock(MessageFactory.class);
-        logger = spy(Logger.class);
-        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy, messageFactory, logger);
-    }
-
-    @ParameterizedTest
-    @CsvSource({"0,90", "5,0", "5,1001", "5,5", "6,5"})
-    void testGenerateShouldThrowException(int quantity, int poolSize) {
-        // GIVEN
-        GeneratorType generatorType = GeneratorType.DEFAULT;
-        Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
-
-        // WHEN
-        // THEN
-        assertThrows(expectedExceptionClass, () -> underTest.generate(quantity, poolSize, generatorType));
+        lotteryNumberGeneratorFacadeValidator = mock(LotteryNumberGeneratorFacadeValidator.class);
+        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy, lotteryNumberGeneratorFacadeValidator);
     }
 
     @Test
@@ -112,6 +92,7 @@ class LotteryNumberGeneratorFacadeTest {
         var result = underTest.generate(quantity, poolSize, generatorType);
 
         // THEN
+        verify(lotteryNumberGeneratorFacadeValidator).validate(quantity, poolSize);
         assertEquals(expectedResult, result);
     }
 
@@ -133,6 +114,7 @@ class LotteryNumberGeneratorFacadeTest {
         var result = underTest.generate(quantity, poolSize, generatorType);
 
         // THEN
+        verify(lotteryNumberGeneratorFacadeValidator).validate(quantity, poolSize);
         assertEquals(expectedResult, result);
     }
 }

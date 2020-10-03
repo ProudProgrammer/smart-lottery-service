@@ -3,10 +3,9 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.slf4j.Logger;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.validator.LotteryNumberGeneratorFacadeValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +15,12 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
 
     private final LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private final LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
-    private final MessageFactory messageFactory;
-    private final Logger logger;
+    private final LotteryNumberGeneratorFacadeValidator lotteryNumberGeneratorFacadeValidator;
 
-    LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy,
-                                 MessageFactory messageFactory, Logger logger) {
+    public LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy, LotteryNumberGeneratorFacadeValidator lotteryNumberGeneratorFacadeValidator) {
         this.defaultLotteryNumberGeneratorStrategy = defaultLotteryNumberGeneratorStrategy;
         this.experimentalLotteryNumberGeneratorStrategy = experimentalLotteryNumberGeneratorStrategy;
-        this.messageFactory = messageFactory;
-        this.logger = logger;
+        this.lotteryNumberGeneratorFacadeValidator = lotteryNumberGeneratorFacadeValidator;
     }
 
     @Override
@@ -44,7 +40,7 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
 
     @Override
     public GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
-        validate(quantity, poolSize);
+        lotteryNumberGeneratorFacadeValidator.validate(quantity, poolSize);
         List<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generateWithoutReplacement(quantity, poolSize);
         return GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
@@ -61,21 +57,5 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
             lotteryNumberGeneratorStrategy = defaultLotteryNumberGeneratorStrategy;
         }
         return lotteryNumberGeneratorStrategy;
-    }
-
-    private void validate(int quantity, int poolSize) throws IllegalArgumentException {
-        if (quantity == 0) {
-            String msg = "Quantity must not be 0.";
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
-        } else if (poolSize > 1000) {
-            String msg = messageFactory.create("Pool size must not be larger than {0}. Pool size: {1}", 1000, poolSize);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
-        } else if (poolSize <= quantity) {
-            String msg = messageFactory.create("Pool size must be larger than quantity. Quantity: {0}, Pool size: {1}", quantity, poolSize);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
-        }
     }
 }
