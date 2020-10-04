@@ -1,9 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.ExperimentalFiveOutOfNinetyNumberGenerator;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.MessageFactory;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.slf4j.Logger;
+import org.gaborbalazs.smartplatform.lotteryservice.service.generator.validator.ExperimentalLotteryNumberGeneratorValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,44 +11,21 @@ import java.util.List;
 public class ExperimentalLotteryNumberGenerator implements LotteryNumberGeneratorStrategy {
 
     private final ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator;
-    private final MessageFactory messageFactory;
-    private final Logger logger;
+    private final ExperimentalLotteryNumberGeneratorValidator experimentalLotteryNumberGeneratorValidator;
 
-    ExperimentalLotteryNumberGenerator(ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator, MessageFactory messageFactory, Logger logger) {
+    ExperimentalLotteryNumberGenerator(ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator, ExperimentalLotteryNumberGeneratorValidator experimentalLotteryNumberGeneratorValidator) {
         this.experimentalFiveOutOfNinetyNumberGenerator = experimentalFiveOutOfNinetyNumberGenerator;
-        this.messageFactory = messageFactory;
-        this.logger = logger;
+        this.experimentalLotteryNumberGeneratorValidator = experimentalLotteryNumberGeneratorValidator;
     }
 
     @Override
     public List<Integer> generateWithoutReplacement(int quantity, int poolSize) throws IllegalArgumentException, UnsupportedOperationException {
-        validate(quantity, poolSize);
-        return callProperGenerator(quantity, poolSize);
+        experimentalLotteryNumberGeneratorValidator.validate(quantity, poolSize);
+        return experimentalFiveOutOfNinetyNumberGenerator.generate();
     }
 
     @Override
-    public List<Integer> generateWitHReplacement(int quantity, int upperLimit) throws IllegalArgumentException {
-        String msg = "Unsupported operation";
-        logger.error(msg);
-        throw new UnsupportedOperationException(msg);
-    }
-
-    private List<Integer> callProperGenerator(int quantity, int poolSize) throws UnsupportedOperationException {
-        if (quantity == 5 && poolSize == 90) {
-            return experimentalFiveOutOfNinetyNumberGenerator.generate();
-        } else {
-            String msg = messageFactory
-                    .create("Quantity {0} and pool size {1} together are unsupported. Only quantity 5 and pool size 90 together are supported.", quantity, poolSize);
-            logger.error(msg);
-            throw new UnsupportedOperationException(msg);
-        }
-    }
-
-    private void validate(int quantity, int poolSize) throws IllegalArgumentException {
-        if (poolSize <= quantity) {
-            String msg = messageFactory.create("Pool size must be larger than quantity! Quantity: {0}, pool size: {1}", quantity, poolSize);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
-        }
+    public List<Integer> generateWitHReplacement(int quantity, int upperLimit) throws UnsupportedOperationException {
+        throw experimentalLotteryNumberGeneratorValidator.unsupportedOperation();
     }
 }

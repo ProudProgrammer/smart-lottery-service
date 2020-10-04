@@ -8,10 +8,14 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @Configuration
 public class LocalizationConfiguration {
 
+    private static final String PATH_MESSAGES = "l10n/messages";
+    private static final String CHARACTER_ENCODING = "UTF-8";
+
     @Bean
     MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("l10n/messages");
+        messageSource.setBasename(PATH_MESSAGES);
+        messageSource.setDefaultEncoding(CHARACTER_ENCODING);
         return messageSource;
     }
 }
