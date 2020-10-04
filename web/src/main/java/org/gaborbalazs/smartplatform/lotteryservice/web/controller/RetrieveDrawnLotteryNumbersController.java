@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class RetrieveDrawnLotteryNumbersController extends BaseController implements RetrieveDrawnLotteryNumbersApi, RetrieveDrawnLotteryNumbersSwaggerApi {
+public class RetrieveDrawnLotteryNumbersController implements RetrieveDrawnLotteryNumbersApi, RetrieveDrawnLotteryNumbersSwaggerApi {
 
     private final RetrieveDrawnNumbersService retrieveDrawnNumbersService;
 

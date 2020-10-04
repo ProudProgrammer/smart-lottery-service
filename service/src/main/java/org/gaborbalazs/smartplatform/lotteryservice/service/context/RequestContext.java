@@ -44,11 +44,11 @@ public class RequestContext {
     @Override
     public String toString() {
         return new ToStringCreator(this)
-                .append(HeaderParameterName.CONSUMER_NAME.getHeaderName(), consumerName)
-                .append(HeaderParameterName.REQUEST_ID.getHeaderName(), requestId)
+                .append(HeaderParameterName.CONSUMER_NAME.getValue(), consumerName)
+                .append(HeaderParameterName.REQUEST_ID.getValue(), requestId)
                 .append("RequestURI", requestURI)
                 .append("RequestQuery", requestQuery)
-                .append(HeaderParameterName.LOCALE.getHeaderName(), locale)
+                .append(HeaderParameterName.LOCALE.getValue(), locale)
                 .toString();
     }
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
@@ -25,8 +24,8 @@ class MdcLogEnhancerFilter implements Filter {
 
     private void setUpMDC(ServletRequest servletRequest) {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String consumerName = request.getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName());
-        String requestId = request.getHeader(HeaderParameterName.REQUEST_ID.getHeaderName());
+        String consumerName = request.getHeader(HeaderParameterName.CONSUMER_NAME.getValue());
+        String requestId = request.getHeader(HeaderParameterName.REQUEST_ID.getValue());
         MDC.put("consumerName", consumerName);
         MDC.put("requestId", requestId);
     }

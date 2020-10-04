@@ -8,15 +8,20 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.Lott
 import org.gaborbalazs.smartplatform.lotteryservice.service.retrieve.iface.RetrieveDrawnNumbersService;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorApi;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorSwaggerApi;
+import org.gaborbalazs.smartplatform.lotteryservice.web.editor.GeneratorTypeEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.beans.PropertyEditorSupport;
+
 @RestController
-class LotteryNumberGeneratorController extends BaseController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
+class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi, LotteryNumberGeneratorSwaggerApi {
 
     private final LotteryNumberGenerator lotteryNumberGenerator;
     private final RequestContext requestContext;
 
-    LotteryNumberGeneratorController(LotteryNumberGenerator lotteryNumberGenerator, RequestContext requestContext, RetrieveDrawnNumbersService retrieveDrawnNumbersService) {
+    LotteryNumberGeneratorController(LotteryNumberGenerator lotteryNumberGenerator, RequestContext requestContext) {
         this.lotteryNumberGenerator = lotteryNumberGenerator;
         this.requestContext = requestContext;
     }

@@ -41,9 +41,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getValue()));
         assertNotNull(ZonedDateTime.parse(responseTime));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -73,9 +73,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getValue()));
         assertNotNull(ZonedDateTime.parse(responseTime));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -105,9 +105,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getValue()));
         assertNotNull(ZonedDateTime.parse(responseTime));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -137,9 +137,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getValue()));
         assertNotNull(ZonedDateTime.parse(responseTime));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);
@@ -168,9 +168,9 @@ class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
         // THEN
         assertEquals(expectedHttpStatus.value(), mvcResult.getResponse().getStatus());
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName()));
-        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getHeaderName()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultRequestIdHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.REQUEST_ID.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultConsumerNameHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.CONSUMER_NAME.getValue()));
+        assertEquals(lotteryNumberGeneratorHeaderFactory.getDefaultLocaleHeader(), mvcResult.getResponse().getHeader(HeaderParameterName.LOCALE.getValue()));
         assertNotNull(ZonedDateTime.parse(responseTime));
         assertEquals(Integer.toString(expectedHttpStatus.value()), responseStatus);
         assertEquals(expectedHttpStatus.getReasonPhrase(), responseError);

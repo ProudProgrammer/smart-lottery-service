@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.Objects;
 
-@ControllerAdvice(basePackages = {"org.gaborbalazs.smartplatform.lotteryservice"})
+@ControllerAdvice
 public class ResponseHeaderAdvice implements ResponseBodyAdvice<Object> {
 
     private static final String UNIDENTIFIED = "unidentified";
@@ -30,9 +30,9 @@ public class ResponseHeaderAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        response.getHeaders().add(HeaderParameterName.REQUEST_ID.getHeaderName(), Objects.isNull(requestContext.getRequestId()) ? UNIDENTIFIED : requestContext.getRequestId());
-        response.getHeaders().add(HeaderParameterName.CONSUMER_NAME.getHeaderName(), Objects.isNull(requestContext.getConsumerName()) ? UNIDENTIFIED : requestContext.getConsumerName());
-        response.getHeaders().add(HeaderParameterName.LOCALE.getHeaderName(), Objects.isNull(requestContext.getLocale()) ? UNIDENTIFIED : requestContext.getLocale().toString());
+        response.getHeaders().add(HeaderParameterName.REQUEST_ID.getValue(), Objects.isNull(requestContext.getRequestId()) ? UNIDENTIFIED : requestContext.getRequestId());
+        response.getHeaders().add(HeaderParameterName.CONSUMER_NAME.getValue(), Objects.isNull(requestContext.getConsumerName()) ? UNIDENTIFIED : requestContext.getConsumerName());
+        response.getHeaders().add(HeaderParameterName.LOCALE.getValue(), Objects.isNull(requestContext.getLocale()) ? UNIDENTIFIED : requestContext.getLocale().toString());
         return body;
     }
 }

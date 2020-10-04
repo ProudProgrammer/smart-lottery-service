@@ -9,23 +9,23 @@ import org.springframework.stereotype.Component;
 public class LotteryNumberGeneratorHeaderFactory {
 
     private static final Map<String, String> DEFAULT_REQUEST_HEADERS = Map.of(
-            HeaderParameterName.REQUEST_ID.getHeaderName(), "test0000-0000-0000-0000-test00000000",
-            HeaderParameterName.CONSUMER_NAME.getHeaderName(), "test",
-            HeaderParameterName.LOCALE.getHeaderName(), "hu_HU");
+            HeaderParameterName.REQUEST_ID.getValue(), "test0000-0000-0000-0000-test00000000",
+            HeaderParameterName.CONSUMER_NAME.getValue(), "test",
+            HeaderParameterName.LOCALE.getValue(), "hu_HU");
 
     public Map<String, String> getDefaultRequestHeaders() {
         return DEFAULT_REQUEST_HEADERS;
     }
 
     public String getDefaultRequestIdHeader() {
-        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.REQUEST_ID.getHeaderName());
+        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.REQUEST_ID.getValue());
     }
 
     public String getDefaultConsumerNameHeader() {
-        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.CONSUMER_NAME.getHeaderName());
+        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.CONSUMER_NAME.getValue());
     }
 
     public String getDefaultLocaleHeader() {
-        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.LOCALE.getHeaderName());
+        return DEFAULT_REQUEST_HEADERS.get(HeaderParameterName.LOCALE.getValue());
     }
 }

@@ -32,7 +32,7 @@ class RequestContextConfiguration {
     @Bean
     @RequestScope
     RequestContext requestContext() {
-        String consumerName = httpServletRequest.getHeader(HeaderParameterName.CONSUMER_NAME.getHeaderName());
+        String consumerName = httpServletRequest.getHeader(HeaderParameterName.CONSUMER_NAME.getValue());
         return RequestContext.newBuilder()
                 .withConsumerName(consumerName)
                 .withRequestId(getRequestId())
@@ -43,12 +43,12 @@ class RequestContextConfiguration {
     }
 
     private String getRequestId() {
-        String requestIdHeader = httpServletRequest.getHeader(HeaderParameterName.REQUEST_ID.getHeaderName());
+        String requestIdHeader = httpServletRequest.getHeader(HeaderParameterName.REQUEST_ID.getValue());
         return requestIdFactory.create(requestIdHeader);
     }
 
     private Locale getLocal() {
-        String localeAsString = httpServletRequest.getHeader(HeaderParameterName.LOCALE.getHeaderName());
+        String localeAsString = httpServletRequest.getHeader(HeaderParameterName.LOCALE.getValue());
         return localeFactory.create(localeAsString);
     }
 }
