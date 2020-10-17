@@ -4,14 +4,14 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumb
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.validator.LotteryNumberGeneratorFacadeValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * In this case {@link org.mockito.Mock} and {@link org.mockito.InjectMocks} annotations cannot be used
@@ -24,14 +24,12 @@ class LotteryNumberGeneratorFacadeTest {
     private LotteryNumberGeneratorFacade underTest;
     private LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
-    private LotteryNumberGeneratorFacadeValidator lotteryNumberGeneratorFacadeValidator;
 
     @BeforeEach
     void setUp() {
         defaultLotteryNumberGeneratorStrategy = mock(DefaultLotteryNumberGenerator.class);
         experimentalLotteryNumberGeneratorStrategy = mock(ExperimentalLotteryNumberGenerator.class);
-        lotteryNumberGeneratorFacadeValidator = mock(LotteryNumberGeneratorFacadeValidator.class);
-        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy, lotteryNumberGeneratorFacadeValidator);
+        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy);
     }
 
     @Test
@@ -92,7 +90,6 @@ class LotteryNumberGeneratorFacadeTest {
         var result = underTest.generate(quantity, poolSize, generatorType);
 
         // THEN
-        verify(lotteryNumberGeneratorFacadeValidator).validate(quantity, poolSize);
         assertEquals(expectedResult, result);
     }
 
@@ -114,7 +111,6 @@ class LotteryNumberGeneratorFacadeTest {
         var result = underTest.generate(quantity, poolSize, generatorType);
 
         // THEN
-        verify(lotteryNumberGeneratorFacadeValidator).validate(quantity, poolSize);
         assertEquals(expectedResult, result);
     }
 }

@@ -5,7 +5,6 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.validator.LotteryNumberGeneratorFacadeValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +14,10 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
 
     private final LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
     private final LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
-    private final LotteryNumberGeneratorFacadeValidator lotteryNumberGeneratorFacadeValidator;
 
-    public LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy, LotteryNumberGeneratorFacadeValidator lotteryNumberGeneratorFacadeValidator) {
+    public LotteryNumberGeneratorFacade(LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy, LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy) {
         this.defaultLotteryNumberGeneratorStrategy = defaultLotteryNumberGeneratorStrategy;
         this.experimentalLotteryNumberGeneratorStrategy = experimentalLotteryNumberGeneratorStrategy;
-        this.lotteryNumberGeneratorFacadeValidator = lotteryNumberGeneratorFacadeValidator;
     }
 
     @Override
@@ -40,7 +37,6 @@ class LotteryNumberGeneratorFacade implements LotteryNumberGenerator {
 
     @Override
     public GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
-        lotteryNumberGeneratorFacadeValidator.validate(quantity, poolSize);
         List<Integer> drawnNumbers = getLotteryNumberGeneratorStrategy(generatorType).generateWithoutReplacement(quantity, poolSize);
         return GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)

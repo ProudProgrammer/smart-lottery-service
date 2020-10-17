@@ -21,16 +21,41 @@ $ mvn clean install
 $ git clone https://github.com/ProudProgrammer/smart-lottery-service.git
 $ mvn clean install
 ```
+With build script:
+- https://github.com/ProudProgrammer/smart-tools
+```
+$ git clone https://github.com/ProudProgrammer/smart-tools.git
+$ ./build.sh
+```
+Usage of helper of build script:
+```
+$ ./build.sh -h
+```
+### Run
+```
+from project root
+$ mvn spring-boot:run
+or from target folder
+$ java -jar lottery-service-release-1.0-SNAPSHOT.jar
+```
 With start script:
 - https://github.com/ProudProgrammer/smart-tools
 ```
 $ git clone https://github.com/ProudProgrammer/smart-tools.git
 $ ./start.sh
 ```
-Usage of helper of start script:
+Usage of helper of build script:
 ```
 $ ./start.sh -h
 ```
+### Solutions
+* Data Validation with Bean Validation API
+* Error Handling with @RestControllerAdvice
+* Logging with SLF4J, MDC, AspectJ
+* Localization with Spring MessageSource
+* External HTTP calls with RestTemplate
+* REST API documentation with Swagger
+* Unit Tests with JUnit 5
 ### Modular architecture of Lottery Service
 ![Modular Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/modular-architecture-lottery-service.png)
 ### System architecture of Smart Platform

@@ -23,6 +23,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 class SwaggerConfiguration {
 
+    @Value("${swagger.path-selector-pattern:.*}")
+    private String pathSelectorPattern;
+
     @Value("${swagger.title:#{null}}")
     private String title;
 
@@ -57,7 +60,7 @@ class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.regex(pathSelectorPattern))
                 .build()
                 .apiInfo(apiInfo());
     }

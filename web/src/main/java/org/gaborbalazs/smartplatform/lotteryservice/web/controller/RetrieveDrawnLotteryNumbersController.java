@@ -4,13 +4,12 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.domain.Draw;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.retrieve.iface.RetrieveDrawnNumbersService;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.RetrieveDrawnLotteryNumbersApi;
-import org.gaborbalazs.smartplatform.lotteryservice.web.api.RetrieveDrawnLotteryNumbersSwaggerApi;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-public class RetrieveDrawnLotteryNumbersController implements RetrieveDrawnLotteryNumbersApi, RetrieveDrawnLotteryNumbersSwaggerApi {
+public class RetrieveDrawnLotteryNumbersController implements RetrieveDrawnLotteryNumbersApi {
 
     private final RetrieveDrawnNumbersService retrieveDrawnNumbersService;
 
