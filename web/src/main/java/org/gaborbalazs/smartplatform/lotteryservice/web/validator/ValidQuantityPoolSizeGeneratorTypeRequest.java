@@ -4,12 +4,12 @@ import javax.validation.Constraint;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = QuantityAndPoolSizeValidator.class)
+@Constraint(validatedBy = QuantityPoolSizeGeneratorTypeRequestValidator.class)
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidQuantityAndPoolSize {
+public @interface ValidQuantityPoolSizeGeneratorTypeRequest {
 
-    String message() default "Invalid quantity and poolSize";
+    String message() default "Invalid quantity, poolSize, generatorType";
 
     Class[] groups() default {};
 

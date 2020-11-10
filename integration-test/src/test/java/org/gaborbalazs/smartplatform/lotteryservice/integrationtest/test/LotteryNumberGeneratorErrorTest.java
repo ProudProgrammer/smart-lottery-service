@@ -21,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class LotteryNumberGeneratorErrorTest extends LotteryNumberGeneratorTestBase {
 
     @Test
-    void testShouldRespond501WhenLotteryTypeAndGeneratorTypeTogetherUnsupported() throws Exception {
+    void testShouldRespond400WhenLotteryTypeAndGeneratorTypeTogetherUnsupported() throws Exception {
         // GIVEN
         int quantity = 6;
         int poolSize = 59;
-        HttpStatus expectedHttpStatus = HttpStatus.NOT_IMPLEMENTED;
+        HttpStatus expectedHttpStatus = HttpStatus.BAD_REQUEST;
 
         // WHEN
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(lotteryNumberGeneratorUrlFactory.create(quantity, poolSize, GeneratorType.EXPERIMENTAL));

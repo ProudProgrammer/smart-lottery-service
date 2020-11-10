@@ -4,7 +4,8 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumb
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
-import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityAndPoolSize;
+import org.gaborbalazs.smartplatform.lotteryservice.web.domain.LotteryTypeGeneratorTypeRequest;
+import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -34,6 +35,7 @@ class LotteryNumberGeneratorControllerTest {
         // GIVEN
         LotteryType lotteryType = LotteryType.FIVE_OUT_OF_NINETY;
         GeneratorType generatorType = GeneratorType.DEFAULT;
+        LotteryTypeGeneratorTypeRequest request = new LotteryTypeGeneratorTypeRequest(lotteryType, generatorType);
         List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(lotteryType.name())
@@ -43,7 +45,7 @@ class LotteryNumberGeneratorControllerTest {
         when(lotteryNumberGenerator.generate(lotteryType, generatorType)).thenReturn(expectedResult);
 
         // WHEN
-        var result = underTest.generate(lotteryType, generatorType);
+        var result = underTest.generate(request);
 
         // THEN
         assertEquals(expectedResult, result);
@@ -54,8 +56,8 @@ class LotteryNumberGeneratorControllerTest {
         // GIVEN
         int quantity = 6;
         int poolSize = 59;
-        QuantityAndPoolSize quantityAndPoolSize = new QuantityAndPoolSize(quantity, poolSize);
         GeneratorType generatorType = GeneratorType.EXPERIMENTAL;
+        QuantityPoolSizeGeneratorTypeRequest request = new QuantityPoolSizeGeneratorTypeRequest(quantity, poolSize, generatorType);
         List<Integer> drawnNumbers = List.of(1, 2, 3, 4, 5);
         GeneratedNumbers expectedResult = GeneratedNumbers.newGeneratedNumbers()
                 .lotteryType(quantity + "/" + poolSize)
@@ -65,7 +67,7 @@ class LotteryNumberGeneratorControllerTest {
         when(lotteryNumberGenerator.generate(quantity, poolSize, generatorType)).thenReturn(expectedResult);
 
         // WHEN
-        var result = underTest.generate(quantityAndPoolSize, generatorType);
+        var result = underTest.generate(request);
 
         // THEN
         assertEquals(expectedResult, result);

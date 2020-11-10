@@ -1,7 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.component.ExperimentalFiveOutOfNinetyNumberGenerator;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.validator.ExperimentalLotteryNumberGeneratorValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,9 +21,6 @@ class ExperimentalLotteryNumberGeneratorTest {
 
     @Mock
     private ExperimentalFiveOutOfNinetyNumberGenerator experimentalFiveOutOfNinetyNumberGenerator;
-
-    @Mock
-    private ExperimentalLotteryNumberGeneratorValidator experimentalLotteryNumberGeneratorValidator;
 
     @Test
     void testShouldReturnSetOf5ElementWhenGenerateWithoutReplacementCalled() {
@@ -47,7 +43,6 @@ class ExperimentalLotteryNumberGeneratorTest {
         Class<UnsupportedOperationException> expectedExceptionClass = UnsupportedOperationException.class;
         int quantity = 6;
         int poolSize = 45;
-        when(experimentalLotteryNumberGeneratorValidator.unsupportedOperation()).thenReturn(new UnsupportedOperationException());
 
         // WHEN
         // THEN

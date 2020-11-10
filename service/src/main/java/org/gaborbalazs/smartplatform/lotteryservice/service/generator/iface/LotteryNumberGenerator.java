@@ -12,9 +12,8 @@ public interface LotteryNumberGenerator {
      * @param lotteryType   is the type of the lottery
      * @param generatorType is the type of the number generator
      * @return the drawn numbers
-     * @throws UnsupportedOperationException if generator type does not support the type of lottery
      */
-    GeneratedNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException;
+    GeneratedNumbers generate(LotteryType lotteryType, GeneratorType generatorType);
 
     /**
      * Lottery number generator method based on quantity and pool size.
@@ -23,10 +22,6 @@ public interface LotteryNumberGenerator {
      * @param poolSize      is the pool of numbers
      * @param generatorType is the type of the number generator
      * @return the drawn numbers
-     * @throws IllegalArgumentException      if quantity is larger or equals than pool size
-     * @throws IllegalArgumentException      if pool size is larger than 1000
-     * @throws IllegalArgumentException      if quantity is 0
-     * @throws UnsupportedOperationException if generator type does not support the type of lottery
      */
-    GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException;
+    GeneratedNumbers generate(int quantity, int poolSize, GeneratorType generatorType);
 }

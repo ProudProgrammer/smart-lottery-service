@@ -14,7 +14,7 @@ public interface LotteryNumberGeneratorStrategy {
      * @param poolSize is the size of set of numbers
      * @return set of drawn numbers
      */
-    List<Integer> generateWithoutReplacement(int quantity, int poolSize) throws IllegalArgumentException;
+    List<Integer> generateWithoutReplacement(int quantity, int poolSize);
 
     /**
      * Lottery number generator method with number replacement.
@@ -23,5 +23,5 @@ public interface LotteryNumberGeneratorStrategy {
      * @param upperLimit is the upper limit (exclusive) for generated numbers
      * @return set of drawn numbers
      */
-    List<Integer> generateWitHReplacement(int quantity, int upperLimit) throws IllegalArgumentException;
+    List<Integer> generateWitHReplacement(int quantity, int upperLimit);
 }

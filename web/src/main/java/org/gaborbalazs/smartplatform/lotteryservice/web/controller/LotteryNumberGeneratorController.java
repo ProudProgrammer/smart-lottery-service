@@ -1,11 +1,10 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.controller;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGenerator;
 import org.gaborbalazs.smartplatform.lotteryservice.web.api.LotteryNumberGeneratorApi;
-import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityAndPoolSize;
+import org.gaborbalazs.smartplatform.lotteryservice.web.domain.LotteryTypeGeneratorTypeRequest;
+import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,12 +17,12 @@ class LotteryNumberGeneratorController implements LotteryNumberGeneratorApi {
     }
 
     @Override
-    public GeneratedNumbers generate(LotteryType lotteryType, GeneratorType generatorType) throws UnsupportedOperationException {
-        return lotteryNumberGenerator.generate(lotteryType, generatorType);
+    public GeneratedNumbers generate(LotteryTypeGeneratorTypeRequest request) throws UnsupportedOperationException {
+        return lotteryNumberGenerator.generate(request.getLotteryType(), request.getGeneratorType());
     }
 
     @Override
-    public GeneratedNumbers generate(QuantityAndPoolSize quantityAndPoolSize, GeneratorType generatorType) throws IllegalArgumentException, UnsupportedOperationException {
-        return lotteryNumberGenerator.generate(quantityAndPoolSize.getQuantity(), quantityAndPoolSize.getPoolSize(), generatorType);
+    public GeneratedNumbers generate(QuantityPoolSizeGeneratorTypeRequest request) throws IllegalArgumentException, UnsupportedOperationException {
+        return lotteryNumberGenerator.generate(request.getQuantity(), request.getPoolSize(), request.getGeneratorType());
     }
 }
