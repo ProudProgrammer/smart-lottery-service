@@ -9,7 +9,7 @@ import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
 /**
  * {@link LocaleResolver} configuration.
- * Validation API sends messages based on LocaleResolver.
+ * Validation API sends localized messages based on LocaleResolver.
  */
 @Configuration
 public class LocaleResolverConfiguration {
