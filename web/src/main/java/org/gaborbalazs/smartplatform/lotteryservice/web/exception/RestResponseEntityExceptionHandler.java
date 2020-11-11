@@ -1,7 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
+import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,7 +28,7 @@ class RestResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    ExceptionResponse handleBindExceptionException(BindException exception) {
+    ExceptionResponse handleBindException(BindException exception) {
         return createExceptionResponse(getErrorMessage(exception), HttpStatus.BAD_REQUEST);
     }
 
@@ -79,7 +80,7 @@ class RestResponseEntityExceptionHandler {
     private String getErrorMessage(BindException exception) {
         String message;
         if (exception.hasErrors() && exception.getAllErrors().stream().findFirst().isPresent()) {
-            message = exception.getAllErrors().stream().findFirst().get().getDefaultMessage();
+            message = exception.getAllErrors().stream().findFirst().get().unwrap(TypeMismatchException.class).getCause().getMessage();
         } else {
             message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
         }
