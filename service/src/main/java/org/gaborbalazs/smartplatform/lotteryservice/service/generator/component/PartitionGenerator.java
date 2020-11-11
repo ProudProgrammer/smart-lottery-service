@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
@@ -11,20 +12,22 @@ import java.util.Random;
 @Component
 public class PartitionGenerator {
 
+    private static final String MSG_SET_OF_NUMBERS_MUST_BE_LARGER_THAN_PARTITIONS = "validate.generator.setOfNumbersMustBeLargerThanPartitions";
+
     private final Random random;
     private final SimpleNumberGenerator simpleNumberGenerator;
     private final FormationGenerator formationGenerator;
     private final ListShuffler listShuffler;
-    private final MessageFactory messageFactory;
+    private final MessageResolver messageResolver;
     private final Logger logger;
 
     PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler,
-                       MessageFactory messageFactory, Logger logger) {
+                       MessageResolver messageResolver, Logger logger) {
         this.random = threadLocalRandom;
         this.simpleNumberGenerator = simpleNumberGenerator;
         this.formationGenerator = formationGenerator;
         this.listShuffler = listShuffler;
-        this.messageFactory = messageFactory;
+        this.messageResolver = messageResolver;
         this.logger = logger;
     }
 
@@ -68,11 +71,8 @@ public class PartitionGenerator {
 
     private void validate(int usedPartitions, int numberOfPartitions, int setOfNumbers) throws IllegalArgumentException {
         if (setOfNumbers <= numberOfPartitions || numberOfPartitions <= usedPartitions || setOfNumbers % numberOfPartitions != 0) {
-            String msg = messageFactory
-                    .create("Set of numbers must be larger than number of partitions and their division with remainder must be 0 and number of partitions must be larger than used partitions. Set of numbers: {0}, number of partitions: {1}, used partitions: {2}",
-                            setOfNumbers, numberOfPartitions, usedPartitions);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_SET_OF_NUMBERS_MUST_BE_LARGER_THAN_PARTITIONS, setOfNumbers, numberOfPartitions, usedPartitions));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_SET_OF_NUMBERS_MUST_BE_LARGER_THAN_PARTITIONS, setOfNumbers, numberOfPartitions, usedPartitions));
         }
     }
 }

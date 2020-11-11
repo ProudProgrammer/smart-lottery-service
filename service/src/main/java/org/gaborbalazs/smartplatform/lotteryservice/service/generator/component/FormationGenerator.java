@@ -1,8 +1,9 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,12 +11,17 @@ import java.util.Random;
 @Component
 class FormationGenerator {
 
-    private final Random random;
-    private final MessageFactory messageFactory;
+    private static final String MSG_USED_PARTITIONS_MUST_BE_LARGER_THAN_1 = "validate.generator.usedPartitionsMustBeLargerThan1";
+    private static final String MSG_NUMBER_OF_PARTITIONS_MUST_BE_LARGER_THAN_USED = "validate.generator.numberOfPartitionsMustBeLargerThanUsed";
 
-    FormationGenerator(Random threadLocalRandom, MessageFactory messageFactory) {
-        this.random = threadLocalRandom;
-        this.messageFactory = messageFactory;
+    private final Random random;
+    private final MessageResolver messageResolver;
+    private final Logger logger;
+
+    public FormationGenerator(Random random, MessageResolver messageResolver, Logger logger) {
+        this.random = random;
+        this.messageResolver = messageResolver;
+        this.logger = logger;
     }
 
     /**
@@ -50,11 +56,11 @@ class FormationGenerator {
 
     private void validate(int usedPartitions, int numberOfPartitions) throws IllegalArgumentException {
         if (usedPartitions <= 1) {
-            String msg = messageFactory.create("Used partitions must be larger than 1. Used partitions: {0}", usedPartitions);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_USED_PARTITIONS_MUST_BE_LARGER_THAN_1, usedPartitions));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_USED_PARTITIONS_MUST_BE_LARGER_THAN_1, usedPartitions));
         } else if (numberOfPartitions <= usedPartitions) {
-            String msg = messageFactory.create("Number of partitions must be larger than used partitions. Number of partitions: {0}, used partitions: {1}", numberOfPartitions, usedPartitions);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_NUMBER_OF_PARTITIONS_MUST_BE_LARGER_THAN_USED, numberOfPartitions, usedPartitions));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_NUMBER_OF_PARTITIONS_MUST_BE_LARGER_THAN_USED, numberOfPartitions, usedPartitions));
         }
     }
 }

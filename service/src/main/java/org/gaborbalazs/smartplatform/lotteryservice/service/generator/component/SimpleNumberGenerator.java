@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +14,19 @@ import java.util.stream.Stream;
 @Component
 public class SimpleNumberGenerator {
 
+    private static final String MSG_QUANTITY_AND_UPPER_LIMIT_CANNOT_BE_SMALLER_THAN_1 = "validate.generator.quantityAndUpperLimitCannotBeSmallerThan1";
+    private static final String MSG_POOL_SIZE_MUST_NOT_BE_LARGER_THAN = "validate.generator.poolSizeMustNotBeLargerThan";
+    private static final String MSG_POOL_SIZE_MUST_BE_LARGER_THAN_QUANTITY = "validate.generator.poolSizeMustBeLargerThanQuantity";
+
+    private static final int MAX_POOL_SIZE = 1000;
+
     private final Random random;
-    private final MessageFactory messageFactory;
+    private final MessageResolver messageResolver;
     private final Logger logger;
 
-    SimpleNumberGenerator(Random threadLocalRandom, MessageFactory messageFactory, Logger logger) {
+    SimpleNumberGenerator(Random threadLocalRandom, MessageResolver messageResolver, Logger logger) {
         this.random = threadLocalRandom;
-        this.messageFactory = messageFactory;
+        this.messageResolver = messageResolver;
         this.logger = logger;
     }
 
@@ -90,25 +97,21 @@ public class SimpleNumberGenerator {
 
     private void validateQuantityAndPoolSize(int quantity, int poolSize) throws IllegalArgumentException {
         if (quantity < 1 || poolSize < 1) {
-            String msg = "Quantity and upper limit can not be smaller than 1.";
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
-        } else if (poolSize > 1000) {
-            String msg = messageFactory.create("Pool size must not be larger than {0}. Pool size: {1}", 1000, poolSize);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_QUANTITY_AND_UPPER_LIMIT_CANNOT_BE_SMALLER_THAN_1));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_QUANTITY_AND_UPPER_LIMIT_CANNOT_BE_SMALLER_THAN_1));
+        } else if (poolSize > MAX_POOL_SIZE) {
+            logger.error(messageResolver.withUSLocale(MSG_POOL_SIZE_MUST_NOT_BE_LARGER_THAN, MAX_POOL_SIZE, poolSize));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_POOL_SIZE_MUST_NOT_BE_LARGER_THAN, MAX_POOL_SIZE, poolSize));
         } else if (poolSize <= quantity) {
-            String msg = messageFactory.create("Pool size must be larger than quantity. Quantity: {0}, pool size: {1}", quantity, poolSize);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_POOL_SIZE_MUST_NOT_BE_LARGER_THAN, quantity, poolSize));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_POOL_SIZE_MUST_BE_LARGER_THAN_QUANTITY, quantity, poolSize));
         }
     }
 
     private void validateQuantityAndUpperLimit(int quantity, int upperLimit) throws IllegalArgumentException {
         if (quantity < 1 || upperLimit < 1) {
-            String msg = "Quantity and upper limit can not be smaller than 1.";
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_QUANTITY_AND_UPPER_LIMIT_CANNOT_BE_SMALLER_THAN_1));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_QUANTITY_AND_UPPER_LIMIT_CANNOT_BE_SMALLER_THAN_1));
         }
     }
 }

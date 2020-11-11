@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
-import org.springframework.context.MessageSource;
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,11 +18,11 @@ class RestResponseEntityExceptionHandler {
     private final String MSG_INPUT_PARAMETER_NOT_APPROPRIATE = "validate.generator.inputParameterNotAppropriate";
 
     private final RequestContext requestContext;
-    private final MessageSource messageSource;
+    private final MessageResolver messageResolver;
 
-    RestResponseEntityExceptionHandler(RequestContext requestContext, MessageSource messageSource) {
+    public RestResponseEntityExceptionHandler(RequestContext requestContext, MessageResolver messageResolver) {
         this.requestContext = requestContext;
-        this.messageSource = messageSource;
+        this.messageResolver = messageResolver;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -71,13 +71,9 @@ class RestResponseEntityExceptionHandler {
         if (exception.getConstraintViolations().stream().findFirst().isPresent()) {
             message = exception.getConstraintViolations().stream().findFirst().get().getMessage();
         } else {
-            message = resolveMessage(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
+            message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
         }
         return message;
-    }
-
-    private String resolveMessage(String messageKey) {
-        return messageSource.getMessage(messageKey, null, requestContext.getLocale());
     }
 
     private String getErrorMessage(BindException exception) {
@@ -85,7 +81,7 @@ class RestResponseEntityExceptionHandler {
         if (exception.hasErrors() && exception.getAllErrors().stream().findFirst().isPresent()) {
             message = exception.getAllErrors().stream().findFirst().get().getDefaultMessage();
         } else {
-            message = resolveMessage(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
+            message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
         }
         return message;
     }

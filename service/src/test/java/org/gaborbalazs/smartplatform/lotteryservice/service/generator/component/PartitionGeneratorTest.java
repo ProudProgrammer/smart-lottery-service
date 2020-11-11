@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.generator.domain.Partition;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +40,7 @@ class PartitionGeneratorTest {
     private ListShuffler listShuffler;
 
     @Mock
-    private MessageFactory messageFactory;
+    private MessageResolver messageResolver;
 
     @Mock
     private Logger logger;
@@ -49,7 +50,9 @@ class PartitionGeneratorTest {
     void testGeneratePartitionsShouldThrowException(int usedPartitions, int numberOfPartitions, int setOfNumbers) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+        String msg = "exception";
+        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
         // THEN

@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.validator;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
-import org.gaborbalazs.smartplatform.lotteryservice.web.component.MessageResolver;
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;

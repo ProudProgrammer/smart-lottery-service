@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,9 +9,7 @@ import org.slf4j.Logger;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -19,14 +18,14 @@ import static org.mockito.Mockito.when;
 class SimpleNumberGeneratorTest {
 
     private SimpleNumberGenerator underTest;
-    private MessageFactory messageFactory;
+    private MessageResolver messageResolver;
     private Logger logger;
 
     @BeforeEach
     void setUp() {
-        messageFactory = mock(MessageFactory.class);
+        messageResolver = mock(MessageResolver.class);
         logger = mock(Logger.class);
-        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current(), messageFactory, logger);
+        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current(), messageResolver, logger);
     }
 
     @ParameterizedTest
@@ -34,7 +33,9 @@ class SimpleNumberGeneratorTest {
     void testGenerateUniqueNumbersFromSamePoolShouldThrowException(int quantity, int poolSize) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+        String msg = "exception";
+        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
         // THEN
@@ -121,7 +122,9 @@ class SimpleNumberGeneratorTest {
     void testGenerateWithRecurrenceShouldThrowException(int quantity, int upperLimit) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+        String msg = "exception";
+        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
         // THEN

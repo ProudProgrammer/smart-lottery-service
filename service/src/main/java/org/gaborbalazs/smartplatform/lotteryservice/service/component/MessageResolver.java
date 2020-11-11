@@ -1,4 +1,4 @@
-package org.gaborbalazs.smartplatform.lotteryservice.web.component;
+package org.gaborbalazs.smartplatform.lotteryservice.service.component;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.springframework.context.MessageSource;

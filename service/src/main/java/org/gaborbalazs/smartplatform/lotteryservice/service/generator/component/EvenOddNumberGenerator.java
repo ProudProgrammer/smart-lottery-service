@@ -1,26 +1,29 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
+import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.springframework.stereotype.Component;
-
 @Component
 class EvenOddNumberGenerator {
 
+    private static final String MSG_UPPER_LIMIT_MUST_BE_LARGER_THAN_LOWER = "validate.generator.upperLimitMustBeLargerThanLower";
+
     private final Random random;
     private final ListShuffler listShuffler;
-    private final MessageFactory messageFactory;
+    private final MessageResolver messageResolver;
     private final Logger logger;
 
-    EvenOddNumberGenerator(Random threadLocalRandom, ListShuffler listShuffler, MessageFactory messageFactory, Logger logger) {
-        this.random = threadLocalRandom;
+    public EvenOddNumberGenerator(Random random, ListShuffler listShuffler, MessageResolver messageResolver, Logger logger) {
+        this.random = random;
         this.listShuffler = listShuffler;
-        this.messageFactory = messageFactory;
+        this.messageResolver = messageResolver;
         this.logger = logger;
     }
 
@@ -55,9 +58,8 @@ class EvenOddNumberGenerator {
 
     private void validate(int lowerLimit, int upperLimit) {
         if (upperLimit <= lowerLimit) {
-            String msg = messageFactory.create("Upper limit must be larger than lower limit. Lower limit: {0}, upper limit: {1}", lowerLimit, upperLimit);
-            logger.error(msg);
-            throw new IllegalArgumentException(msg);
+            logger.error(messageResolver.withUSLocale(MSG_UPPER_LIMIT_MUST_BE_LARGER_THAN_LOWER, lowerLimit, upperLimit));
+            throw new IllegalArgumentException(messageResolver.withRequestLocale(MSG_UPPER_LIMIT_MUST_BE_LARGER_THAN_LOWER, lowerLimit, upperLimit));
         }
     }
 }

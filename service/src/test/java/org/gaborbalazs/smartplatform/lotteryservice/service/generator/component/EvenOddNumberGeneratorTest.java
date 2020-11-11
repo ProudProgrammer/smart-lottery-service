@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +33,7 @@ class EvenOddNumberGeneratorTest {
     private ListShuffler listShuffler;
 
     @Mock
-    private MessageFactory messageFactory;
+    private MessageResolver messageResolver;
 
     @Mock
     private Logger logger;
@@ -43,9 +44,10 @@ class EvenOddNumberGeneratorTest {
         Exception exception = null;
         int lowerLimit = 19;
         int upperLimit = 19;
-        Set<Integer> exceptions = Collections.EMPTY_SET;
+        Set<Integer> exceptions = Collections.emptySet();
         String msg = "exception";
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
         try {
@@ -66,9 +68,10 @@ class EvenOddNumberGeneratorTest {
         Exception exception = null;
         int lowerLimit = 20;
         int upperLimit = 19;
-        Set<Integer> exceptions = Collections.EMPTY_SET;
+        Set<Integer> exceptions = Collections.emptySet();
         String msg = "exception";
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
         try {
@@ -88,7 +91,7 @@ class EvenOddNumberGeneratorTest {
         // GIVEN
         int lowerLimit = 19;
         int upperLimit = 36;
-        Set<Integer> exceptions = Collections.EMPTY_SET;
+        Set<Integer> exceptions = Collections.emptySet();
         int expectedResult = 36;
         List<Integer> evens = List.of(20, 22, 24, 26, 28, 30, 32, 34, 36);
         when(listShuffler.shuffle(evens)).thenReturn(evens);
@@ -124,7 +127,7 @@ class EvenOddNumberGeneratorTest {
         // GIVEN
         int lowerLimit = 19;
         int upperLimit = 36;
-        Set<Integer> exceptions = Collections.EMPTY_SET;
+        Set<Integer> exceptions = Collections.emptySet();
         int expectedResult = 35;
         List<Integer> odds = List.of(19, 21, 23, 25, 27, 29, 31, 33, 35);
         when(listShuffler.shuffle(odds)).thenReturn(odds);

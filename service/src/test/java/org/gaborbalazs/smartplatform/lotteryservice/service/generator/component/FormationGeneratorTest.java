@@ -1,14 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.component;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Random;
-
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,6 +8,16 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+
+import java.util.List;
+import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class FormationGeneratorTest {
@@ -27,14 +29,19 @@ class FormationGeneratorTest {
     private Random random;
 
     @Mock
-    private MessageFactory messageFactory;
+    private MessageResolver messageResolver;
+
+    @Mock
+    private Logger logger;
 
     @ParameterizedTest
-    @CsvSource( {"0,5", "1,5", "5,5", "6,5"})
+    @CsvSource({"0,5", "1,5", "5,5", "6,5"})
     void generateFormationShouldThrowException(int usedPartitions, int numberOfPartitions) {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
-        when(messageFactory.create(anyString(), any(Object.class))).thenReturn("exception");
+        String msg = "exception";
+        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
 
         // WHEN
         // THEN
