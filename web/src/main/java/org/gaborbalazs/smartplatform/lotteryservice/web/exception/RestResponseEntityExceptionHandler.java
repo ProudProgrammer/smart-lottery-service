@@ -2,14 +2,15 @@ package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
-import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.time.ZonedDateTime;
 
@@ -79,8 +80,21 @@ class RestResponseEntityExceptionHandler {
 
     private String getErrorMessage(BindException exception) {
         String message;
-        if (exception.hasErrors() && exception.getAllErrors().stream().findFirst().isPresent()) {
-            message = exception.getAllErrors().stream().findFirst().get().unwrap(TypeMismatchException.class).getCause().getMessage();
+        if (exception.hasErrors() && exception.getAllErrors().get(0) != null) {
+            message = getErrorMessage(exception.getAllErrors().get(0));
+        } else {
+            message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
+        }
+        return message;
+    }
+
+    private String getErrorMessage(ObjectError error) {
+        String message;
+        if (error.contains(IllegalArgumentException.class)) {
+            message = error.unwrap(IllegalArgumentException.class).getMessage();
+        } else if (error.contains(ConstraintViolation.class)) {
+            ConstraintViolation<?> violation = error.unwrap(ConstraintViolation.class);
+            message = violation.getPropertyPath() + " " + violation.getMessage();
         } else {
             message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
         }
