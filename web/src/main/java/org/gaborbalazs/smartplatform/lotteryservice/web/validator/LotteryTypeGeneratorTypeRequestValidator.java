@@ -1,8 +1,8 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.validator;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.LotteryTypeGeneratorTypeRequest;
 import org.slf4j.Logger;
 
@@ -19,10 +19,6 @@ public class LotteryTypeGeneratorTypeRequestValidator implements ConstraintValid
     public LotteryTypeGeneratorTypeRequestValidator(MessageResolver messageResolver, Logger logger) {
         this.messageResolver = messageResolver;
         this.logger = logger;
-    }
-
-    @Override
-    public void initialize(ValidLotteryTypeGeneratorTypeRequest constraintAnnotation) {
     }
 
     @Override

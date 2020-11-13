@@ -1,7 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.validator;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
@@ -21,10 +21,6 @@ public class QuantityPoolSizeGeneratorTypeRequestValidator implements Constraint
     public QuantityPoolSizeGeneratorTypeRequestValidator(MessageResolver messageResolver, Logger logger) {
         this.messageResolver = messageResolver;
         this.logger = logger;
-    }
-
-    @Override
-    public void initialize(ValidQuantityPoolSizeGeneratorTypeRequest constraintAnnotation) {
     }
 
     @Override
