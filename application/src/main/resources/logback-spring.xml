@@ -10,6 +10,7 @@
             <pattern>${ENCODER_PATTERN}</pattern>
         </encoder>
     </appender>
+
     <appender name="SMART_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">

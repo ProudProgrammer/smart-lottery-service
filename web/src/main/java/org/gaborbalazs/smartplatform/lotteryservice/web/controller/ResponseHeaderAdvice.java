@@ -30,9 +30,9 @@ public class ResponseHeaderAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        response.getHeaders().add(HeaderParameterName.REQUEST_ID.getValue(), Objects.isNull(requestContext.getRequestId()) ? UNIDENTIFIED : requestContext.getRequestId());
-        response.getHeaders().add(HeaderParameterName.CONSUMER_NAME.getValue(), Objects.isNull(requestContext.getConsumerName()) ? UNIDENTIFIED : requestContext.getConsumerName());
-        response.getHeaders().add(HeaderParameterName.LOCALE.getValue(), Objects.isNull(requestContext.getLocale()) ? UNIDENTIFIED : requestContext.getLocale().toString());
+        response.getHeaders().add(HeaderParameterName.REQUEST_ID.getValue(), Objects.requireNonNullElse(requestContext.getRequestId(), UNIDENTIFIED));
+        response.getHeaders().add(HeaderParameterName.CONSUMER_NAME.getValue(), Objects.requireNonNullElse(requestContext.getConsumerName(), UNIDENTIFIED));
+        response.getHeaders().add(HeaderParameterName.LOCALE.getValue(), Objects.requireNonNullElse(requestContext.getLocale(), UNIDENTIFIED).toString());
         return body;
     }
 }

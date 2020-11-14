@@ -1,42 +1,39 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
-import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.time.ZonedDateTime;
 
 @RestControllerAdvice(basePackages = "org.gaborbalazs.smartplatform.lotteryservice")
 class RestResponseEntityExceptionHandler {
 
-    private final String MSG_INPUT_PARAMETER_NOT_APPROPRIATE = "validate.generator.inputParameterNotAppropriate";
-
     private final RequestContext requestContext;
-    private final MessageResolver messageResolver;
+    private final ConstraintViolationExceptionMessageExtractor constraintViolationExceptionMessageExtractor;
+    private final BindExceptionMessageExtractor bindExceptionMessageExtractor;
 
-    public RestResponseEntityExceptionHandler(RequestContext requestContext, MessageResolver messageResolver) {
+    public RestResponseEntityExceptionHandler(RequestContext requestContext, ConstraintViolationExceptionMessageExtractor constraintViolationExceptionMessageExtractor, BindExceptionMessageExtractor bindExceptionMessageExtractor) {
         this.requestContext = requestContext;
-        this.messageResolver = messageResolver;
+        this.constraintViolationExceptionMessageExtractor = constraintViolationExceptionMessageExtractor;
+        this.bindExceptionMessageExtractor = bindExceptionMessageExtractor;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     ExceptionResponse handleBindException(BindException exception) {
-        return createExceptionResponse(getErrorMessage(exception), HttpStatus.BAD_REQUEST);
+        return createExceptionResponse(getMessage(exception), HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     ExceptionResponse handleConstraintViolationException(ConstraintViolationException exception) {
-        return createExceptionResponse(getConstraintViolationMessage(exception), HttpStatus.BAD_REQUEST);
+        return createExceptionResponse(getMessage(exception), HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -68,36 +65,11 @@ class RestResponseEntityExceptionHandler {
                 .build();
     }
 
-    private String getConstraintViolationMessage(ConstraintViolationException exception) {
-        String message;
-        if (exception.getConstraintViolations().stream().findFirst().isPresent()) {
-            message = exception.getConstraintViolations().stream().findFirst().get().getMessage();
-        } else {
-            message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
-        }
-        return message;
+    private String getMessage(ConstraintViolationException exception) {
+        return constraintViolationExceptionMessageExtractor.extract(exception);
     }
 
-    private String getErrorMessage(BindException exception) {
-        String message;
-        if (exception.hasErrors() && exception.getAllErrors().get(0) != null) {
-            message = getErrorMessage(exception.getAllErrors().get(0));
-        } else {
-            message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
-        }
-        return message;
-    }
-
-    private String getErrorMessage(ObjectError error) {
-        String message;
-        if (error.contains(IllegalArgumentException.class)) {
-            message = error.unwrap(IllegalArgumentException.class).getMessage();
-        } else if (error.contains(ConstraintViolation.class)) {
-            ConstraintViolation<?> violation = error.unwrap(ConstraintViolation.class);
-            message = violation.getPropertyPath() + " " + violation.getMessage();
-        } else {
-            message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
-        }
-        return message;
+    private String getMessage(BindException exception) {
+        return bindExceptionMessageExtractor.extract(exception);
     }
 }
