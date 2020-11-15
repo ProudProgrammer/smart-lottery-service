@@ -9,14 +9,14 @@ import org.slf4j.Logger;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class LotteryTypeGeneratorTypeRequestValidator implements ConstraintValidator<ValidLotteryTypeGeneratorTypeRequest, LotteryTypeGeneratorTypeRequest> {
+class LotteryTypeGeneratorTypeRequestValidator implements ConstraintValidator<ValidLotteryTypeGeneratorTypeRequest, LotteryTypeGeneratorTypeRequest> {
 
     private static final String MSG_ONLY_FIVE_OUT_OF_NINETY_LOTTERY_TYPE_SUPPORTED = "validate.generator.onlyFiveOutOfNinetyLotteryTypeSupported";
 
     private final MessageResolver messageResolver;
     private final Logger logger;
 
-    public LotteryTypeGeneratorTypeRequestValidator(MessageResolver messageResolver, Logger logger) {
+    LotteryTypeGeneratorTypeRequestValidator(MessageResolver messageResolver, Logger logger) {
         this.messageResolver = messageResolver;
         this.logger = logger;
     }

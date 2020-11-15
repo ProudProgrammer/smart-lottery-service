@@ -10,11 +10,9 @@ import javax.validation.ConstraintViolation;
 @Component
 class BindExceptionMessageExtractor implements ExceptionMessageExtractor<BindException> {
 
-    private final String MSG_INPUT_PARAMETER_NOT_APPROPRIATE = "validate.generator.inputParameterNotAppropriate";
-
     private final MessageResolver messageResolver;
 
-    public BindExceptionMessageExtractor(MessageResolver messageResolver) {
+    BindExceptionMessageExtractor(MessageResolver messageResolver) {
         this.messageResolver = messageResolver;
     }
 

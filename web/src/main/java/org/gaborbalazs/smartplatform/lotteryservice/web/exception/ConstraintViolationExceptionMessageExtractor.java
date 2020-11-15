@@ -8,11 +8,9 @@ import javax.validation.ConstraintViolationException;
 @Component
 class ConstraintViolationExceptionMessageExtractor implements ExceptionMessageExtractor<ConstraintViolationException> {
 
-    private final String MSG_INPUT_PARAMETER_NOT_APPROPRIATE = "validate.generator.inputParameterNotAppropriate";
-
     private final MessageResolver messageResolver;
 
-    public ConstraintViolationExceptionMessageExtractor(MessageResolver messageResolver) {
+    ConstraintViolationExceptionMessageExtractor(MessageResolver messageResolver) {
         this.messageResolver = messageResolver;
     }
 

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.util.Objects;
 
 @ControllerAdvice
-public class ResponseHeaderAdvice implements ResponseBodyAdvice<Object> {
+class ResponseHeaderAdvice implements ResponseBodyAdvice<Object> {
 
     private static final String UNIDENTIFIED = "unidentified";
 

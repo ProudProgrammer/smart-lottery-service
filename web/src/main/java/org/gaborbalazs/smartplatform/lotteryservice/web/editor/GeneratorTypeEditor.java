@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import java.beans.PropertyEditorSupport;
 
 @Component
-public class GeneratorTypeEditor extends PropertyEditorSupport {
+class GeneratorTypeEditor extends PropertyEditorSupport {
 
     private static final String MSG_REQUEST_PARAM_CANNOT_BE_CONVERTED = "convert.requestParamCannotBeConvertedToGeneratorType";
 
     private final MessageResolver messageResolver;
     private final Logger logger;
 
-    public GeneratorTypeEditor(MessageResolver messageResolver, Logger logger) {
+    GeneratorTypeEditor(MessageResolver messageResolver, Logger logger) {
         this.messageResolver = messageResolver;
         this.logger = logger;
     }

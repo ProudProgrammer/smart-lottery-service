@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import java.beans.PropertyEditorSupport;
 
 @ControllerAdvice
-public class InitBinderAdvice {
+class InitBinderAdvice {
 
     private final PropertyEditorSupport lotteryTypeEditor;
     private final PropertyEditorSupport generatorTypeEditor;

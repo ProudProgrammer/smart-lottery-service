@@ -15,13 +15,11 @@ import java.time.ZonedDateTime;
 class RestResponseEntityExceptionHandler {
 
     private final RequestContext requestContext;
-    private final ExceptionMessageExtractor<ConstraintViolationException> constraintViolationExceptionMessageExtractor;
-    private final ExceptionMessageExtractor<BindException> bindExceptionMessageExtractor;
+    private final ExceptionProcessor exceptionProcessor;
 
-    public RestResponseEntityExceptionHandler(RequestContext requestContext, ConstraintViolationExceptionMessageExtractor constraintViolationExceptionMessageExtractor, BindExceptionMessageExtractor bindExceptionMessageExtractor) {
+    RestResponseEntityExceptionHandler(RequestContext requestContext, ExceptionProcessor exceptionProcessor) {
         this.requestContext = requestContext;
-        this.constraintViolationExceptionMessageExtractor = constraintViolationExceptionMessageExtractor;
-        this.bindExceptionMessageExtractor = bindExceptionMessageExtractor;
+        this.exceptionProcessor = exceptionProcessor;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -65,11 +63,7 @@ class RestResponseEntityExceptionHandler {
                 .build();
     }
 
-    private String getMessage(ConstraintViolationException exception) {
-        return constraintViolationExceptionMessageExtractor.extract(exception);
-    }
-
-    private String getMessage(BindException exception) {
-        return bindExceptionMessageExtractor.extract(exception);
+    private String getMessage(Exception exception) {
+        return exceptionProcessor.extract(exception);
     }
 }

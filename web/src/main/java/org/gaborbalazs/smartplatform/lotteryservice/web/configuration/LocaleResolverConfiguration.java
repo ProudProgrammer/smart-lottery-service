@@ -12,11 +12,11 @@ import org.springframework.web.servlet.i18n.FixedLocaleResolver;
  * Validation API sends localized messages based on LocaleResolver.
  */
 @Configuration
-public class LocaleResolverConfiguration {
+class LocaleResolverConfiguration {
 
     RequestContext requestContext;
 
-    public LocaleResolverConfiguration(RequestContext requestContext) {
+    LocaleResolverConfiguration(RequestContext requestContext) {
         this.requestContext = requestContext;
     }
 

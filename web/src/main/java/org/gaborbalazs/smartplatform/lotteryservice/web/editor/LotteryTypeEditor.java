@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import java.beans.PropertyEditorSupport;
 
 @Component
-public class LotteryTypeEditor extends PropertyEditorSupport {
+class LotteryTypeEditor extends PropertyEditorSupport {
 
     private static final String MSG_PATH_VARIABLE_CANNOT_BE_CONVERTED = "convert.pathVariableCannotBeConvertedToLotteryType";
 
     private final MessageResolver messageResolver;
     private final Logger logger;
 
-    public LotteryTypeEditor(MessageResolver messageResolver, Logger logger) {
+    LotteryTypeEditor(MessageResolver messageResolver, Logger logger) {
         this.messageResolver = messageResolver;
         this.logger = logger;
     }

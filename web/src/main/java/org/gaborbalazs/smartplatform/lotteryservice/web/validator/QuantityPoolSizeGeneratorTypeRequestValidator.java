@@ -4,13 +4,11 @@ import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageRes
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
 import org.slf4j.Logger;
-import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-@Component
-public class QuantityPoolSizeGeneratorTypeRequestValidator implements ConstraintValidator<ValidQuantityPoolSizeGeneratorTypeRequest, QuantityPoolSizeGeneratorTypeRequest> {
+class QuantityPoolSizeGeneratorTypeRequestValidator implements ConstraintValidator<ValidQuantityPoolSizeGeneratorTypeRequest, QuantityPoolSizeGeneratorTypeRequest> {
 
     private static final String MSG_POOL_SIZE_MUST_BE_LARGER_THAN_QUANTITY = "validate.generator.poolSizeMustBeLargerThanQuantity";
     private static final String MSG_ONLY_QUANTITY_5_POOL_SIZE_90_SUPPORTED = "validate.generator.onlyQuantity5PoolSize90Supported";
@@ -18,7 +16,7 @@ public class QuantityPoolSizeGeneratorTypeRequestValidator implements Constraint
     private final MessageResolver messageResolver;
     private final Logger logger;
 
-    public QuantityPoolSizeGeneratorTypeRequestValidator(MessageResolver messageResolver, Logger logger) {
+    QuantityPoolSizeGeneratorTypeRequestValidator(MessageResolver messageResolver, Logger logger) {
         this.messageResolver = messageResolver;
         this.logger = logger;
     }
@@ -30,8 +28,7 @@ public class QuantityPoolSizeGeneratorTypeRequestValidator implements Constraint
             logger.error(messageResolver.withUSLocale(MSG_POOL_SIZE_MUST_BE_LARGER_THAN_QUANTITY, request.getQuantity(), request.getPoolSize()));
             setConstraintViolationMessage(context, messageResolver.withRequestLocale(MSG_POOL_SIZE_MUST_BE_LARGER_THAN_QUANTITY, request.getQuantity(), request.getPoolSize()));
             result = false;
-        }
-        if (request.getGeneratorType() == GeneratorType.EXPERIMENTAL && !(request.getQuantity() == 5 && request.getPoolSize() == 90)) {
+        } else if (request.getGeneratorType() == GeneratorType.EXPERIMENTAL && !(request.getQuantity() == 5 && request.getPoolSize() == 90)) {
             logger.error(messageResolver.withUSLocale(MSG_ONLY_QUANTITY_5_POOL_SIZE_90_SUPPORTED, request.getQuantity(), request.getPoolSize()));
             setConstraintViolationMessage(context, messageResolver.withRequestLocale(MSG_ONLY_QUANTITY_5_POOL_SIZE_90_SUPPORTED, request.getQuantity(), request.getPoolSize()));
             result = false;
