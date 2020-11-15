@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintViolationException;
 
 @Component
-class ConstraintViolationExceptionMessageExtractor {
+class ConstraintViolationExceptionMessageExtractor implements ExceptionMessageExtractor<ConstraintViolationException> {
 
     private final String MSG_INPUT_PARAMETER_NOT_APPROPRIATE = "validate.generator.inputParameterNotAppropriate";
 
@@ -16,7 +16,8 @@ class ConstraintViolationExceptionMessageExtractor {
         this.messageResolver = messageResolver;
     }
 
-    String extract(ConstraintViolationException exception) {
+    @Override
+    public String extract(ConstraintViolationException exception) {
         String message;
         if (exception.getConstraintViolations().stream().findFirst().isPresent()) {
             message = exception.getConstraintViolations().stream().findFirst().get().getMessage();

@@ -15,8 +15,8 @@ import java.time.ZonedDateTime;
 class RestResponseEntityExceptionHandler {
 
     private final RequestContext requestContext;
-    private final ConstraintViolationExceptionMessageExtractor constraintViolationExceptionMessageExtractor;
-    private final BindExceptionMessageExtractor bindExceptionMessageExtractor;
+    private final ExceptionMessageExtractor<ConstraintViolationException> constraintViolationExceptionMessageExtractor;
+    private final ExceptionMessageExtractor<BindException> bindExceptionMessageExtractor;
 
     public RestResponseEntityExceptionHandler(RequestContext requestContext, ConstraintViolationExceptionMessageExtractor constraintViolationExceptionMessageExtractor, BindExceptionMessageExtractor bindExceptionMessageExtractor) {
         this.requestContext = requestContext;

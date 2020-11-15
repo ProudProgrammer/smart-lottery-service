@@ -8,7 +8,7 @@ import org.springframework.validation.ObjectError;
 import javax.validation.ConstraintViolation;
 
 @Component
-class BindExceptionMessageExtractor {
+class BindExceptionMessageExtractor implements ExceptionMessageExtractor<BindException> {
 
     private final String MSG_INPUT_PARAMETER_NOT_APPROPRIATE = "validate.generator.inputParameterNotAppropriate";
 
@@ -18,7 +18,8 @@ class BindExceptionMessageExtractor {
         this.messageResolver = messageResolver;
     }
 
-    String extract(BindException exception) {
+    @Override
+    public String extract(BindException exception) {
         String message;
         if (exception.hasErrors() && exception.getAllErrors().get(0) != null) {
             message = getErrorMessage(exception.getAllErrors().get(0));
