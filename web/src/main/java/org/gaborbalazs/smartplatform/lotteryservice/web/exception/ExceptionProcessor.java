@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 class ExceptionProcessor {
 
     private static final String POSTFIX = "MessageExtractor(.|\\s)*";
+    private static final String MSG_NO_EXTRACTOR_FOUND = "No Extractor found";
 
     private final Map<String, ExceptionMessageExtractor> exceptionMessageExtractors;
 
@@ -22,7 +23,7 @@ class ExceptionProcessor {
     String extract(Exception exception) {
         return Optional
                 .ofNullable(exceptionMessageExtractors.get(exception.getClass().getSimpleName()))
-                .orElseThrow(() -> new IllegalArgumentException("No Extractor found"))
+                .orElseThrow(() -> new IllegalArgumentException(MSG_NO_EXTRACTOR_FOUND))
                 .extract(exception);
     }
 

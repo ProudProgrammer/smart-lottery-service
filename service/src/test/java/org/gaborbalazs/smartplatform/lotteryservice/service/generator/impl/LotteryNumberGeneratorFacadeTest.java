@@ -3,34 +3,25 @@ package org.gaborbalazs.smartplatform.lotteryservice.service.generator.impl;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
-import org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface.LotteryNumberGeneratorStrategy;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * In this case {@link org.mockito.Mock} and {@link org.mockito.InjectMocks} annotations cannot be used
- * because {@link LotteryNumberGeneratorFacade} contains {@link DefaultLotteryNumberGenerator} and
- * {@link ExperimentalLotteryNumberGenerator} as {@link LotteryNumberGeneratorStrategy} interface and
- * Mockito injects them improperly.
- */
+@ExtendWith(MockitoExtension.class)
 class LotteryNumberGeneratorFacadeTest {
 
+    @InjectMocks
     private LotteryNumberGeneratorFacade underTest;
-    private LotteryNumberGeneratorStrategy defaultLotteryNumberGeneratorStrategy;
-    private LotteryNumberGeneratorStrategy experimentalLotteryNumberGeneratorStrategy;
 
-    @BeforeEach
-    void setUp() {
-        defaultLotteryNumberGeneratorStrategy = mock(DefaultLotteryNumberGenerator.class);
-        experimentalLotteryNumberGeneratorStrategy = mock(ExperimentalLotteryNumberGenerator.class);
-        underTest = new LotteryNumberGeneratorFacade(defaultLotteryNumberGeneratorStrategy, experimentalLotteryNumberGeneratorStrategy);
-    }
+    @Mock
+    private LotteryNumberGeneratorProcessor lotteryNumberGeneratorProcessor;
 
     @Test
     void testGenerateWithLotteryTypeShouldUseDefaultLotteryNumberGeneratorStrategyWhenGeneratorTypeDefault() {
@@ -43,7 +34,7 @@ class LotteryNumberGeneratorFacadeTest {
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(defaultLotteryNumberGeneratorStrategy.generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
+        when(lotteryNumberGeneratorProcessor.generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool(), generatorType)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(lotteryType, generatorType);
@@ -63,7 +54,7 @@ class LotteryNumberGeneratorFacadeTest {
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(experimentalLotteryNumberGeneratorStrategy.generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool())).thenReturn(drawnNumbers);
+        when(lotteryNumberGeneratorProcessor.generateWithoutReplacement(lotteryType.getQuantity(), lotteryType.getPool(), generatorType)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(lotteryType, generatorType);
@@ -84,7 +75,7 @@ class LotteryNumberGeneratorFacadeTest {
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(defaultLotteryNumberGeneratorStrategy.generateWithoutReplacement(quantity, poolSize)).thenReturn(drawnNumbers);
+        when(lotteryNumberGeneratorProcessor.generateWithoutReplacement(quantity, poolSize, generatorType)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(quantity, poolSize, generatorType);
@@ -105,7 +96,7 @@ class LotteryNumberGeneratorFacadeTest {
                 .generatorType(generatorType)
                 .generatedNumbers(drawnNumbers)
                 .build();
-        when(experimentalLotteryNumberGeneratorStrategy.generateWithoutReplacement(quantity, poolSize)).thenReturn(drawnNumbers);
+        when(lotteryNumberGeneratorProcessor.generateWithoutReplacement(quantity, poolSize, generatorType)).thenReturn(drawnNumbers);
 
         // WHEN
         var result = underTest.generate(quantity, poolSize, generatorType);

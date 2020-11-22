@@ -1,11 +1,20 @@
 package org.gaborbalazs.smartplatform.lotteryservice.service.generator.iface;
 
+import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
+
 import java.util.List;
 
 /**
  * Strategy for lottery number generation, for example default, experimental.
  */
 public interface LotteryNumberGeneratorStrategy {
+
+    /**
+     * Shows which {@link GeneratorType} belongs to the strategy.
+     *
+     * @return generatorType
+     */
+    GeneratorType generatorType();
 
     /**
      * Lottery number generator method without number replacement.
