@@ -9,22 +9,21 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-class ExceptionProcessor {
+class ExceptionMessageExtractorProvider {
 
     private static final String POSTFIX = "MessageExtractor(.|\\s)*";
     private static final String MSG_NO_EXTRACTOR_FOUND = "No Extractor found";
 
     private final Map<String, ExceptionMessageExtractor> exceptionMessageExtractors;
 
-    ExceptionProcessor(Set<ExceptionMessageExtractor> exceptionMessageExtractors) {
+    ExceptionMessageExtractorProvider(Set<ExceptionMessageExtractor> exceptionMessageExtractors) {
         this.exceptionMessageExtractors = exceptionMessageExtractors.stream().collect(Collectors.toMap(this::getClassName, extractor -> extractor));
     }
 
-    String extract(Exception exception) {
+    ExceptionMessageExtractor get(Exception exception) {
         return Optional
                 .ofNullable(exceptionMessageExtractors.get(exception.getClass().getSimpleName()))
-                .orElseThrow(() -> new IllegalArgumentException(MSG_NO_EXTRACTOR_FOUND))
-                .extract(exception);
+                .orElseThrow(() -> new IllegalArgumentException(MSG_NO_EXTRACTOR_FOUND));
     }
 
     private String getClassName(ExceptionMessageExtractor<?> extractor) {

@@ -15,11 +15,11 @@ import java.time.ZonedDateTime;
 class RestResponseEntityExceptionHandler {
 
     private final RequestContext requestContext;
-    private final ExceptionProcessor exceptionProcessor;
+    private final ExceptionMessageExtractorProvider exceptionMessageExtractorProvider;
 
-    RestResponseEntityExceptionHandler(RequestContext requestContext, ExceptionProcessor exceptionProcessor) {
+    RestResponseEntityExceptionHandler(RequestContext requestContext, ExceptionMessageExtractorProvider exceptionMessageExtractorProvider) {
         this.requestContext = requestContext;
-        this.exceptionProcessor = exceptionProcessor;
+        this.exceptionMessageExtractorProvider = exceptionMessageExtractorProvider;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -64,6 +64,6 @@ class RestResponseEntityExceptionHandler {
     }
 
     private String getMessage(Exception exception) {
-        return exceptionProcessor.extract(exception);
+        return exceptionMessageExtractorProvider.get(exception).extract(exception);
     }
 }
