@@ -23,7 +23,7 @@
 		<logging-filter.version>1.0-SNAPSHOT</logging-filter.version>
 
 		<!-- 3rd party versions -->
-		<mysql.version>8.0.17</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 		<swagger.version>2.9.2</swagger.version>
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
