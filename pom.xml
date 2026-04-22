@@ -28,7 +28,7 @@
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<mockito-junit-jupiter.version>3.0.0</mockito-junit-jupiter.version>
 		<mockito-core.version>3.0.0</mockito-core.version>
-		<jayway-jsonpath.version>2.4.0</jayway-jsonpath.version>
+		<jayway-jsonpath.version>2.9.0</jayway-jsonpath.version>
 		<spotify-dockerfile-plugin.version>1.4.10</spotify-dockerfile-plugin.version>
 		<surefire-plugin.version>2.22.2</surefire-plugin.version>
 		<apache-commons-lang3.version>3.9</apache-commons-lang3.version>
