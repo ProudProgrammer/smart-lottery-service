@@ -31,7 +31,7 @@
 		<jayway-jsonpath.version>2.9.0</jayway-jsonpath.version>
 		<spotify-dockerfile-plugin.version>1.4.10</spotify-dockerfile-plugin.version>
 		<surefire-plugin.version>2.22.2</surefire-plugin.version>
-		<apache-commons-lang3.version>3.9</apache-commons-lang3.version>
+		<apache-commons-lang3.version>3.18.0</apache-commons-lang3.version>
 	</properties>
 
 	<modules>
