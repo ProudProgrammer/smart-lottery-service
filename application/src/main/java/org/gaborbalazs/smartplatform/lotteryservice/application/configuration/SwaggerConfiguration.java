@@ -1,26 +1,17 @@
 package org.gaborbalazs.smartplatform.lotteryservice.application.configuration;
 
-import java.util.Collections;
-import java.util.List;
-
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.bind.annotation.RestController;
-
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Profile("!prod & !integration-test")
 @Configuration
-@EnableSwagger2
 class SwaggerConfiguration {
 
     @Value("${swagger.path-selector-pattern:.*}")
@@ -36,40 +27,45 @@ class SwaggerConfiguration {
     private String version;
 
     @Value("${swagger.terms-of-service-url:#{null}}")
-    private String terms_of_service_url;
+    private String termsOfServiceUrl;
 
     @Value("${swagger.contact-name:#{null}}")
-    private String contact_name;
+    private String contactName;
 
     @Value("${swagger.contact-url:#{null}}")
-    private String contact_url;
+    private String contactUrl;
 
     @Value("${swagger.contact-email:#{null}}")
-    private String contact_email;
+    private String contactEmail;
 
     @Value("${swagger.license:#{null}}")
     private String license;
 
     @Value("${swagger.license-url:#{null}}")
-    private String license_url;
-
-    private List<VendorExtension> VENDOR_EXTENSIONS = Collections.emptyList();
+    private String licenseUrl;
 
     @Bean
-    Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex(pathSelectorPattern))
-                .build()
-                .apiInfo(apiInfo());
+    GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("lottery-service")
+                .pathsToMatch(pathSelectorPattern)
+                .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfo(title, description, version, terms_of_service_url, contact(), license, license_url, VENDOR_EXTENSIONS);
-    }
-
-    private Contact contact() {
-        return new Contact(contact_name, contact_url, contact_email);
+    @Bean
+    OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title(title)
+                        .description(description)
+                        .version(version)
+                        .termsOfService(termsOfServiceUrl)
+                        .contact(new Contact()
+                                .name(contactName)
+                                .url(contactUrl)
+                                .email(contactEmail))
+                        .license(new License()
+                                .name(license)
+                                .url(licenseUrl)));
     }
 }

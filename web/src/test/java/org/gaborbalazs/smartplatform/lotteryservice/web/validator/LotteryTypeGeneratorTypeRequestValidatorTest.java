@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.validator;
 
+import jakarta.validation.ConstraintValidatorContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.LotteryType;
@@ -11,8 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
-
-import javax.validation.ConstraintValidatorContext;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

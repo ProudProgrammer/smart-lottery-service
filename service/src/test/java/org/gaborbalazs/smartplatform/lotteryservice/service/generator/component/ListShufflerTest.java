@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ class ListShufflerTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new ListShuffler(ThreadLocalRandom.current());
+        underTest = new ListShuffler(new Random());
     }
 
     @Test

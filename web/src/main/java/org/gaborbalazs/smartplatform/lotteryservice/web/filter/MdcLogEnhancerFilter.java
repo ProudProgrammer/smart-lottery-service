@@ -1,17 +1,13 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.filter;
 
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
@@ -26,6 +22,16 @@ class MdcLogEnhancerFilter implements Filter {
         setUpMDC(servletRequest);
         filterChain.doFilter(servletRequest, servletResponse);
         tearDownMDC();
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        Filter.super.init(filterConfig);
+    }
+
+    @Override
+    public void destroy() {
+        Filter.super.destroy();
     }
 
     private void setUpMDC(ServletRequest servletRequest) {

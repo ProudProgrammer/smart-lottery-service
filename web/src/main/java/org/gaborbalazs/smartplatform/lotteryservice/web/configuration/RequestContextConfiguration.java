@@ -1,5 +1,6 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.configuration;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.HeaderParameterName;
 import org.gaborbalazs.smartplatform.lotteryservice.web.component.LocaleFactory;
@@ -8,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 /**

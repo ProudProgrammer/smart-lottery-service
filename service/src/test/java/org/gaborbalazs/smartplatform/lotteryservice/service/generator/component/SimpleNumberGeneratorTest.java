@@ -7,7 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.Logger;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,7 +25,7 @@ class SimpleNumberGeneratorTest {
     void setUp() {
         messageResolver = mock(MessageResolver.class);
         logger = mock(Logger.class);
-        underTest = new SimpleNumberGenerator(ThreadLocalRandom.current(), messageResolver, logger);
+        underTest = new SimpleNumberGenerator(new Random(), messageResolver, logger);
     }
 
     @ParameterizedTest

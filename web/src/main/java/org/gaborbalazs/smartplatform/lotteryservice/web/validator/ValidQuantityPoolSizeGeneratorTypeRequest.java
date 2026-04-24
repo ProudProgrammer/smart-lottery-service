@@ -1,6 +1,7 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.validator;
 
-import javax.validation.Constraint;
+import jakarta.validation.Constraint;
+
 import java.lang.annotation.*;
 
 @Documented

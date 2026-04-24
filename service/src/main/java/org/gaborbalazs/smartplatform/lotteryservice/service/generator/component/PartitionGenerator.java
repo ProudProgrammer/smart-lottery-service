@@ -21,9 +21,9 @@ public class PartitionGenerator {
     private final MessageResolver messageResolver;
     private final Logger logger;
 
-    PartitionGenerator(Random threadLocalRandom, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler,
+    PartitionGenerator(Random random, SimpleNumberGenerator simpleNumberGenerator, FormationGenerator formationGenerator, ListShuffler listShuffler,
                        MessageResolver messageResolver, Logger logger) {
-        this.random = threadLocalRandom;
+        this.random = random;
         this.simpleNumberGenerator = simpleNumberGenerator;
         this.formationGenerator = formationGenerator;
         this.listShuffler = listShuffler;

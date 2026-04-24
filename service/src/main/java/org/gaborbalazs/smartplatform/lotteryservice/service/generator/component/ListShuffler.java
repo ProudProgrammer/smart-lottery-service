@@ -12,8 +12,8 @@ class ListShuffler {
 
     private final Random random;
 
-    ListShuffler(Random threadLocalRandom) {
-        this.random = threadLocalRandom;
+    ListShuffler(Random random) {
+        this.random = random;
     }
 
     <T> List<T> shuffle(List<T> list) {

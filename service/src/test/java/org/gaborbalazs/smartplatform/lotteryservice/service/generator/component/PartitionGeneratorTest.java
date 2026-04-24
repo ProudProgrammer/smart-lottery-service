@@ -51,8 +51,8 @@ class PartitionGeneratorTest {
         // GIVEN
         Class<IllegalArgumentException> expectedExceptionClass = IllegalArgumentException.class;
         String msg = "exception";
-        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
-        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withUSLocale(anyString(), any(Object[].class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object[].class))).thenReturn(msg);
 
         // WHEN
         // THEN

@@ -1,11 +1,10 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
+import jakarta.validation.ConstraintViolation;
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
-
-import javax.validation.ConstraintViolation;
 
 @Component
 class BindExceptionMessageExtractor implements ExceptionMessageExtractor<BindException> {
@@ -19,8 +18,8 @@ class BindExceptionMessageExtractor implements ExceptionMessageExtractor<BindExc
     @Override
     public String extract(BindException exception) {
         String message;
-        if (exception.hasErrors() && exception.getAllErrors().get(0) != null) {
-            message = getErrorMessage(exception.getAllErrors().get(0));
+        if (exception.hasErrors()) {
+            message = getErrorMessage(exception.getAllErrors().getFirst());
         } else {
             message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
         }

@@ -24,8 +24,8 @@ public class SimpleNumberGenerator {
     private final MessageResolver messageResolver;
     private final Logger logger;
 
-    SimpleNumberGenerator(Random threadLocalRandom, MessageResolver messageResolver, Logger logger) {
-        this.random = threadLocalRandom;
+    SimpleNumberGenerator(Random random, MessageResolver messageResolver, Logger logger) {
+        this.random = random;
         this.messageResolver = messageResolver;
         this.logger = logger;
     }

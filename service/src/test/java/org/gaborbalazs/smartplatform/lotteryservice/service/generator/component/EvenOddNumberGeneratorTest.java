@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -41,20 +40,14 @@ class EvenOddNumberGeneratorTest {
     @Test
     void testGenerateEvenNumberShouldThrowExceptionWhenUpperLimitLessOrEqualThanLowerLimit() {
         // GIVEN
-        Exception exception = null;
         int lowerLimit = 19;
         int upperLimit = 19;
         Set<Integer> exceptions = Collections.emptySet();
         String msg = "exception";
-        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
-        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withUSLocale(anyString(), any(Object[].class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object[].class))).thenReturn(msg);
 
-        // WHEN
-        try {
-            underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions);
-        } catch (IllegalArgumentException e) {
-            exception = e;
-        }
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions));
 
         // THEN
         verify(logger).error(msg);
@@ -65,20 +58,14 @@ class EvenOddNumberGeneratorTest {
     @Test
     void testGenerateOddNumberShouldThrowExceptionWhenUpperLimitLessOrEqualThanLowerLimit() {
         // GIVEN
-        Exception exception = null;
         int lowerLimit = 20;
         int upperLimit = 19;
         Set<Integer> exceptions = Collections.emptySet();
         String msg = "exception";
-        when(messageResolver.withUSLocale(anyString(), any(Object.class))).thenReturn(msg);
-        when(messageResolver.withRequestLocale(anyString(), any(Object.class))).thenReturn(msg);
+        when(messageResolver.withUSLocale(anyString(), any(Object[].class))).thenReturn(msg);
+        when(messageResolver.withRequestLocale(anyString(), any(Object[].class))).thenReturn(msg);
 
-        // WHEN
-        try {
-            underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions);
-        } catch (IllegalArgumentException e) {
-            exception = e;
-        }
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> underTest.generateEvenNumber(lowerLimit, upperLimit, exceptions));
 
         // THEN
         verify(logger).error(msg);

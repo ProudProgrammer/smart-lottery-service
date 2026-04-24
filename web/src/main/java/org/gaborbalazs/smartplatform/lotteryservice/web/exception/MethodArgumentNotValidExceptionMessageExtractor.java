@@ -1,23 +1,23 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
-import jakarta.validation.ConstraintViolationException;
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Component
-class ConstraintViolationExceptionMessageExtractor implements ExceptionMessageExtractor<ConstraintViolationException> {
+class MethodArgumentNotValidExceptionMessageExtractor implements ExceptionMessageExtractor<MethodArgumentNotValidException> {
 
     private final MessageResolver messageResolver;
 
-    ConstraintViolationExceptionMessageExtractor(MessageResolver messageResolver) {
+    MethodArgumentNotValidExceptionMessageExtractor(MessageResolver messageResolver) {
         this.messageResolver = messageResolver;
     }
 
     @Override
-    public String extract(ConstraintViolationException exception) {
+    public String extract(MethodArgumentNotValidException exception) {
         String message;
-        if (exception.getConstraintViolations().stream().findFirst().isPresent()) {
-            message = exception.getConstraintViolations().stream().findFirst().get().getMessage();
+        if (exception.getBindingResult().hasErrors()) {
+            message = exception.getBindingResult().getAllErrors().getFirst().getDefaultMessage();
         } else {
             message = messageResolver.withRequestLocale(MSG_INPUT_PARAMETER_NOT_APPROPRIATE);
         }

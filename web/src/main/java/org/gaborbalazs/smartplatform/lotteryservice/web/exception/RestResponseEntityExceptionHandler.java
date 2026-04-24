@@ -1,14 +1,15 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.gaborbalazs.smartplatform.lotteryservice.service.context.RequestContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
-import javax.validation.ConstraintViolationException;
 import java.time.ZonedDateTime;
 
 @RestControllerAdvice(basePackages = "org.gaborbalazs.smartplatform.lotteryservice")
@@ -31,6 +32,12 @@ class RestResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     ExceptionResponse handleConstraintViolationException(ConstraintViolationException exception) {
+        return createExceptionResponse(getMessage(exception), HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         return createExceptionResponse(getMessage(exception), HttpStatus.BAD_REQUEST);
     }
 

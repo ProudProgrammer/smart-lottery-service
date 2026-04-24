@@ -1,12 +1,11 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.validator;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.gaborbalazs.smartplatform.lotteryservice.service.component.MessageResolver;
 import org.gaborbalazs.smartplatform.lotteryservice.service.enums.GeneratorType;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
 import org.slf4j.Logger;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
 class QuantityPoolSizeGeneratorTypeRequestValidator implements ConstraintValidator<ValidQuantityPoolSizeGeneratorTypeRequest, QuantityPoolSizeGeneratorTypeRequest> {
 

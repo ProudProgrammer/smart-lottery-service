@@ -21,10 +21,10 @@ public class ExperimentalFiveOutOfNinetyNumberGenerator {
     private final SimpleNumberGenerator simpleNumberGenerator;
     private final EvenOddNumberGenerator evenOddNumberGenerator;
 
-    ExperimentalFiveOutOfNinetyNumberGenerator(Logger logger, Random threadLocalRandom, PartitionGenerator partitionGenerator, SimpleNumberGenerator simpleNumberGenerator,
+    ExperimentalFiveOutOfNinetyNumberGenerator(Logger logger, Random random, PartitionGenerator partitionGenerator, SimpleNumberGenerator simpleNumberGenerator,
                                                EvenOddNumberGenerator evenOddNumberGenerator) {
         this.logger = logger;
-        this.random = threadLocalRandom;
+        this.random = random;
         this.partitionGenerator = partitionGenerator;
         this.simpleNumberGenerator = simpleNumberGenerator;
         this.evenOddNumberGenerator = evenOddNumberGenerator;

@@ -1,6 +1,12 @@
 package org.gaborbalazs.smartplatform.lotteryservice.web.api;
 
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gaborbalazs.smartplatform.lotteryservice.service.domain.GeneratedNumbers;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.LotteryTypeGeneratorTypeRequest;
 import org.gaborbalazs.smartplatform.lotteryservice.web.domain.QuantityPoolSizeGeneratorTypeRequest;
@@ -10,39 +16,37 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import springfox.documentation.annotations.ApiIgnore;
 
 @Validated
 @RequestMapping("/lottery")
-@Api(tags = {"Lottery Number Generator"})
-@ApiModel(value = "Lottery Number Generator", description = "Endpoints for generating lottery number")
+@Tag(name = "Lottery Number Generator", description = "Endpoints for generating lottery numbers")
 public interface LotteryNumberGeneratorApi {
 
-    @RequestMapping(value = "/{lotteryType}/numbers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiOperation("Generate a set of lottery numbers based on lottery type")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Consumer-Name", value = "Name of the consumer", paramType = "header", defaultValue = "Swagger"),
-            @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000"),
-            @ApiImplicitParam(name = "Locale", value = "Locale for response message localization. Changes only numbers, dates, currency, etc.", paramType = "header", defaultValue = "en-US"),
-            @ApiImplicitParam(name = "lotteryType", value = "Type of lottery", paramType = "path", defaultValue = "five-out-of-ninety", allowableValues = "five-out-of-ninety,six-out-of-forty-five,scandinavian,joker", required = true),
-            @ApiImplicitParam(name = "generatorType", value = "Type of generator", paramType = "query", defaultValue = "default", allowableValues = "default,experimental")})
+    @RequestMapping(value = "/{lotteryType}/numbers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Generate a set of lottery numbers based on lottery type")
+    @Parameters({
+            @Parameter(name = "Consumer-Name", description = "Name of the consumer", in = ParameterIn.HEADER, example = "Swagger"),
+            @Parameter(name = "Request-Id", description = "Request ID", in = ParameterIn.HEADER, example = "swagger0-0000-0000-0000-swagger00000"),
+            @Parameter(name = "Locale", description = "Locale for response message localization", in = ParameterIn.HEADER, example = "en-US"),
+            @Parameter(name = "lotteryType", description = "Type of lottery", in = ParameterIn.PATH, example = "five-out-of-ninety", required = true),
+            @Parameter(name = "generatorType", description = "Type of generator", in = ParameterIn.QUERY, example = "default")})
     @ApiResponses({
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 501, message = "Not Implemented")})
-    GeneratedNumbers generate(@ApiIgnore @ValidLotteryTypeGeneratorTypeRequest LotteryTypeGeneratorTypeRequest request) throws UnsupportedOperationException;
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "501", description = "Not Implemented")})
+    GeneratedNumbers generate(@Parameter(hidden = true) @ValidLotteryTypeGeneratorTypeRequest LotteryTypeGeneratorTypeRequest request) throws UnsupportedOperationException;
 
-    @RequestMapping(value = "/numbers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiOperation("Generate a set of lottery numbers based on quantity and pool size")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Consumer-Name", value = "Name of the consumer", paramType = "header", defaultValue = "Swagger"),
-            @ApiImplicitParam(name = "Request-Id", value = "Request ID", paramType = "header", defaultValue = "swagger0-0000-0000-0000-swagger00000"),
-            @ApiImplicitParam(name = "Locale", value = "Locale for response message localization. Changes only numbers, dates, currency, etc.", paramType = "header", defaultValue = "en-US"),
-            @ApiImplicitParam(name = "quantity", value = "Quantity of drawn numbers", paramType = "query", required = true),
-            @ApiImplicitParam(name = "poolSize", value = "Pool size of numbers", paramType = "query", required = true),
-            @ApiImplicitParam(name = "generatorType", value = "Type of generator", paramType = "query", defaultValue = "default", allowableValues = "default,experimental")})
+    @RequestMapping(value = "/numbers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Generate a set of lottery numbers based on quantity and pool size")
+    @Parameters({
+            @Parameter(name = "Consumer-Name", description = "Name of the consumer", in = ParameterIn.HEADER, example = "Swagger"),
+            @Parameter(name = "Request-Id", description = "Request ID", in = ParameterIn.HEADER, example = "swagger0-0000-0000-0000-swagger00000"),
+            @Parameter(name = "Locale", description = "Locale for response message localization", in = ParameterIn.HEADER, example = "en-US"),
+            @Parameter(name = "quantity", description = "Quantity of drawn numbers", in = ParameterIn.QUERY, required = true),
+            @Parameter(name = "poolSize", description = "Pool size of numbers", in = ParameterIn.QUERY, required = true),
+            @Parameter(name = "generatorType", description = "Type of generator", in = ParameterIn.QUERY, example = "default")})
     @ApiResponses({
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 501, message = "Not Implemented")})
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "501", description = "Not Implemented")})
     GeneratedNumbers generate(
-            @ApiIgnore @ValidQuantityPoolSizeGeneratorTypeRequest QuantityPoolSizeGeneratorTypeRequest quantityPoolSizeGeneratorTypeRequest) throws IllegalArgumentException, UnsupportedOperationException;
+            @Parameter(hidden = true) @ValidQuantityPoolSizeGeneratorTypeRequest QuantityPoolSizeGeneratorTypeRequest quantityPoolSizeGeneratorTypeRequest) throws IllegalArgumentException, UnsupportedOperationException;
 }
