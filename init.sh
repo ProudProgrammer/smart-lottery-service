@@ -1,3 +1,4 @@
 #!/bin/sh
+set -e
 
-java -jar $JAVA_ARGS lottery-service.jar
+exec java $JAVA_ARGS -jar app.jar
