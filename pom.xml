@@ -26,9 +26,9 @@
 		<mysql.version>8.0.33</mysql.version>
         <springdoc.version>3.0.1</springdoc.version>
 		<jayway-jsonpath.version>3.0.0</jayway-jsonpath.version>
-		<spotify-dockerfile-plugin.version>1.4.10</spotify-dockerfile-plugin.version>
 		<apache-commons-lang3.version>3.20.0</apache-commons-lang3.version>
-	</properties>
+        <fabric8-docker-plugin.version>0.48.1</fabric8-docker-plugin.version>
+    </properties>
 
 	<modules>
 		<module>service</module>
@@ -147,11 +147,11 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>com.spotify</groupId>
-					<artifactId>dockerfile-maven-plugin</artifactId>
-					<version>${spotify-dockerfile-plugin.version}</version>
-				</plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${fabric8-docker-plugin.version}</version>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
