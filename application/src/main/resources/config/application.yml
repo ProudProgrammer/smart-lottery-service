@@ -4,6 +4,12 @@ spring:
     exclude:
     - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
+# Cache
+  cache:
+    cache-names: drawnLotteryNumbers
+    caffeine:
+      spec: maximumSize=100,expireAfterWrite=1m
+
 # Server
 server:
   port: 8081
