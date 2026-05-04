@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 @Repository
 public class RetrieveDrawService {
 
+    private static final String BOM = "\uFEFF";
+
     @Value("${bet.url.five-out-of-ninety}")
     private String betFiveOutOfNinetyUrl;
 
@@ -26,8 +28,8 @@ public class RetrieveDrawService {
 
     private final Logger logger;
 
-    RetrieveDrawService(RestTemplate restTemplate, Logger logger) {
-        this.restTemplate = restTemplate;
+    RetrieveDrawService(RestTemplate restTemplateUtf8, Logger logger) {
+        this.restTemplate = restTemplateUtf8;
         this.logger = logger;
     }
 
@@ -47,7 +49,11 @@ public class RetrieveDrawService {
 
     private String getResult(String url) {
         try {
-            return restTemplate.getForEntity(url, String.class).getBody();
+            String body = restTemplate.getForEntity(url, String.class).getBody();
+            if (body != null && body.startsWith(BOM)) {
+                body = body.substring(1);
+            }
+            return body;
         } catch (RestClientException e) {
             logger.error("Cannot retrieve lottery numbers from external service.", e);
             throw e;

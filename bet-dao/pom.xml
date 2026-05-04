@@ -17,5 +17,11 @@
             <groupId>org.gaborbalazs.smartplatform</groupId>
             <artifactId>lottery-service-service</artifactId>
         </dependency>
+
+        <!-- 3rd party dependencies -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
     </dependencies>
 </project>

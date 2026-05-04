@@ -7,9 +7,9 @@ For development in local: default, so no need to set profile
 ```
 ### Maven profiles
 ```
-Without tests: mvn clean install -Pfast
-With docker image creation: mvn clean install -Pdocker
-Without tests and with docker image creation: mvn clean install -Pfast,docker
+Without tests: mvn clean [install|package] -Pfast
+With docker image creation: mvn clean [install|package] -Pdocker
+Without tests and with docker image creation: mvn clean [install|package] -Pfast,docker
 ```
 ### Dependencies
 - https://github.com/ProudProgrammer/smart-logging-filter
@@ -19,7 +19,7 @@ Manually (the order is important):
 $ git clone https://github.com/ProudProgrammer/smart-logging-filter.git
 $ mvn clean install
 $ git clone https://github.com/ProudProgrammer/smart-lottery-service.git
-$ mvn clean install
+$ mvn clean [install|package]
 ```
 With build script:
 - https://github.com/ProudProgrammer/smart-tools
@@ -54,8 +54,10 @@ $ ./start.sh -h
 * Logging with SLF4J, MDC, AspectJ
 * Localization with Spring MessageSource
 * External HTTP calls with RestTemplate
-* REST API documentation with Swagger
-* Unit Tests with JUnit 5
+* REST API documentation with SpringDoc OpenAPI
+* Unit Tests with JUnit 6
+* Integration Tests with @SpringBootTest
+* Cache with Caffeine
 ### Modular architecture of Lottery Service
 ![Modular Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/modular-architecture-lottery-service.png)
 ### System architecture of Smart Platform
