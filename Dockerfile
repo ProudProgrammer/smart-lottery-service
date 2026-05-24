@@ -8,7 +8,7 @@ WORKDIR $APP_HOME
 
 RUN useradd -m appuser
 
-COPY release/target/lottery-service-release-1.0-SNAPSHOT.jar app.jar
+COPY release/target/smart-lottery-service-release-1.0-SNAPSHOT.jar app.jar
 
 COPY init.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh \
