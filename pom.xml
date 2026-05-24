@@ -89,7 +89,7 @@
 			<!-- Smart Platform dependencies -->
 			<dependency>
 				<groupId>org.gaborbalazs.smartplatform</groupId>
-				<artifactId>logging-filter</artifactId>
+				<artifactId>smart-logging-filter</artifactId>
 				<version>${logging-filter.version}</version>
 			</dependency>
 

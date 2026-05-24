@@ -21,7 +21,7 @@
         <!-- Smart Platform dependencies -->
         <dependency>
             <groupId>org.gaborbalazs.smartplatform</groupId>
-            <artifactId>logging-filter</artifactId>
+            <artifactId>smart-logging-filter</artifactId>
         </dependency>
 
         <!-- 3rd party dependencies -->
