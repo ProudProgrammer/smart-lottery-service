@@ -7,9 +7,9 @@ For development in local: default, so no need to set profile
 ```
 ### Maven profiles
 ```
-Without tests: mvn clean [install|package] -Pfast
-With docker image creation: mvn clean [install|package] -Pdocker
-Without tests and with docker image creation: mvn clean [install|package] -Pfast,docker
+Without tests: mvn clean [package|install] -Pfast
+With docker image creation: mvn clean install -Pdocker
+Without tests and with docker image creation: mvn clean install -Pfast,docker
 ```
 ### Dependencies
 - https://github.com/ProudProgrammer/smart-logging-filter
