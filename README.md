@@ -33,10 +33,10 @@ $ ./build.sh -h
 ```
 ### Run
 ```
-from project root
+from application modul:
 $ mvn spring-boot:run
-or from target folder
-$ java -jar lottery-service-release-1.0-SNAPSHOT.jar
+from target folder:
+$ java -jar smart-lottery-service-release-1.0-SNAPSHOT.jar
 ```
 With start script:
 - https://github.com/ProudProgrammer/smart-tools
